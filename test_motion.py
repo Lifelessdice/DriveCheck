@@ -1,6 +1,6 @@
 import unittest
 
-from motion import gap_after_seconds, sample_constant_speed
+from motion import gap_after_seconds, sample_constant_speed, Scenario
 
 
 class TestGapAfterSeconds(unittest.TestCase):
@@ -78,3 +78,44 @@ class SamplingTests(unittest.TestCase):
         self.assertEqual(len(rows), 9)
         self.assertEqual(rows[-1]["time_s"], 4.0)
         self.assertEqual(rows[-1]["gap_m"], 10.0)
+
+
+class ScenarioTests(unittest.TestCase):
+    def test_half_second_horizon(self):
+        scenario = Scenario(
+            scenario_id="original",
+            initial_gap_m=30,
+            ego_speed_mps=20,
+            lead_speed_mps=15,
+            timestep_s=0.5,
+            sample_count=9,
+        )
+
+        self.assertEqual(scenario.horizon_s, 4.0)
+        self.assertIsNone(scenario.stop_time_s)
+
+    def test_stop_time(self):
+        scenario = Scenario(
+            scenario_id="braking",
+            initial_gap_m=30,
+            ego_speed_mps=20,
+            lead_speed_mps=15,
+            timestep_s=1,
+            sample_count=6,
+            brake_start_s=1,
+            lead_deceleration_mps2=5,
+        )
+
+        self.assertEqual(scenario.horizon_s, 5.0)
+        self.assertEqual(scenario.stop_time_s, 4.0)
+
+    def test_boolean_sample_count_rejected(self):
+        with self.assertRaises(ValueError):
+            Scenario(
+                scenario_id="invalid",
+                initial_gap_m=30,
+                ego_speed_mps=20,
+                lead_speed_mps=15,
+                timestep_s=1,
+                sample_count=True,
+            )
