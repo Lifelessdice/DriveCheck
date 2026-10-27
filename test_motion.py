@@ -65,3 +65,16 @@ class SamplingTests(unittest.TestCase):
             with self.subTest(step=step, count=count):
                 with self.assertRaises(ValueError):
                     sample_constant_speed(30, 20, 15, step, count)
+
+    def test_half_second_steps_preserve_four_second_horizon(self):
+        rows = sample_constant_speed(
+            initial_gap_m=30,
+            ego_speed_mps=20,
+            lead_speed_mps=15,
+            timestep_s=0.5,
+            sample_count=9,
+        )
+
+        self.assertEqual(len(rows), 9)
+        self.assertEqual(rows[-1]["time_s"], 4.0)
+        self.assertEqual(rows[-1]["gap_m"], 10.0)
