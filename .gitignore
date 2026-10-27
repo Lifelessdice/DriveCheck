@@ -1,0 +1,17 @@
+# Local teaching context and private handoff
+/.private/
+/AGENTS.md
+/docs/progress.md
+
+# Local Python environment and caches
+/.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+# Generated experiments and local secrets
+/outputs/
+.env
+.env.*
+!.env.example
