@@ -8,7 +8,7 @@ I work in the original project files and implement/run the changes myself. My as
 
 Start with [the M1 lesson](docs/lessons/m1-clean-movement.md), using `motion.py` and `test_motion.py`. The complete curriculum is indexed in [the study guide](docs/study-guide.md). No duplicate practice implementation or environment restart is required.
 
-`motion.py` contains my original gap function, a reusable constant-speed sampler and the manual console table. Following the supplied lesson, I corrected the elapsed-time spelling and added finite/type/count validation and four sampler tests. My assistant reviewed the saved changes and ran all five tests successfully, including the unchanged original known-answer fixture. My nine-sample half-second test remains a transfer exercise; this review does not establish independent conceptual understanding.
+`motion.py` contains my original gap function, a constant-speed sampler, immutable scenario/truth records and a lead-braking state evaluator with rich sampling. Following the supplied lessons, I added the records, functions and known-answer tests. My assistant corrected the braking duration/travel calculation and missing test import at my request, then ran all thirteen tests successfully. The checks include the original fixture, changed timestep/horizon, braking values and a lead vehicle that remains stopped. This is guided implementation with assistant verification; it does not establish my independent conceptual understanding.
 
 ## Run the existing baseline
 
@@ -37,8 +37,8 @@ Five samples at one-second spacing span four seconds because the initial state i
 
 ## Current limits and attribution
 
-The supplied sampler tests pass; my changed-count transfer test/explanation, a clean-data contract, braking/contact/non-contact fixtures and labelled plots remain M1 learning work. Sensor observations, fault injection, warnings and evaluation belong to later milestones. A ready lesson or historical assistant test run does not establish my independent implementation or understanding.
+The supplied sampler, records and braking checks pass. Exact continuous contact events, independently checked non-contact cases, full CSV/configuration export and labelled plots remain M1 work, alongside my explanation/transfer review. Negative gaps are virtual overlap of prescribed paths, with no impact response simulated. Sensor observations, fault injection, warnings and evaluation belong to later milestones. Passing supplied tests does not establish independent implementation or understanding.
 
 The existing environment uses Python 3.14.7. Plotting dependencies installed during the earlier assistant reference work remain in that environment; the current baseline needs only the standard library. See [research and historical dependency decisions](docs/research.md). Fresh-environment/remote CI evidence remains later work.
 
-I completed the original calculation, guided loop and first known-answer test with AI-assisted teaching/templates. Assistant implementation beyond that was archived when I chose to resume building from my original code. This is an offline simplified model, with no real-vehicle control or safety-validation claim. No Git/publication result is claimed.
+I completed the original calculation, guided loop and first known-answer test with AI-assisted teaching/templates. The earlier assistant-created full M1 reference was archived when I chose to build in the original files; current lessons and targeted assistant fixes are attributed separately. A private GitHub repository is connected; no remote CI result is claimed. This is an offline simplified model, with no real-vehicle control or safety-validation claim.
