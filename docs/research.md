@@ -39,7 +39,9 @@ The official SUMO SSM documentation already describes traffic safety metrics and
 
 Assessment: a simple TTC/noise demonstration is a learning slice. The proposed complete core can provide stronger student-level evidence through independent reference events, causal fault replay, reproducibility, meaningful tests, and one original failure investigation. An estimator comparison or CARLA adapter is valuable only if it answers a clear question and is evaluated; neither is newly required. No scope expansion or implementation is authorized by this assessment alone.
 
-## M1 technical selection and verification — 2026-10-27
+## Archived assistant M1 reference — technical selection and verification, 2026-10-27
+
+This section records the earlier assistant reference that was subsequently archived. Its 35-test/export/plot results are historical and do not describe the active learner implementation. See README.md for the current implemented features and verified test count.
 
 Bounded primary-source checks preceded implementation. This section records actual local outcomes rather than treating old suggested versions as installed. No simulator, sensor/warning implementation or third-party example code was added.
 
@@ -70,4 +72,4 @@ Exact-version primary PyPI links, installed license-file paths, metadata excerpt
 
 Method decisions: evaluate closed-form positions rather than Euler integration, so sampling changes do not change the analytic event. Split contact solving at brake/stop boundaries and use cancellation-resistant quadratic roots. Initial touching/overlap is event zero; keep virtual signed trajectories after contact with no impact claim. Contact at the inclusive horizon is allowed, with an explicit 32-ULP endpoint convention scaled to represented endpoint times without a one-second floor. Regression checks cover a 1e-18-second horizon and input/output collision preflight before any writes. Generated reference checks use absolute 1e-9 s/m tolerances; these are numerical test conventions, not sensor accuracy.
 
-Acceptance: 35 local tests pass, including the unchanged original test, analytic braking/event/stop cases, horizon/tiny-time/cancellation boundaries, invalid-input rejection, byte-preserving export preflight regressions, failed-run labeling, round-trip artifacts and repeat exports with equal hashes. The final command exports all three fixtures with independent checks passed. The old snapshot/original test/adopted brief SHA-256 hashes are unchanged. There are no warning-quality results yet. Fresh isolated reproduction/CI, sensors/faults and warning/evaluation policy remain subsequent milestones.
+Historical assistant-reference acceptance before restoration: 35 tests passed, including the unchanged original test, analytic braking/event/stop cases, horizon/tiny-time/cancellation boundaries, invalid-input rejection, byte-preserving export preflight regressions, failed-run labeling, round-trip artifacts and repeat exports with equal hashes. The final command exports all three fixtures with independent checks passed. The old snapshot/original test/adopted brief SHA-256 hashes are unchanged. There are no warning-quality results yet. Fresh isolated reproduction/CI, sensors/faults and warning/evaluation policy remain subsequent milestones.

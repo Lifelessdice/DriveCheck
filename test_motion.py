@@ -3,6 +3,8 @@ import unittest
 
 from motion import (
     Scenario,
+    contact_delay,
+    first_contact_time,
     gap_after_seconds,
     sample_constant_speed,
     sample_truth,
@@ -185,3 +187,101 @@ class BrakingTests(unittest.TestCase):
         self.assertEqual(row.lead_rear_x_m, 61.875)
         self.assertEqual(row.gap_m, 11.875)
         self.assertEqual(row.lead_speed_mps, 7.5)
+
+
+class ContactTests(unittest.TestCase):
+    def test_braking_contact_between_samples(self):
+        # Independent bumper-position equations give contact at sqrt(11) seconds.
+        scenario = Scenario("contact", 30, 20, 15, 1, 6, 1, 5)
+
+        self.assertAlmostEqual(
+            first_contact_time(scenario),
+            3.3166247903554,
+            places=10,
+        )
+        self.assertGreater(truth_at(scenario, 3).gap_m, 0)
+        self.assertLess(truth_at(scenario, 4).gap_m, 0)
+
+    def test_event_does_not_depend_on_sample_grid(self):
+        # All grids represent the same trajectory over a 5 s horizon.
+        for step, count in [(1, 6), (0.5, 11), (2.5, 3)]:
+            with self.subTest(step=step):
+                scenario = Scenario("grid", 30, 20, 15, step, count, 1, 5)
+                self.assertAlmostEqual(
+                    first_contact_time(scenario),
+                    3.3166247903554,
+                    places=10,
+                )
+
+    def test_contact_in_each_motion_phase(self):
+        # Cover contact before, at the start/end of, and after braking.
+        cases = [
+            ("before", 10, 20, 15, 3, 5, 2.0),
+            ("brake_start", 15, 20, 15, 3, 5, 3.0),
+            ("stop", 10, 10, 10, 1, 5, 3.0),
+            ("after_stop", 20, 10, 10, 1, 5, 4.0),
+        ]
+
+        for name, gap, ego, lead, start, decel, expected in cases:
+            with self.subTest(case=name):
+                scenario = Scenario(name, gap, ego, lead, 1, 6, start, decel)
+
+                self.assertAlmostEqual(
+                    first_contact_time(scenario), expected, places=10
+                )
+
+    def test_inclusive_horizon(self):
+        # A 30 m gap closing at 5 m/s reaches zero at the inclusive 6 s endpoint.
+        short = Scenario("short", 30, 20, 15, 1, 6)
+        endpoint = Scenario("endpoint", 30, 20, 15, 1, 7)
+        longer = Scenario("longer", 30, 20, 15, 1, 8)
+
+        self.assertIsNone(first_contact_time(short))
+        self.assertEqual(first_contact_time(endpoint), 6.0)
+        self.assertEqual(first_contact_time(longer), 6.0)
+
+    def test_noncontact_depends_on_horizon(self):
+        # The lead stops at x=100 m; ego reaches x=80 m at 8 s and x=100 m at 10 s.
+        short = Scenario("noncontact", 40, 10, 20, 1, 9, 1, 5)
+        extended = Scenario("extended", 40, 10, 20, 1, 11, 1, 5)
+
+        self.assertIsNone(first_contact_time(short))
+        self.assertEqual(truth_at(short, 8).gap_m, 20.0)
+        self.assertEqual(first_contact_time(extended), 10.0)
+
+    def test_initial_contact_and_zero_horizon(self):
+        # Initial contact counts even when no simulation interval has elapsed.
+        for gap in [0, -1]:
+            with self.subTest(gap=gap):
+                scenario = Scenario("initial_contact", gap, 0, 15, 1, 1, 1, 5)
+                self.assertEqual(first_contact_time(scenario), 0.0)
+
+        separated = Scenario("separated", 30, 20, 15, 1, 1)
+        self.assertIsNone(first_contact_time(separated))
+
+    def test_small_times_use_their_own_scale(self):
+        # Tiny horizons must not inherit a tolerance based on one whole second.
+        tiny_horizon = Scenario("tiny_horizon", 1e-15, 1, 0, 1e-18, 2)
+        tiny_gap = Scenario("tiny_gap", 1e-12, 1, 0, 1, 2)
+
+        self.assertIsNone(first_contact_time(tiny_horizon))
+        self.assertEqual(first_contact_time(tiny_gap), 1e-12)
+
+    def test_helper_branches_and_numeric_stability(self):
+        # The large closing speed stresses arithmetic, not a driving scenario.
+        self.assertIsNone(contact_delay(10, 0, 0))
+        self.assertIsNone(contact_delay(10, -1, 0))
+
+        self.assertAlmostEqual(
+            contact_delay(1, 100000000, 1),
+            1e-8,
+            delta=1e-20,
+        )
+        self.assertAlmostEqual(
+            contact_delay(1, -1, 1),
+            2.7320508075688772,
+            places=12,
+        )
+
+        with self.assertRaises(ValueError):
+            contact_delay(1, 1e308, 1)

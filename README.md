@@ -8,7 +8,9 @@ I work in the original project files and implement/run the changes myself. My as
 
 Start with [the M1 lesson](docs/lessons/m1-clean-movement.md), using `motion.py` and `test_motion.py`. The complete curriculum is indexed in [the study guide](docs/study-guide.md). No duplicate practice implementation or environment restart is required.
 
-`motion.py` contains my original gap function, a constant-speed sampler, immutable scenario/truth records and a lead-braking state evaluator with rich sampling. Following the supplied lessons, I added the records, functions and known-answer tests. My assistant corrected the braking duration/travel calculation and missing test import at my request, then ran all thirteen tests successfully. The checks include the original fixture, changed timestep/horizon, braking values and a lead vehicle that remains stopped. This is guided implementation with assistant verification; it does not establish my independent conceptual understanding.
+`motion.py` contains my original gap function, constant-speed and lead-braking trajectories, immutable scenario/truth records and analytic contact-event detection. Following the supplied lessons, I added the functions and known-answer tests, with targeted assistant fixes/review. My assistant ran all twenty-one tests successfully. Checks include the original fixture, timestep/horizon changes, stopped lead motion, continuous contact between samples and horizon-specific non-contact. This is guided implementation with assistant verification; it does not establish my independent conceptual understanding.
+
+The braking contact fixture has an independently calculated event at `sqrt(11) = 3.3166247903554 s`, between its saved 3 s and 4 s rows. A separate fixture remains non-contact through 8 s but contacts at 10 s if extended. Contact labels therefore apply to the declared horizon. Phase endpoint rounding uses 32 ULPs of the actual endpoint time scale.
 
 ## Run the existing baseline
 
@@ -37,8 +39,8 @@ Five samples at one-second spacing span four seconds because the initial state i
 
 ## Current limits and attribution
 
-The supplied sampler, records and braking checks pass. Exact continuous contact events, independently checked non-contact cases, full CSV/configuration export and labelled plots remain M1 work, alongside my explanation/transfer review. Negative gaps are virtual overlap of prescribed paths, with no impact response simulated. Sensor observations, fault injection, warnings and evaluation belong to later milestones. Passing supplied tests does not establish independent implementation or understanding.
+The supplied trajectory and contact/non-contact checks pass. Full truth CSV/configuration export, labelled plots and my explanation/transfer review remain M1 work. Negative gaps are virtual overlap of prescribed paths, with no impact response simulated. Sensor observations, fault injection, warnings and evaluation belong to later milestones. Passing supplied tests does not establish independent implementation or understanding.
 
 The existing environment uses Python 3.14.7. Plotting dependencies installed during the earlier assistant reference work remain in that environment; the current baseline needs only the standard library. See [research and historical dependency decisions](docs/research.md). Fresh-environment/remote CI evidence remains later work.
 
-I completed the original calculation, guided loop and first known-answer test with AI-assisted teaching/templates. The earlier assistant-created full M1 reference was archived when I chose to build in the original files; current lessons and targeted assistant fixes are attributed separately. A private GitHub repository is connected; no remote CI result is claimed. This is an offline simplified model, with no real-vehicle control or safety-validation claim.
+I completed the original calculation, guided loop and first known-answer test with AI-assisted teaching/templates. The earlier assistant-created full M1 reference was archived when I chose to build in the original files; current lessons and targeted assistant fixes are attributed separately. The GitHub repository is public; no remote CI result is claimed. This is an offline simplified model, with no real-vehicle control or safety-validation claim.

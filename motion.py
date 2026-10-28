@@ -238,6 +238,97 @@ def sample_truth(scenario):
     return samples
 
 
+def contact_delay(gap_m, closing_speed_mps, deceleration_mps2):
+    """Return contact delay for one extended motion phase, or None."""
+
+    require_finite("gap_m", gap_m)
+    require_finite("closing_speed_mps", closing_speed_mps)
+    require_finite("deceleration_mps2", deceleration_mps2, minimum=0)
+
+    if gap_m <= 0:
+        return 0.0
+
+    c = closing_speed_mps
+    a = deceleration_mps2
+
+    # Phase gap after u seconds: gap_m - c*u - 0.5*a*u**2.
+    if a == 0:
+        if c <= 0:
+            return None
+
+        delay_s = gap_m / c
+
+    else:
+
+        # Reject intermediate overflow rather than producing a false zero delay.
+        discriminant = c * c + 2 * a * gap_m
+        require_finite(
+            "contact discriminant",
+            discriminant,
+            positive=True,
+        )
+
+        root_term = math.sqrt(discriminant)
+
+        # Choose the root form that avoids subtracting nearly equal values.
+        if c >= 0:
+            delay_s = 2 * gap_m / (root_term + c)
+        else:
+            delay_s = (root_term - c) / a
+
+    require_finite("contact_delay", delay_s, positive=True)
+    return delay_s
+
+
+def first_contact_time(scenario):
+    """Return first contact within the inclusive horizon, or None."""
+    # Initial touching or overlap is an event even with a zero-length horizon.
+    if scenario.initial_gap_m <= 0:
+        return 0.0
+
+    horizon_s = scenario.horizon_s
+    stop_time_s = scenario.stop_time_s
+    boundaries = {0.0, horizon_s}
+
+    # The gap equation changes at braking onset and when the lead stops.
+    if stop_time_s is not None:
+        for boundary_s in (scenario.brake_start_s, stop_time_s):
+            if 0 < boundary_s < horizon_s:
+                boundaries.add(boundary_s)
+
+    ordered = sorted(boundaries)
+
+    # Search phases in chronological order; candidate delays start at left_s.
+    for left_s, right_s in zip(ordered, ordered[1:]):
+        state = truth_at(scenario, left_s)
+
+        if state.gap_m <= 0:
+            return left_s
+
+        # Lead deceleration applies only between brake start and stop.
+        barking = (
+            stop_time_s is not None and scenario.brake_start_s <= left_s < stop_time_s
+        )
+
+        phase_deceleraiton = scenario.lead_deceleration_mps2 if barking else 0.0
+
+        delay_s = contact_delay(
+            state.gap_m, state.closing_speed_mps, phase_deceleraiton
+        )
+
+        if delay_s is None:
+            continue
+
+        width_s = right_s - left_s
+
+        # Endpoint rounding allowance uses the actual time scale, not a 1 s floor.
+        tolerance_s = 32 * math.ulp(max(abs(left_s), abs(right_s)))
+
+        if 0 <= delay_s <= width_s + tolerance_s:
+            # Convert phase-relative delay to absolute time and clamp roundoff.
+            return left_s + min(delay_s, width_s)
+
+
 # Run the console example only when this file is executed directly.
 if __name__ == "__main__":
     initial_gap_m = 30.0
