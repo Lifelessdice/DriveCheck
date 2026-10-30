@@ -1,6 +1,24 @@
 # M3 study lesson: controlled faults and trustworthy regression tests
 
-Prepared 27 October 2026. **Lesson ready for study; learner implementation, command runs and review are pending.** The code below is teaching material. No M3 product implementation or successful M3 test run is claimed.
+Prepared 27 October 2026; implementation status updated 31 October 2026. **Checkpoint 1 is technically verified; checkpoints 2–5 remain teaching material with implementation/runs pending.** The learner saved the first block; after a targeted assistant indentation repair, 11 focused tests and the full 75-test suite passed. Later proposed commands/results below are not observed M3 experiment evidence.
+
+### Current learner delivery — 31 October 2026
+
+M1/M2 technical acceptance and the learner's M2 main integration are recorded. Read-only inspection now verifies `feature/m3-fault-suite` at the completed M2 commit `f67522a`, with no tracked changes before this lesson update. The earlier authoring snapshot below is historical; active M1 files are the later guided learner implementation, and M2 modules now exist. The recorded 64-test/two-report M2 acceptance is not a new M3 test run.
+
+The learner confirmed substantial blocks, theory explained alongside code, concrete progress after each block, a reviewed learner-run commit/push per block on this branch, and a final merge at the end. The seven teaching blocks below are bundled into five implementation checkpoints:
+
+| Checkpoint | Scope | Current evidence |
+| --- | --- | --- |
+| 1 | Validated immutable FaultConfig, private random streams and focused tests | Learner saved code; assistant fixed function scope; 11 focused/75 full tests OK; learner commit/push pending |
+| 2 | Explicit-draw arithmetic, individual seeded faults, audit and truth protection | Pending |
+| 3 | Stop-and-go continuous motion and independent contact/non-contact fixtures | Pending |
+| 4 | Causal/data/metric boundaries and a reproduced fault-induced regression | Pending |
+| 5 | Integrated saved study, plots, result interpretation and M4 handoff | Pending |
+
+For checkpoint 1, use the actual `motion.require_finite` helper for nonnegative numeric settings; it validates and returns None, so do not assign its return to a field. Check probability <=1 separately. Validate mode type before membership, and validate nonnegative integer seeds excluding bool. Enforce the single-fault inactive-field rule after numeric checks. `make_rngs` returns fresh gap/closing/latency/dropout generators. No observation transform is implemented in checkpoint 1; timestamp/value overflow is checked later when those values are computed.
+
+The checkpoint-1 tests cover valid/invalid/frozen settings, fresh reproducible generators, stream isolation, changed-seed isolation and global-state preservation. The learner's first command failed before test discovery because `make_rngs` was indented inside `FaultConfig`; importing it directly from `faults` requires module scope. The assistant dedented only that function, preserving its body and all test assertions. Actual assistant verification: `python -m unittest -v test_m3_faults` ran 11 tests, OK/exit 0; `python -m unittest -v` ran 75 tests, OK/exit 0 in 22.930 s. Independent read-only review found no additional material blocker for this bounded block. This is guided implementation with a targeted repair, not independent debugging/mastery evidence. Existing replay returns `ReplayResult`, so later integration reads `.decisions`; scoring reuses `evaluation.score_case`. No new dependencies or M2 rewrites were needed. Next is learner-controlled checkpoint commit/push, then fault injection.
 
 Work through this lesson after implementing and checking M2. You can read the complete section now and follow its blocks at your own pace without replying between commands. Keep your own code, outputs and short explanations for review. A passing test is technical evidence; explaining why its answer is correct is separate learning evidence.
 
@@ -795,4 +813,4 @@ Your M4 handoff should identify the actual function names/schema versions, polic
 
 Keep Git staging, commits, remotes, publication and remote CI under your control. This lesson neither performs those actions nor claims an actual remote run. CARLA remains optional later work.
 
-**Current checkpoint:** the M3 study material is prepared. Learner M1/M2 prerequisites, M3 implementation/runs, interpretation and independent review remain pending until evidenced by your work.
+**Current checkpoint, 31 October 2026:** M1/M2 technical prerequisites are accepted. M3 checkpoint 1 of 5 is technically verified (11 focused/75 full tests); commit/push and checkpoints 2–5 remain pending. Learner interpretation and independent transfer remain separate from assistant verification.
