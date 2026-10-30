@@ -1,12 +1,12 @@
 # DriveCheck
 
-I am building a Python workbench to investigate how sensor quality affects a simple collision-warning algorithm. **M1 clean motion and M2's observation, causal-replay and TTC-warning blocks are verified.** The active project generates checked truth data, configuration and labelled plots for three study cases, creates separate clean or fixed-delay observations, and produces warning decisions using only arrived readings. Independent scoring and the first comparison report remain M2 work. Technical checks and my demonstrated understanding are recorded separately.
+I am building a Python workbench to investigate how sensor quality affects a simple collision-warning algorithm. **M1 clean motion and M2's observation, replay, TTC-warning and independent-scoring blocks are verified.** The active project generates checked truth data, configuration and labelled plots for three study cases, creates separate clean or fixed-delay observations, produces decisions using only arrived readings, and scores them against independent reference contacts. The experiment runner and first offline comparison report remain M2 work. Technical checks and my demonstrated understanding are recorded separately.
 
 I work in the original project files and implement/run the changes myself. My assistant prepares the explanations, guided code, tests and study documents. Earlier assistant-created M1 implementation/artifacts have been archived locally; they are separate from my active code and learning evidence.
 
 ## Study and implemented model
 
-The [M1 lesson](docs/lessons/m1-clean-movement.md) covers the implemented motion model. I am now following [M2](docs/lessons/m2-warning-and-report.md), with observations, replay and the TTC policy implemented. The complete curriculum is indexed in [the study guide](docs/study-guide.md). No duplicate practice implementation or environment restart is required.
+The [M1 lesson](docs/lessons/m1-clean-movement.md) covers the implemented motion model. I am now following [M2](docs/lessons/m2-warning-and-report.md), with observations, replay, the TTC policy and independent scoring implemented. The complete curriculum is indexed in [the study guide](docs/study-guide.md). No duplicate practice implementation or environment restart is required.
 
 `motion.py` contains my original gap function, constant-speed and lead-braking trajectories, immutable scenario/truth records and analytic contact-event detection. `scenarios.py` pairs each case with independently specified reference values. `m1.py` checks those values and exports full truth CSVs, JSON configuration/provenance and PNG plots, with artifact hashes in a run manifest. Following the supplied lessons, I added these modules and tests, with targeted assistant fixes/review.
 
@@ -40,7 +40,21 @@ On 30 October 2026 I supplied a failing replay run and requested a fix. My assis
 .\.venv\Scripts\python.exe -m unittest -v test_replay
 ```
 
-Checks include simultaneous/overtaking arrivals, exact arrival/age/threshold boundaries, zero horizon, invalid clocks, TTC overflow and future-value noninterference. This is guided implementation with a targeted assistant repair and verification. Independent reference-event scoring and a complete clean-versus-delay report remain pending.
+Checks include simultaneous/overtaking arrivals, exact arrival/age/threshold boundaries, zero horizon, invalid clocks, TTC overflow and future-value noninterference. This is guided implementation with a targeted assistant repair and verification.
+
+## Independent warning scoring
+
+`evaluation.py` matches warning decision timestamps against independently specified contact events. Its experimental scoring policy uses a 4 s pre-contact window and a 1 s minimum useful lead, with inclusive boundaries. It distinguishes useful, late and missed contacts, warning activations versus true decision rows, and negative episodes with/without a warning. A negative means no reference contact within the declared horizon, not absence of eventual contact.
+
+Per-condition summaries preserve planned, scored and unscored positive/negative counts and unsuccessful case IDs/statuses. Rates retain numerator and eligible scored denominator; a zero denominator produces null. Invalid completed scores are rejected instead of silently excluded. Reference `None` means no contact in the horizon; a numeric zero means contact at the start.
+
+On 31 October 2026 I supplied five scoring errors and requested repair. My assistant reproduced them and moved the numeric horizon comparison inside the existing non-null reference guard in `evaluation.py`. Existing tests, replay and warning policy were unchanged. The focused scoring suite then passed **12 tests**, and the complete project suite passed **58 tests**. Integration fixtures check all three M1 cases under clean/one-second-delay conditions, including useful versus late braking warnings and the finite-horizon false-warning convention. These are checked fixture results; the complete saved report remains unfinished.
+
+Before the scoring Git checkpoint, I requested another review and explanatory comments. My assistant added neutral comments/docstrings to the scorer and metric tests, confirmed identical executable syntax trees excluding docstrings, and reran all 58 tests successfully. Matching rules, calculations and test assertions were preserved.
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest -v test_evaluation
+```
 
 ## Run the existing baseline
 
@@ -80,7 +94,7 @@ Each sidecar records SI units, bumper-axis/sign conventions, sampling/horizon ru
 
 ## Current limits and attribution
 
-The supplied trajectory, contact/non-contact, export, observation and replay/TTC checks pass. Negative gaps are virtual overlap of prescribed paths, with no impact response simulated. Sensor support currently copies exact gap/closing-speed values with zero or fixed delivery delay. Independent scoring and the complete clean-versus-delay report remain unimplemented; noise/dropout and the expanded fault suite belong to M3. Passing supplied tests does not establish independent implementation or understanding.
+The supplied trajectory, contact/non-contact, export, observation, replay/TTC and independent-scoring checks pass. Negative gaps are virtual overlap of prescribed paths, with no impact response simulated. Sensor support currently copies exact gap/closing-speed values with zero or fixed delivery delay. The experiment runner, aligned error exports and complete clean-versus-delay report remain unimplemented; noise/dropout and the expanded fault suite belong to M3. Passing supplied tests does not establish independent implementation or understanding.
 
 The existing environment uses Python 3.14.7. The motion model uses the standard library; export plots use the retained Matplotlib installation and PNG verification uses Pillow. `requirements.txt` records the 12 installed runtime dependency versions and was checked against the environment. It is a version snapshot, not a wheel-hash lock or fresh-environment reproduction result. See [research and historical dependency decisions](docs/research.md). Fresh-environment/remote CI evidence remains later work.
 

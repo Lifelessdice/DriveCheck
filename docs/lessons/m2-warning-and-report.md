@@ -246,7 +246,7 @@ Implement these proposed functions:
 
 ```python
 def score_case(decisions, reference_contact_time_s, horizon_s,
-               pre_event_window_s, minimum_useful_lead_s):
+               pre_event_window_s=4.0, minimum_useful_lead_s=1.0):
     """Return outcome, earliest matched warning, lead, and diagnostics."""
     raise NotImplementedError("Implement the six scoring rules")
 
@@ -275,6 +275,10 @@ Also test a contact exactly at the horizon (`e=H=8`): it is positive, and a warn
 For summary testing, construct five **literal scored outcomes**: one useful positive, one late positive, one missed positive, one negative with warning and one clear negative. Expected: 3 positives, 2 negatives, miss rate `1/3`, late count 1, false-warning-episode rate `1/2`. Also show `(late + missed)/positive = 2/3` as the fraction without a useful warning, so a reader cannot mistake the low miss count for timely performance. With no positives/negatives, the corresponding rate is null, not zero. Partition useful+late+missed must equal the number of successfully scored positives.
 
 Make the return contract explicit while implementing: `score_case` returns keys `outcome`, `first_matched_warning_time_s`, `matched_lead_s`, `first_warning_time_s`, `warning_activation_count`, `early_warning_decision_count`, and `post_contact_warning_decision_count`. It also records `reference_contact_time_s` and `horizon_s`. All matched fields are null for a miss or a negative. `first_warning_time_s` can still exist for an unmatched early/post-contact warning, which is why it differs from the first matched time. A simple safe rate helper is `numerator / denominator if denominator else None`; store numerator and denominator as well as the rate.
+
+The complete in-chat scoring block supplied on 30 October also saves the scoring settings, window start and warning-decision count in each score. `summarize` accepts rows with explicit `case_id`, `condition_id`, `status`, `reference_contact_time_s`, `horizon_s` and `score`. Complete rows require a consistent score; failed/partial/pending rows remain planned but unscored. Malformed complete scores are errors rather than silently excluded results. Each condition summary contains `planned`, `scored`, `unscored`, `status_counts`, `outcomes`, `unscored_case_ids` and `rates`. Every rate stores its numerator, scored denominator and value; a zero denominator gives null. Internal matched-lead arithmetic may be checked with 1e-9 s tolerance, but event/window matching and useful/late classification still use exact inclusive comparisons.
+
+Use `test_evaluation.py` for the independent metric fixtures, preserving `test_m2.py` and `test_replay.py`. On 31 October the learner's saved block was repaired at their request and actually passed twelve scoring tests and58 tests overall, including all six unchanged M1/condition cases. A subsequent requested comment review preserved executable structure and all58 tests passed again. This acceptance covers the implemented scoring block; aligned current-time gap/closing-speed errors and report integration remain learner work. The final report block's proposed64-test total is not an observed result.
 
 **My task:** implement scoring and its tests before wiring it into the real trajectory experiment. Do not adjust W, U or the warning threshold to turn a disappointing outcome into a success. Later changes require a new saved configuration and an explanation.
 
