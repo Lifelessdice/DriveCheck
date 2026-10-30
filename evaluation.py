@@ -1,7 +1,5 @@
-"""Offline warning scoring against independent, horizon-bounded contacts."""
-
 import math
-from motion import require_finite
+from motion import require_finite, truth_at
 from warning_policy import Decision
 
 POSITIVE_OUTCOMES = ("useful", "late", "missed")
@@ -68,7 +66,6 @@ def score_case(
         if previous_time_s is not None and time_s <= previous_time_s:
             raise ValueError("decision times must strictly increase")
 
-        # Do not coerce numeric values such as 1 into valid warning flags.
         if type(decision.is_warning) is not bool:
             raise ValueError("is_warning must be a boolean")
 
@@ -90,7 +87,6 @@ def score_case(
     early_count = 0
     post_contact_count = 0
 
-    # None is a negative episode; numeric zero is contact at the initial time.
     if reference_contact_time_s is None:
         outcome = "false_warning" if warning_times else "clear_negative"
 
@@ -98,8 +94,6 @@ def score_case(
         event_s = reference_contact_time_s
         window_start_s = max(0.0, event_s - pre_event_window_s)
 
-        # Match the earliest true decision inside the inclusive window,
-        # including an activation that started before the window.
         matched_time_s = next(
             (time_s for time_s in warning_times if window_start_s <= time_s <= event_s),
             None,
@@ -108,15 +102,12 @@ def score_case(
         early_count = sum(time_s < window_start_s for time_s in warning_times)
         post_contact_count = sum(time_s > event_s for time_s in warning_times)
 
-        # A matched time of zero is valid; only None denotes no match.
         if matched_time_s is None:
             outcome = "missed"
         else:
             matched_lead_s = event_s - matched_time_s
-            # Late is a matched outcome, distinct from a missed event.
             outcome = "useful" if matched_lead_s >= minimum_useful_lead_s else "late"
 
-    # The first warning anywhere can differ from the first qualifying warning.
     return {
         "outcome": outcome,
         "reference_contact_time_s": reference_contact_time_s,
@@ -165,7 +156,6 @@ def _check_complete_score(score, reference_contact_time_s, horizon_s):
     ):
         raise ValueError("score disagrees with case reference or horizon")
 
-    # Outcome categories must agree with the independent contact label.
     allowed = (
         NEGATIVE_OUTCOMES if reference_contact_time_s is None else POSITIVE_OUTCOMES
     )
@@ -216,7 +206,6 @@ def _check_complete_score(score, reference_contact_time_s, horizon_s):
 def _rate(numerator, denominator):
     """Keep the count and eligible denominator beside every rate."""
 
-    # No eligible episodes means unavailable rate, not measured zero percent.
     return {
         "numerator": numerator,
         "denominator": denominator,
@@ -257,7 +246,6 @@ def summarize(case_results):
 
         reference = case["reference_contact_time_s"]
         horizon_s = case["horizon_s"]
-        # Failed cases still need valid labels for planned/unscored counts.
         _check_reference(reference, horizon_s)
 
         condition = case["condition_id"]
@@ -277,7 +265,6 @@ def summarize(case_results):
         group["planned"][label] += 1
         group["status_counts"][status] += 1
 
-        # Execution failures remain visible; they are not algorithm misses.
         if status != "complete":
             group["unscored_case_ids"].append(case["case_id"])
             continue
@@ -304,8 +291,6 @@ def summarize(case_results):
             for label in ("positive", "negative")
         }
 
-        # Denominators are scored positives/negatives, shown beside planned
-        # and unscored counts rather than silently hiding incomplete runs.
         group["rates"] = {
             "useful": _rate(counts["useful"], positives),
             "late": _rate(counts["late"], positives),
@@ -323,3 +308,72 @@ def summarize(case_results):
         summaries.append(group)
 
     return summaries
+
+
+def aligned_errors(decisions, scenario):
+    """Compare fresh held readings with truth at each decision timestamp."""
+
+    gap_errors = []
+    closing_errors = []
+    unavailable_count = 0
+    stale_count = 0
+    previous_time_s = None
+
+    fresh_reasons = {
+        "not_closing",
+        "ttc_clear",
+        "ttc_warning",
+        "contact_or_overlap",
+    }
+
+    for decision in decisions:
+        if not isinstance(decision, Decision):
+            raise ValueError("every decision must be a Decision")
+
+        time_s = decision.decision_time_s
+        require_finite("decision_time_s", time_s, minimum=0)
+
+        if time_s > scenario.horizon_s:
+            raise ValueError("decision exceeds scenario horizon")
+
+        if previous_time_s is not None and time_s <= previous_time_s:
+            raise ValueError("decision times must strictly increase")
+
+        previous_time_s = time_s
+
+        if decision.reason == "unavailable":
+            unavailable_count += 1
+            continue
+
+        if decision.reason == "stale":
+            stale_count += 1
+            continue
+
+        if decision.reason not in fresh_reasons:
+            raise ValueError("unknown decision reason")
+
+        require_finite("selected gap_m", decision.gap_m)
+        require_finite("selected closing_speed_mps", decision.closing_speed_mps)
+
+        # Future truth is permitted here only because this is offline evaluation.
+        current = truth_at(scenario, time_s)
+        gap_error = abs(decision.gap_m - current.gap_m)
+        closing_error = abs(decision.closing_speed_mps - current.closing_speed_mps)
+
+        require_finite("gap error", gap_error)
+        require_finite("closing-speed error", closing_error)
+
+        gap_errors.append(gap_error)
+        closing_errors.append(closing_error)
+
+    count = len(gap_errors)
+
+    return {
+        "alignment": "truth at decision_time_s",
+        "weighting": "equal weight per fresh decision row; full horizon",
+        "fresh_count": count,
+        "unavailable_count": unavailable_count,
+        "stale_count": stale_count,
+        "gap_mae_m": math.fsum(gap_errors) / count if count else None,
+        "closing_speed_mae_mps": (math.fsum(closing_errors) / count if count else None),
+    }

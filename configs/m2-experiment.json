@@ -1,0 +1,30 @@
+{
+  "schema_version": "drivecheck.m2.v1",
+  "fixture_set": "m1",
+  "scenario_ids": [
+    "constant_speed_original",
+    "lead_braking_contact",
+    "lead_braking_noncontact"
+  ],
+  "conditions": [
+    {
+      "condition_id": "clean",
+      "latency_s": 0.0,
+      "seed": null
+    },
+    {
+      "condition_id": "latency_1s",
+      "latency_s": 1.0,
+      "seed": null
+    }
+  ],
+  "warning": {
+    "threshold_s": 3.0,
+    "max_age_s": 1.25
+  },
+  "scoring": {
+    "pre_event_window_s": 4.0,
+    "minimum_useful_lead_s": 1.0
+  },
+  "decision_clock": "sample_times_union_arrivals_within_horizon"
+}

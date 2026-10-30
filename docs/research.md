@@ -1,5 +1,11 @@
 # DriveCheck research and decisions
 
+## M2 default report checked — 2026-10-31
+
+The learner saved the final supplied integration block and requested help with its import failure. Assistant renamed `drivehceck.py` to `drivecheck.py` and corrected the metric helper's name/parameter to `aligned_errors(decisions, scenario)`, preserving test expectations. Six report tests and64 full-suite tests pass. A normal CLI run completed all six configured cases in `outputs/m2-first`; saved data,40 artifact hashes, source/configuration provenance,40 local references and all distinct plots were checked. Integration tests cover repeated canonical data, rejected preflight inputs and retained injected case/report failures. These are local synthetic results, not clean-environment or remote CI evidence.
+
+With unchanged threshold3 s, accepted age1.25 s, matching window4 s and minimum useful lead1 s, the braking-contact warning changes from2 s/useful (lead1.316625 s) to3 s/late (lead0.316625 s) under a1 s delivery delay. Both negative episodes warn in each condition under their declared horizons. Fresh-reading errors are compared with truth at decision time, equally weighted by eligible decision row over the full horizon; unavailable/stale rows are counted and excluded. Default delayed gap/closing-speed MAEs are5 m/0 m/s,12.5 m/3 m/s and7.5 m/2.5 m/s. No thresholds were tuned to obtain these outcomes. Learner interpretation and the changed-setting exercise remain pending; noise/dropout and stop-and-go are M3 work.
+
 ## M2 replay/warning lesson choices — 2026-10-30
 
 Implementation checkpoint later on 30 October: the learner saved the supplied replay/policy/test block, provided a failing run and explicitly requested repair. A targeted `replay.py` fix restored the clock endpoint/order checks and selected-reading initialization. The unchanged warning policy/test expectations then passed 12 focused and 46 full-suite tests. The choices below now describe an implemented, locally checked replay/TTC baseline; independent scoring and a full comparison report remain pending. No warning-quality result or remote CI is established by these tests.
