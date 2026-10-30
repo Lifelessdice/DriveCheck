@@ -4,7 +4,7 @@ Workflow correction, 2026-10-27: I want complete, study-ready milestone lessons 
 
 Earlier on 2026-10-27, my assistant interpreted the larger-block request as permission to implement complete milestones. That interpretation was mistaken and is superseded by the clarification above. Additional M1 code, dependencies and plots created during that work are preserved as assistant-created reference material. Their existence or assistant verification does not establish my implementation, reproduction, understanding or M1 completion. The learning topics, scope and estimates below are unchanged.
 
-Prepared 2026-10-25; workflow corrected 2026-10-27. Current learner snapshot: **M0 complete; M1's first time-sampling table is implemented, learner-run and saved as a reviewed CSV snapshot. Further M1 learner work and understanding remain pending; later assistant-created artifacts are reference material.** Read `progress.md` and inspect actual files for the latest state. This is a learning plan, not evidence that later topics have been learned or that assistant-created features are learner-completed work.
+Prepared 2026-10-25; workflow corrected 2026-10-27; technical checkpoint updated2026-10-31. **M0 complete; guided M1 implementation verified; technical M2 complete with64 passing tests and two complete six-case reports.** I explicitly delegated the final age-limit experiment and requested its plain-language explanation. Assistant-run verification is separate from my independent interpretation, which remains unassessed. The final M2 config/docs await my commit/merge; M3 onward remains planned. Read `progress.md` and actual files for the latest evidence. The starting-evidence table below describes the original foundation snapshot, not a claim that later skills have been mastered.
 
 My goal is a standout student portfolio project: a reproducible validation workbench, an original failure investigation, one fair comparison, and a demonstration I can explain and modify myself. The CPU release is a finished intermediate product. "Standout" is a quality target, not an achieved applicant ranking or promised employer response. CARLA remains optional.
 
@@ -31,8 +31,8 @@ The local evidence tracker is `../.private/skill-progress.md`. It distinguishes 
 
 ```mermaid
 flowchart TD
-    A["M0: Foundations — complete"] --> B["M1: Clean movement — in progress"]
-    B --> C["M2: First warning and report"]
+    A["M0: Foundations — complete"] --> B["M1: Clean movement — technically verified"]
+    B --> C["M2: Warning and report — technically complete"]
     C --> D["M3: Fault suite and second scenario"]
     D --> E["M4: Reproducible CPU release"]
     E --> F["C1: Deeper comparison and investigation"]

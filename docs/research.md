@@ -1,5 +1,11 @@
 # DriveCheck research and decisions
 
+## M2 final age-limit investigation completed — 2026-10-31
+
+At the learner's explicit request, the assistant ran the final changed-setting experiment instead of requiring learner execution/teach-back. `configs/m2-age-075.json` differs from the default only at warning.max_age_s (1.25 to0.75). Actual CLI run in fresh outputs/m2-age-075 completed6/6/exit0; the full suite passed64 tests again. All40 artifact hashes, source/config hashes and40 local references match. Truth CSV/PNG and observations are byte-identical to the default in every case; clean decision CSVs are identical. Delayed cases contain one unavailable then4/5/8 stale rows, zero fresh rows, no warnings and null MAEs. The contact is missed1/1 and false-warning negatives fall from2/2 to0/2; clean outcomes are unchanged. Stricter freshness suppresses all delayed evidence, including the contact warning. No claim of improved overall warning quality follows.
+
+Technical M2 acceptance is complete within the declared synthetic scope. Assistant supplies a plain-language explanation; learner-independent interpretation is unassessed, without a repeated quiz gate. Final config/docs need a learner-controlled commit before merging. Read-only live Git check confirms the earlier report feature head aea9075 and main48276e3; main is an ancestor, so a fast-forward merge is available. No Git mutation, M3 work or remote CI result is included.
+
 ## M2 default report checked — 2026-10-31
 
 The learner saved the final supplied integration block and requested help with its import failure. Assistant renamed `drivehceck.py` to `drivecheck.py` and corrected the metric helper's name/parameter to `aligned_errors(decisions, scenario)`, preserving test expectations. Six report tests and64 full-suite tests pass. A normal CLI run completed all six configured cases in `outputs/m2-first`; saved data,40 artifact hashes, source/configuration provenance,40 local references and all distinct plots were checked. Integration tests cover repeated canonical data, rejected preflight inputs and retained injected case/report failures. These are local synthetic results, not clean-environment or remote CI evidence.

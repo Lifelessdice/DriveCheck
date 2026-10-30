@@ -2,7 +2,7 @@
 
 Prepared 27 October 2026. **This is a study-ready lesson for me to implement and run.** Its code snippets, proposed modules, commands and expected results are teaching material. Writing this lesson does not complete the M2 implementation, demonstrate my understanding, or establish a successful experiment run. No product commands were run while preparing it.
 
-**Observed checkpoint, 31 October 2026:** the supplied default M2 block is now saved. After a requested filename/helper spelling repair, my assistant ran 6 report tests and 64 tests overall, all OK, and the CLI completed 6/6 cases in `outputs/m2-first`. Artifact/source/configuration hashes, local links, all six timelines and the three distinct truth plots were checked. Canonical-data repeatability and injected case/report failures pass the integration tests. Default outcomes match Block 5: the contact warning changes from useful at 2 s to late at 3 s under a 1 s delay. These are assistant verification results for my guided implementation. My result explanation and changed-setting exercise in Block 8 remain pending; no remote CI or complete learner-mastery claim follows.
+**Observed checkpoint, 31 October 2026:** technical M2 is complete. After a requested filename/helper spelling repair, my assistant ran 6 report tests and 64 tests overall, all OK, and the CLI completed 6/6 cases in `outputs/m2-first`. Artifact/source/configuration hashes, local links, all six timelines and the three distinct truth plots were checked. Canonical-data repeatability and injected case/report failures pass the integration tests. Default outcomes match Block 5: the contact warning changes from useful at 2 s to late at 3 s under a 1 s delay. I then delegated Block 8's changed-age experiment: `configs/m2-age-075.json` changes only the age limit to 0.75 s, and its actual fresh report in `outputs/m2-age-075` completed 6/6. All64 tests passed again; saved hashes, unchanged truth/observations/clean decisions, stale delayed rows and missed1/1 versus false-warning0/2 were checked. These are assistant-run results for guided implementation and a requested final experiment. Plain-language interpretation is supplied; my independent explanation remains unassessed, without a mandatory quiz gate. M3 and remote CI remain later work.
 
 I can work through the whole section without sending a reply between steps. Each block gives a reason, a worked example, a concrete implementation task and a check. If I get stuck, I can send the smallest relevant code, command and error. I do not have to finish a block in one sitting.
 
@@ -484,7 +484,7 @@ After the default experiment matches the independent checks, make one bounded ch
 
 Alternatively, change latency to 0.5 s with the original 1.25 s age limit. The 2 s reading arrives at 2.5 s, so its first contact warning should occur at 2.5 s; lead is `sqrt(11)-2.5 ≈ 0.816625 s`, still late under the 1 s useful-lead rule. The union-arrival clock is necessary to see 2.5 s. This is a good check that the implementation is not hard-coded to integer steps.
 
-I can mark the **technical M2 work** complete only after I have observed these items, and record the exact run evidence separately from my explanation:
+The **technical M2 work** requires the checks below, recording who performed each run separately from my demonstrated understanding. The final changed-setting run was delegated to my assistant:
 
 - Separate truth/observation records, explicit units and validated timestamps; truth unchanged by the fault.
 - Causal sequential replay with boundary/overtaking/nonuniform-time fixtures, newest-measurement selection and visible unavailable/stale states.
@@ -492,7 +492,7 @@ I can mark the **technical M2 work** complete only after I have observed these i
 - Independent event/window/useful/late/missed/negative-episode scoring checked with literal metric fixtures.
 - One command producing all six case rows, settings, local plots, machine-readable results and an offline report, with any failure honestly labelled.
 - Default first-warning/outcome values checked against Block 5; a repeated canonical-data run checked; original M1 artifacts preserved.
-- One changed-age or fractional-delay prediction/run explained, including its trade-off and a known limitation.
+- One changed-age or fractional-delay run interpreted, including its trade-off and a known limitation; learner-independent prediction/explanation is separate evidence.
 
 My understanding is evidenced when I can trace one arrived reading through age → TTC → warning → event matching, explain why TTC and exact contact differ, and explain why a finite-horizon negative can still warn. Running a generated test suite alone does not establish this. No remote CI, user commit or publication follows automatically from this lesson.
 
@@ -500,4 +500,4 @@ For a concise review/handoff I can supply: my changed files, exact test command 
 
 M3 starts with these explicit contracts: `Observation` measurement/arrival fields, ordered arrival replay, latest-measurement policy, age limit, causal `Decision` fields, independent event scoring and complete per-case results. It expands single-fault noise/latency/dropout and adds stop-and-go, while preserving the M2 regression cases. It does not silently combine faults, retune the default to manufacture a gain or pass future truth into the algorithm. Full release reproduction, the complete matrix and actual remote CI evidence remain M4 work.
 
-**Lesson status:** ready for self-paced study and review. **Project/learning status:** default M2 implementation/report verified locally at64 tests and6/6 cases; my changed-setting exercise and explanation remain pending. Save the reviewed Git checkpoint before starting the next major block. M3 implementation and remote CI are not included in this acceptance.
+**Lesson status:** ready for self-paced study and review. **Project/learning status:** technical M2 complete locally, with64 passing tests and two complete six-case reports, including the explicitly delegated changed-age investigation. My independent interpretation remains unassessed. The final investigation/configuration notes await the learner-controlled commit and merge into main; M3 implementation and remote CI are not included in this acceptance.

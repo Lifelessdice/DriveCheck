@@ -1,12 +1,12 @@
 # DriveCheck
 
-I am building a Python workbench to investigate how sensor quality affects a simple collision-warning algorithm. **M1 clean motion and the default six-case M2 report are locally verified, with 64 tests passing.** One command now generates truth, clean or fixed-delay observations, causal warning decisions, independent event scores, aligned errors, plots and an offline comparison report. Technical checks and my demonstrated understanding are recorded separately.
+I am building a Python workbench to investigate how sensor quality affects a simple collision-warning algorithm. **M1 and the technical M2 milestone are complete locally, with 64 tests passing.** One command generates truth, clean or fixed-delay observations, causal warning decisions, independent event scores, aligned errors, plots and an offline comparison report. The default comparison and a stricter reading-age experiment are checked. Technical checks and my demonstrated understanding are recorded separately.
 
-I work in the original project files and implement/run the changes myself. My assistant prepares the explanations, guided code, tests and study documents. Earlier assistant-created M1 implementation/artifacts have been archived locally; they are separate from my active code and learning evidence.
+I work in the original project files using guided code and explanations. My assistant prepares tests and study documents, helps with requested fixes and runs bounded checks when I delegate them. Earlier assistant-created M1 implementation/artifacts have been archived locally; they are separate from my active code and learning evidence.
 
 ## Study and implemented model
 
-The [M1 lesson](docs/lessons/m1-clean-movement.md) covers the implemented motion model. I am now reviewing [M2](docs/lessons/m2-warning-and-report.md), including the implemented report and its clean-versus-delay result. My changed-setting exercise and explanation remain separate learning work. The complete curriculum is indexed in [the study guide](docs/study-guide.md). No duplicate practice implementation or environment restart is required.
+The [M1 lesson](docs/lessons/m1-clean-movement.md) covers the implemented motion model. [M2](docs/lessons/m2-warning-and-report.md) adds the implemented report, clean-versus-delay result and age-limit investigation. I delegated the final experiment and requested a plain-language explanation; my independent interpretation remains unassessed. M3's broader fault suite is next. The complete curriculum is indexed in [the study guide](docs/study-guide.md).
 
 `motion.py` contains my original gap function, constant-speed and lead-braking trajectories, immutable scenario/truth records and analytic contact-event detection. `scenarios.py` pairs each case with independently specified reference values. `m1.py` checks those values and exports full truth CSVs, JSON configuration/provenance and PNG plots, with artifact hashes in a run manifest. Following the supplied lessons, I added these modules and tests, with targeted assistant fixes/review.
 
@@ -85,6 +85,24 @@ The one-second delay changes the contact warning from useful to late under the d
 
 MAE means mean absolute error. It compares each fresh held reading with truth at the **decision time**, giving equal weight to eligible decision rows across the full horizon, including virtual post-contact motion. Delayed cases have one unavailable initial row each; stale/unavailable rows are counted and excluded, with null MAE when none are eligible. This is distinct from checking whether a delayed sensor copied its original measurement correctly.
 
+## Checked reading-age investigation
+
+On 31 October I asked my assistant to run the final M2 experiment and explain the result. It copied the default into `configs/m2-age-075.json`, changing only `warning.max_age_s` from 1.25 s to 0.75 s. The default settings and earlier report were preserved.
+
+```powershell
+.\.venv\Scripts\python.exe .\drivecheck.py --config .\configs\m2-age-075.json --output-dir .\outputs\m2-age-075
+```
+
+The actual run completed **6/6 cases**, and the full suite passed **64 tests** again. The assistant checked all 40 artifact hashes, source/configuration hashes and 40 local references. Truth and observations match the default run in all six cases; clean decisions are identical. Delayed decisions start unavailable, then every selected reading is stale, with no warning and no eligible fresh-reading error average. Those null averages mean no eligible data, not zero error.
+
+| Setting | Contact warning | Missed contacts | False-warning negative episodes |
+| --- | --- | ---: | ---: |
+| Clean, either age limit | Useful, lead 1.316625 s | 0/1 | 2/2 |
+| Delay 1 s, age limit 1.25 s | Late, lead 0.316625 s | 0/1 | 2/2 |
+| Delay 1 s, age limit 0.75 s | No warning | 1/1 | 0/2 |
+
+In plain language: late information made the warning late. Refusing all information older than 0.75 s silenced every delayed warning, including the collision warning, because every delayed reading was already 1 s old on arrival. The reduction in false-warning episodes comes with a missed contact. These warnings do not change the cars' prescribed movement. This is a reproducible limitation of this small synthetic baseline, not an improvement claim or a recommended driving setting.
+
 ## Run the existing baseline
 
 Use the existing project environment from PowerShell:
@@ -123,7 +141,7 @@ Each sidecar records SI units, bumper-axis/sign conventions, sampling/horizon ru
 
 ## Current limits and attribution
 
-The supplied trajectory, observation, replay/TTC, independent-scoring, aligned-error and report checks pass. Negative gaps are virtual overlap of prescribed paths, with no impact response simulated. Sensor support currently copies exact gap/closing-speed values with zero or fixed delivery delay. Noise/dropout, stop-and-go and the expanded fault suite belong to M3. My interpretation and changed-setting exercise remain pending; passing supplied tests does not establish independent implementation or understanding.
+The supplied trajectory, observation, replay/TTC, independent-scoring, aligned-error and report checks pass, including the delegated changed-age experiment. Negative gaps are virtual overlap of prescribed paths, with no impact response simulated. Sensor support currently copies exact gap/closing-speed values with zero or fixed delivery delay. Noise/dropout, stop-and-go and the expanded fault suite belong to M3. Passing supplied tests or reading the explanation does not establish independent implementation or understanding.
 
 The existing environment uses Python 3.14.7. The motion model uses the standard library; export plots use the retained Matplotlib installation and PNG verification uses Pillow. `requirements.txt` records the 12 installed runtime dependency versions and was checked against the environment. It is a version snapshot, not a wheel-hash lock or fresh-environment reproduction result. See [research and historical dependency decisions](docs/research.md). Fresh-environment/remote CI evidence remains later work.
 

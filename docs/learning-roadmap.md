@@ -4,14 +4,14 @@ Workflow correction, 2026-10-27: I want complete study-ready lessons up front, o
 
 The earlier 2026-10-27 interpretation that my assistant should implement/test whole milestones was mistaken and is superseded. M1 code, dependencies and plots created during that work are preserved as assistant-created reference material; they do not establish my implementation, reproduction or understanding. Further autonomous product implementation is stopped while the chats prepare lessons.
 
-My goal is a finished student engineering portfolio project with reproducible results, an original failure investigation, a fair comparison, and a short demonstration I can explain and modify myself. "Standout" is the quality target, not a verified ranking or promised employer response. M0 foundations was completed on 2026-10-25. My reviewed M1 learner evidence is the first five-row constant-speed table and CSV snapshot saved through the supplied PowerShell block. The independent 3-second hand check and sampling explanation are pending. My own work through the clean-data contract, braking/contact/non-contact fixtures and plot remains pending, separately from the preserved assistant-created reference artifacts. Later learner milestones remain planned.
+My goal is a finished student engineering portfolio project with reproducible results, an original failure investigation, a fair comparison, and a short demonstration I can explain and modify myself. "Standout" is the quality target, not a verified ranking or promised employer response. Current technical checkpoint,31 October2026: M0 foundations, guided M1 implementation and M2 warning/report work are complete locally. M1 was checked at24 tests; the current suite passes64. Both default and explicitly delegated changed-age M2 experiments completed six cases. Guided implementation, assistant repairs/runs and my demonstrated understanding remain distinct; independent interpretation is unassessed. M3 onward remains planned, and the final M2 config/docs await my commit/merge.
 
 The first CPU release gives me a working foundation. The portfolio target includes one deeper comparison before final presentation. A state estimator is a candidate for that comparison; the choice depends on the concepts I have learned, available time, and bounded technical checks. CARLA remains an optional later addition.
 
 ```mermaid
 flowchart TD
-    A["M0: Project foundations — complete"] --> B["M1: Model clean movement — in progress"]
-    B --> C["M2: First warning and report"]
+    A["M0: Project foundations — complete"] --> B["M1: Clean movement — technically verified"]
+    B --> C["M2: Warning and report — technically complete"]
     C --> D["M3: Faults and systematic tests"]
     D --> E["M4: Reproducible CPU release"]
     E --> F["Deeper comparison and failure investigation"]
@@ -29,7 +29,7 @@ flowchart TD
 | Deeper comparison | A second approach, its prerequisites, fair comparisons and trade-offs | Compare against the original method on the same observation streams and separate evaluation cases; report wins, losses, misses and limitations | 8–12, provisional |
 | M5 — Portfolio finish | Technical writing, design justification, demonstration and review | Explain one investigation, demonstrate the tool in 2–3 minutes, and make a small independent modification | 2–3 |
 
-M0 completion evidence: Python 3.14.7 project environment, learner-written gap calculation and known-answer test, learner-run script/test output, a qualitative closing-speed explanation, and a saved test correction confirmed by an assistant verification run. That learner evidence covers one constant-speed fixture; later assistant-created reference tests/artifacts do not extend it. No learner Git initialization has been recorded; basic Git practice remains a future learner-run work chunk. These observations do not establish mastery of every topic listed in the learning column. Actual focused time was not reported, so the hour estimates have not been calibrated from this session.
+M0 completion evidence: Python 3.14.7 project environment, learner-written gap calculation and known-answer test, learner-run script/test output, a qualitative closing-speed explanation, and a saved test correction confirmed by an assistant verification run. That original evidence covers one constant-speed fixture; archived assistant reference work does not extend it. Subsequent guided local commits and feature pushes are observed, including the M2 report checkpoint; final M2 integration remains learner-run. These observations do not establish mastery of every topic listed in the learning column. Actual focused learner time was not reported, so the hour estimates remain provisional.
 
 The original M0–M5 core estimate is 20–28 focused hours. Including a deeper comparison gives 28–40 hours before buffer. These are hypotheses to revise after the first two working sessions. Learning, debugging, testing and documentation all count. No fixed calendar commitment has been made.
 
