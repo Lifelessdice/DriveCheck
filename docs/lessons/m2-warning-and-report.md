@@ -8,18 +8,20 @@ I can work through the whole section without sending a reply between steps. Each
 
 M1 asks where the bumpers are and when contact occurs. M2 asks a different question: **what warning can a program produce from readings that have actually arrived, and how should I score that warning against an independently established event?**
 
-The learner prerequisite is M1's truth contract, saved configurations, independently checked contact/non-contact fixtures and a labelled plot. Some M1 reference code was already created with AI assistance and is preserved. Its presence is not evidence that I implemented or understand M1. I first work through the M1 lesson and check its results. I do not recreate the existing environment or overwrite the original `outputs/constant_speed.csv`.
+The learner prerequisite is M1's truth contract, saved configurations, independently checked contact/non-contact fixtures and a labelled plot. The 29 October handoff records the learner's guided M1 implementation, 24 passing acceptance tests and checked artifacts/plots. M2 can begin from that accepted technical checkpoint without repeating the optional M1 prediction as an entry gate. Earlier AI-created reference material is archived separately; its historical results are not the active acceptance evidence. The existing environment and original `outputs/constant_speed.csv` are preserved.
 
-The source snapshot inspected for this lesson contains these M1 interfaces:
+The active source inspected on 29 October contains these M1 interfaces:
 
-| Existing reference interface | What M2 needs from it |
+| Existing interface | What M2 needs from it |
 | --- | --- |
 | `motion.Scenario` | Configuration and `horizon_s` |
 | `motion.TruthSample` | `scenario_id`, `sample_id`, `time_s`, bumper positions, both speeds, `gap_m`, `closing_speed_mps` |
 | `motion.sample_truth(scenario)` | Ordered clean samples, including time zero and the horizon |
 | `motion.truth_at(scenario, elapsed_s, sample_id=0)` | Truth at a specified time, for offline checks/plots only |
-| `scenarios.load_fixtures(path)` | Fixtures exposing `scenario`, `reference_contact_time_s`, `reference_final_gap_m`, `reference_basis` |
-| `configs/m1-fixtures.json` | Three independently specified fixtures under `drivecheck.truth.v1` |
+| `scenarios.m1_fixtures()` | Three fixtures exposing `scenario`, `reference_contact_time_s`, `reference_final_gap_m`, `reference_basis` |
+| `motion.require_finite(name, value, ...)` | Existing type/finite/range validation helper; it raises on invalid values and does not return a converted number |
+
+The fixtures are defined in `scenarios.py`; the earlier proposed `load_fixtures` and `configs/m1-fixtures.json` interfaces are not present in the learner's active implementation. M2's proposed configuration selects `fixture_set: "m1"`, with `experiments.py` mapping that name to `m1_fixtures()`.
 
 If my completed M1 uses different names, I map them once at the experiment boundary. I preserve the units and semantics; I do not silently change an event to make this lesson's expected table pass. New M2 interfaces below are **proposed**, aligned with [the study guide](../study-guide.md), rather than claims of existing modules.
 
@@ -85,19 +87,21 @@ Use a declared decision clock consisting of the sorted union of the M1 sampling 
 Create proposed `replay.py` and implement:
 
 ```python
-def make_decision_times(base_times_s, observations, horizon_s):
+def make_decision_times(base_times_s, observations, horizon_s, *, scenario_id):
     """Return finite, unique, increasing times, including 0 and horizon."""
     # Validate the horizon and every base time before building this set.
     # Keep only arrivals <= horizon; validate observations separately.
     raise NotImplementedError("Build the declared clock")
 
 def replay(observations, decision_times_s, warning_threshold_s, max_age_s,
-           *, horizon_s):
-    """Return one Decision per time; no truth or event argument."""
+           *, scenario_id, horizon_s):
+    """Return ReplayResult with one Decision per time and audit counts."""
     raise NotImplementedError("Consume the arrival queue")
 ```
 
 Implement the clock helper by taking a set of valid times, then sorting it. Reject base times outside the horizon rather than silently discarding them. Validate an externally supplied decision-time list as finite, nonnegative, unique and strictly increasing. In this experiment it must begin at 0 and end at the declared horizon. `horizon_s` gives replay an experiment cutoff for this validation, not a physical event label; do not pass it to `decide`. Do not round times to display precision before comparing them.
+
+The in-chat block supplied on 30 October uses `scenario_id` in both entry points so the complete observation context is validated before reading arrivals to form the clock. Materialize an observation iterable once in each entry point, then validate the retained list. Base times are normalized by the union; a decision-time list passed directly to replay must already be strictly increasing and unique.
 
 The stateful replay algorithm is short enough to trace on paper:
 
@@ -115,6 +119,8 @@ for now in increasing decision times:
 ```
 
 Process **all** arrivals at a time before producing that time's decision. A reading arriving exactly at `now` is available. Sort equal arrivals by sample ID for deterministic processing. The selected reading is the one with the newest measurement time, not the last item received if that item is older. This matters when future variable delays cause overtaking. A late old reading must not move the selected measurement clock backwards.
+
+The proposed `ReplayResult` groups `decisions`, `ignored_older_arrival_count` and `beyond_horizon_arrival_count`. Scoring/reporting must consume `result.decisions`, rather than treating the wrapper as a list. The ignored count means an arrived record was rejected because a newer measurement was already selected when it was consumed. For simultaneous arrivals that diagnostic can depend on the declared sample-ID processing order; the final selected measurement does not. Beyond-horizon records stay in the saved observation stream but never reach a decision in this episode.
 
 For example, A measured at 1 s arrives at 3 s; B measured at 2 s arrives at 2.5 s. At 2.5 s B becomes latest. At 3 s A is consumed and logged, but B stays selected. File order does not change this outcome. Duplicate measurement times were rejected in Block 1, so there is no ambiguous tie to resolve here.
 
@@ -329,7 +335,7 @@ Create this proposed configuration when implementing the lesson:
 ```json
 {
   "schema_version": "drivecheck.m2.v1",
-  "fixtures_path": "configs/m1-fixtures.json",
+  "fixture_set": "m1",
   "scenario_ids": [
     "constant_speed_original",
     "lead_braking_contact",
@@ -345,7 +351,7 @@ Create this proposed configuration when implementing the lesson:
 }
 ```
 
-Reject unknown schema version, unknown/duplicate scenario and condition IDs, duplicate JSON keys, missing/unknown settings, invalid numeric values and an empty experiment. For now seed must be null because this adapter has no randomness. A new noise model later will introduce a distribution, units and seed explicitly. An invalid top-level configuration fails before writing a run.
+Reject unknown schema version/fixture set, unknown/duplicate scenario and condition IDs, duplicate JSON keys, missing/unknown settings, invalid numeric values and an empty experiment. For this lesson `fixture_set` must equal `"m1"`; call `m1_fixtures()` and select the requested scenario IDs from its returned fixtures. For now seed must be null because this adapter has no randomness. A new noise model later will introduce a distribution, units and seed explicitly. An invalid top-level configuration fails before writing a run.
 
 Implement `experiments.run(config_path, output_dir) -> dict`. This is the orchestration recipe, not a finished implementation:
 
@@ -373,7 +379,7 @@ For failed cases, keep the known scenario/reference label and the error. Show pl
 
 Do not call `first_contact_time` to create M2 labels afresh or derive labels from warnings. The M1 computed contact can be checked against its stored independent reference; the stored reference/derivation supplies this fixture's evaluation target. Do not pass that target into replay. Run a whole case through its horizon, including virtual post-contact truth; only offline scoring excludes post-contact warnings from matching.
 
-Resolve fixture/config/output paths under the project root (`Path(__file__).resolve().parent` in a root module). Reject any path escaping it. Use a new ignored directory such as `outputs/m2-first`; refuse an existing destination rather than overwrite previous evidence. Validate before `mkdir`. Restrict IDs to safe filename characters and reject Windows reserved names, or use deterministic numeric case folders plus an ID manifest. Preserve all source/config/M1 artifacts.
+Resolve configuration/output paths under the project root (`Path(__file__).resolve().parent` in a root module). Reject any path escaping it. The M1 fixture provider is local `scenarios.py`, not an external file path. Use a new ignored directory such as `outputs/m2-first`; refuse an existing destination rather than overwrite previous evidence. Validate before `mkdir`. Restrict IDs to safe filename characters and reject Windows reserved names, or use deterministic numeric case folders plus an ID manifest. Preserve all source/config/M1 artifacts.
 
 Save this output contract per case:
 
@@ -423,13 +429,13 @@ The following are **commands for me to run after I implement the proposed files*
 
 ```powershell
 Set-Location 'E:\DriveCheck'
-.\.venv\Scripts\python.exe -m unittest -v test_motion test_m1 test_m2
+.\.venv\Scripts\python.exe -m unittest -v
 .\.venv\Scripts\python.exe .\drivecheck.py --config .\configs\m2-experiment.json --output-dir .\outputs\m2-first
 Get-Content -LiteralPath .\outputs\m2-first\cases.csv
 Get-Content -LiteralPath .\outputs\m2-first\manifest.json
 ```
 
-`test_m1` is the existing AI reference test module at the inspected snapshot. If my completed M1 organizes its tests differently, use its documented command plus `test_m2`; do not delete the original `test_motion` fixture. `drivecheck.py` should parse `--config` and `--output-dir`, call `experiments.run`, print status/case totals/output path, and return a nonzero exit code for partial/failed runs. Keep execution under `if __name__ == "__main__":` so importing the entry point does not generate a report.
+`test_m1` is the active learner-guided M1 export/integration test module; `test_motion` contains the motion/contact tests. Together their last verified acceptance was 24 tests. Add the new `test_m2` module without deleting either existing module. `drivecheck.py` should parse `--config` and `--output-dir`, call `experiments.run`, print status/case totals/output path, and return a nonzero exit code for partial/failed runs. Keep execution under `if __name__ == "__main__":` so importing the entry point does not generate a report.
 
 Open `E:\DriveCheck\outputs\m2-first\report.html` in a browser locally after generation. Expected checks are the six-case prediction table in Block 5, not a prescribed exact test count or runtime. Inspect the delayed contact case's `decisions.csv` and locate the time-3 row: measurement time 2, arrival 3, age 1, gap 17.5, closing speed 10, TTC 1.75, warning true. The result must use `sqrt(11)-3`, not `4-3`, as matched lead.
 

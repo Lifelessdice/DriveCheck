@@ -1,18 +1,32 @@
 # DriveCheck
 
-I am building a Python workbench to investigate how sensor quality affects a simple collision-warning algorithm. **The M1 clean-motion implementation is verified; my final explanation and changed-input review remain pending.** The active project generates checked truth data, configuration and labelled plots for three study cases.
+I am building a Python workbench to investigate how sensor quality affects a simple collision-warning algorithm. **M1 clean motion and M2's first observation block are verified.** The active project generates checked truth data, configuration and labelled plots for three study cases, and creates separate clean or fixed-delay sensor observations. Causal replay, warnings, scoring and the first comparison report remain M2 work. Technical checks and my demonstrated understanding are recorded separately.
 
 I work in the original project files and implement/run the changes myself. My assistant prepares the explanations, guided code, tests and study documents. Earlier assistant-created M1 implementation/artifacts have been archived locally; they are separate from my active code and learning evidence.
 
-## Continue M1
+## Study and implemented model
 
-Start with [the M1 lesson](docs/lessons/m1-clean-movement.md), using `motion.py` and `test_motion.py`. The complete curriculum is indexed in [the study guide](docs/study-guide.md). No duplicate practice implementation or environment restart is required.
+The [M1 lesson](docs/lessons/m1-clean-movement.md) covers the implemented motion model. I am now following [M2](docs/lessons/m2-warning-and-report.md), starting with `observations.py` and `test_m2.py`. The complete curriculum is indexed in [the study guide](docs/study-guide.md). No duplicate practice implementation or environment restart is required.
 
 `motion.py` contains my original gap function, constant-speed and lead-braking trajectories, immutable scenario/truth records and analytic contact-event detection. `scenarios.py` pairs each case with independently specified reference values. `m1.py` checks those values and exports full truth CSVs, JSON configuration/provenance and PNG plots, with artifact hashes in a run manifest. Following the supplied lessons, I added these modules and tests, with targeted assistant fixes/review.
 
 On 28 October 2026 my assistant ran all **24 tests successfully**, verified my saved study outputs against their configuration, source and artifact hashes, and visually inspected all three plots. Integration tests also check a failed reference, rejected output destinations and repeated exports with identical hashes on this machine. This is guided implementation with assistant verification; my explanation and independent transfer remain separate learning evidence.
 
 The braking contact fixture has an independently calculated event at `sqrt(11) = 3.3166247903554 s`, between its saved 3 s and 4 s rows. A separate fixture remains non-contact through 8 s but contacts at 10 s if extended. Contact labels therefore apply to the declared horizon. Phase endpoint rounding uses 32 ULPs of the actual endpoint time scale.
+
+## Sensor observations: first M2 block
+
+`observations.py` defines immutable readings with scenario/sample IDs, measurement time, arrival time, gap in metres and closing speed in m/s. The fixed-delay adapter copies numeric truth values into new records and changes arrival time only. It preserves truth, source IDs and storage order. Context checks reject duplicate IDs/times, mixed scenarios and measurements beyond the declared horizon; delivery after the horizon remains a valid logged observation. Signed gap/closing speed, empty streams and missing IDs have explicit treatment.
+
+For the braking-contact case, a reading measured at 2 s contains gap 17.5 m and closing speed 10 m/s. With one-second latency it arrives at 3 s, when its measurement age is 1 s. Availability is not yet enforced by a replay algorithm; that is the next block.
+
+On 30 October 2026 my assistant inspected the saved supplied-code implementation, ran `python -m unittest -v test_m2` (**10 tests, OK**) and the full `python -m unittest -v` suite (**34 tests, OK**) through the project interpreter. A separate direct check confirmed the known delayed reading, unchanged truth, unordered source preservation, beyond-horizon delivery and rejected computed-arrival overflow. No product code/tests were edited for verification. This supports the bounded observation contract, not complete M2 acceptance or independent design/mastery.
+
+At my subsequent request, the assistant added neutral technical comments/docstrings to the observation module and its tests. Before/after syntax-tree checks, excluding docstrings, confirmed identical executable structure; all 34 tests passed again. These documentation edits explain the existing behaviour and do not add replay or warning functionality.
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest -v test_m2
+```
 
 ## Run the existing baseline
 
@@ -52,7 +66,7 @@ Each sidecar records SI units, bumper-axis/sign conventions, sampling/horizon ru
 
 ## Current limits and attribution
 
-The supplied trajectory, contact/non-contact and export checks pass. My final explanation/transfer review remains M1 work. Negative gaps are virtual overlap of prescribed paths, with no impact response simulated. Sensor observations, fault injection, warnings and evaluation belong to later milestones. Passing supplied tests does not establish independent implementation or understanding.
+The supplied trajectory, contact/non-contact, export and first observation checks pass. Negative gaps are virtual overlap of prescribed paths, with no impact response simulated. Sensor support currently copies exact gap/closing-speed values with zero or fixed delivery delay. Causal replay, stale/unavailable decisions, TTC warnings, independent scoring and the clean-versus-delay report remain unimplemented; noise/dropout and the expanded fault suite belong to M3. Passing supplied tests does not establish independent implementation or understanding.
 
 The existing environment uses Python 3.14.7. The motion model uses the standard library; export plots use the retained Matplotlib installation and PNG verification uses Pillow. `requirements.txt` records the 12 installed runtime dependency versions and was checked against the environment. It is a version snapshot, not a wheel-hash lock or fresh-environment reproduction result. See [research and historical dependency decisions](docs/research.md). Fresh-environment/remote CI evidence remains later work.
 

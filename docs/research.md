@@ -1,5 +1,11 @@
 # DriveCheck research and decisions
 
+## M2 replay/warning lesson choices — 2026-10-30
+
+For the learner's next implementation block, the assistant rechecked the official [SUMO following TTC definition](https://sumo.dlr.de/docs/Simulation/Output/SSM_Device.html#ttc): positive gap divided by positive follower-minus-leader speed. This supports the mathematical baseline, not a universally safe warning threshold. No third-party implementation was copied or run.
+
+The previously declared teaching policies are a 3 s threshold, maximum age 1.25 s inclusive, raw held arrived values without extrapolation, null TTC/no warning for unavailable/stale data, zero TTC/warning for fresh contact/overlap, and null TTC for positive gap with nonpositive closing speed. These are project experiment choices. Replay releases only arrival <= decision time, consumes all simultaneous arrivals, selects the latest measurement time and never receives a contact label. A wrapper retains the decisions and two arrival audit counts. The offline scorer remains independently defined with a 4 s pre-event window and 1 s minimum useful lead. Complete proposed code/tests are being taught, not installed or verified as active implementation by this note; current implemented acceptance remains the first observation block.
+
 Checked 2026-10-25. These are bounded kickoff checks, not validation of a completed product. No external code was copied or run.
 
 ## First slice
