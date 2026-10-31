@@ -310,7 +310,7 @@ def summarize(case_results):
     return summaries
 
 
-def aligned_errors(decisions, scenario):
+def aligned_errors(decisions, scenario, *, truth_at_time=None):
     """Compare fresh held readings with truth at each decision timestamp."""
 
     gap_errors = []
@@ -325,6 +325,9 @@ def aligned_errors(decisions, scenario):
         "ttc_warning",
         "contact_or_overlap",
     }
+
+    if truth_at_time is not None and not callable(truth_at_time):
+        raise ValueError("truth_at_time must be callable or None")
 
     for decision in decisions:
         if not isinstance(decision, Decision):
@@ -356,7 +359,12 @@ def aligned_errors(decisions, scenario):
         require_finite("selected closing_speed_mps", decision.closing_speed_mps)
 
         # Future truth is permitted here only because this is offline evaluation.
-        current = truth_at(scenario, time_s)
+        current = (
+            truth_at(scenario, time_s)
+            if truth_at_time is None
+            else truth_at_time(time_s)
+        )
+
         gap_error = abs(decision.gap_m - current.gap_m)
         closing_error = abs(decision.closing_speed_mps - current.closing_speed_mps)
 
