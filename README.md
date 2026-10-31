@@ -1,12 +1,43 @@
 # DriveCheck
 
-I am building a Python workbench to investigate how sensor quality affects a simple collision-warning algorithm. **M1 and the technical M2 milestone are complete locally; four of five M3 blocks are verified, with 124 tests passing overall.** The existing CLI generates the clean/fixed-delay M2 report. M3 adds seeded faults, stop-and-go and a tested latency-induced warning failure. The integrated M3 study with saved results/plots remains pending. Technical checks and my demonstrated understanding are recorded separately.
+I am building a Python workbench to investigate how sensor quality affects a simple collision-warning algorithm. **M1, M2 and all five technical M3 blocks are verified locally, with 131 tests passing overall.** The M3 study saves 28 fault-condition cases plus five separately evaluated latency diagnostics, with reproducible data, audits, reports and plots. Technical checks and my demonstrated understanding are recorded separately. M3's final commit/push and main integration remain learner-run steps; no remote CI result is claimed.
 
 I work in the original project files using guided code and explanations. My assistant prepares tests and study documents, helps with requested fixes and runs bounded checks when I delegate them. Earlier assistant-created M1 implementation/artifacts have been archived locally; they are separate from my active code and learning evidence.
 
 ## Study and implemented model
 
-The [M1 lesson](docs/lessons/m1-clean-movement.md) covers the implemented motion model. [M2](docs/lessons/m2-warning-and-report.md) adds the implemented report, clean-versus-delay result and age-limit investigation. I delegated the final experiment and requested a plain-language explanation; my independent interpretation remains unassessed. [M3](docs/lessons/m3-fault-suite.md) is in progress. Its settings block passed 11 tests after a targeted assistant indentation repair; the saved injector added 15 tests and passed review without source edits. I then saved the supplied stop-and-go model and 14 tests. On 31 October 2026 my assistant reviewed that block without source changes and ran all 14 focused tests and the full 104-test suite successfully. Integrated M3 experiment results are not yet produced. The complete curriculum is indexed in [the study guide](docs/study-guide.md).
+The [M1 lesson](docs/lessons/m1-clean-movement.md) covers the implemented motion model. [M2](docs/lessons/m2-warning-and-report.md) adds the implemented report, clean-versus-delay result and age-limit investigation. I delegated that final experiment and requested a plain-language explanation; my independent interpretation remains unassessed. [M3](docs/lessons/m3-fault-suite.md) adds private random streams, individual faults, stop-and-go, boundary/regression tests and the integrated saved study. Its guided implementation includes the earlier targeted repairs described below. On 1 November 2026, assistant review of my saved final driver/tests and outputs required no product changes; seven new tests and all 131 project tests passed. The complete curriculum is indexed in [the study guide](docs/study-guide.md).
+
+## Reproduce the M3 study
+
+Use the existing project environment and a fresh output directory:
+
+```powershell
+Set-Location E:\DriveCheck
+.\.venv\Scripts\python.exe -m unittest -v
+.\.venv\Scripts\python.exe .\m3_study.py --output-dir .\outputs\m3-study\example-01
+Start-Process .\outputs\m3-study\example-01\report.html
+```
+
+The driver refuses existing output folders. Its default seed base 100 maps to gap/closing/latency/dropout streams 101/102/103/104 in the main matrix. `--seed-base 200` changes that bundle; `--all-plots` renders all 33 cases instead of the 12 figures selected in advance. Neither option changes warning/scoring rules. A clean machine/environment reproduction remains M4 work.
+
+The main matrix crosses four independent contact/non-contact fixtures with seven clean/low/strong single-fault profiles. Every profile has two positive and two negative episodes. The fixed-delay diagnostic uses a separate policy and summary. Each case retains truth identity, settings, full observations/audit/decisions, execution status, score and aligned errors. Shared truth snapshots, configuration, runtime/source provenance, artifact hashes, complete CSV/JSON summaries and a local HTML report accompany the case exports. Failed executions remain unscored in the declared denominator; a valid warning miss is a complete execution.
+
+Observed main-matrix counts for seed base 100:
+
+| Condition | Useful / 2 positives | Late / 2 positives | Missed / 2 positives | False warning / 2 negatives |
+| --- | ---: | ---: | ---: | ---: |
+| clean | 2 | 0 | 0 | 2 |
+| noise_low | 2 | 0 | 0 | 2 |
+| noise_strong | 2 | 0 | 0 | 2 |
+| latency_low | 1 | 1 | 0 | 2 |
+| latency_strong | 0 | 1 | 1 | 2 |
+| dropout_low | 2 | 0 | 0 | 2 |
+| dropout_strong | 2 | 0 | 0 | 1 |
+
+Both clean negative episodes warn. Strong dropout suppresses one negative warning in this bundle; that does not establish improved reliability. Main policy remains TTC threshold 3 s, maximum age 1.25 s, pre-event window 4 s and useful lead at least 1 s, on the union of source ticks and in-horizon arrivals. The separate diagnostic reproduces useful/useful/late/late/missed under delays 0/1/1.5/2/2.5 s. These small synthetic counts and reused source-index random patterns are not independent-world or sensor-performance estimates.
+
+Review of my saved `outputs/m3-study/run-a` and `run-b` found both complete at 33/33 cases, with all 164 files byte-identical between runs. Each run's 163 artifact hashes, configuration/source hashes and 181 contained local report references matched. Assistant review checked causal selection from the saved observation/decision rows and visually inspected all 12 default figures. Failure-retention/nonzero CLI status, report-failure machine-data retention, preflight, real plots for both motion families and render-only selection are covered by the seven new tests. The full assistant-run suite passed 131 tests in 47.831 s. No product edit, dependency installation or persistent study rewrite was needed for this review; it does not establish my independent understanding or cross-platform reproduction.
 
 `faults.py` validates immutable single-fault settings, creates separate private seeded generators, and transforms ordered truth into observations plus an offline audit. Explicit-draw fixtures check arithmetic independently of a seed. Every source row reserves all four draws and receives an audit row, even when dropped; invalid values and overflow fail visibly. Missing observations preserve the decision schedule, and retained beyond-horizon arrivals remain distinct from dropout. Clean/fixed-delay compatibility with M2 and repeated causal replay are checked. This is synthetic model/test evidence, not measured sensor behaviour or independent learner mastery.
 
@@ -149,7 +180,7 @@ Each sidecar records SI units, bumper-axis/sign conventions, sampling/horizon ru
 
 ## Current limits and attribution
 
-The supplied trajectory, observation, replay/TTC, independent-scoring, aligned-error and report checks pass, including the delegated changed-age experiment. Negative gaps are virtual overlap of prescribed paths, with no impact response simulated. The existing report CLI covers M2 clean/fixed-delay cases; M3's modules and tests add noise/jitter/dropout, stop-and-go and the controlled failure regression. Combined faults and the integrated M3 study/report are not implemented. The diagnostic regression uses explicitly different settings from M2 defaults; it is not a claimed improvement or general benchmark. Extreme numeric inputs may fail explicitly rather than produce an unsupported result. Passing supplied tests or reading the explanation does not establish independent implementation or understanding.
+The supplied trajectory, observation, replay/TTC, independent-scoring, aligned-error and report checks pass, including the delegated changed-age experiment and saved M3 study. Negative gaps are virtual overlap of prescribed paths, with no impact response simulated. The existing M2 CLI is preserved; `m3_study.py` covers the bounded M3 matrix and separate diagnostic. Combined faults, a general configurable release command, clean-environment reproduction and remote CI remain later work. Error MAEs equally weight fresh decision rows over the full horizon, including virtual post-contact motion; arrival jitter changes row timing/counts. The diagnostic uses explicitly different settings from the main matrix and is not a claimed improvement or general benchmark. Extreme numeric inputs may fail explicitly rather than produce an unsupported result. Passing supplied tests or reading the explanation does not establish independent implementation or understanding.
 
 The existing environment uses Python 3.14.7. The motion model uses the standard library; export plots use the retained Matplotlib installation and PNG verification uses Pillow. `requirements.txt` records the 12 installed runtime dependency versions and was checked against the environment. It is a version snapshot, not a wheel-hash lock or fresh-environment reproduction result. See [research and historical dependency decisions](docs/research.md). Fresh-environment/remote CI evidence remains later work.
 

@@ -1,6 +1,26 @@
 # M3 study lesson: controlled faults and trustworthy regression tests
 
-Prepared 27 October 2026; implementation status updated 31 October 2026. **Checkpoints 1–4 are technically verified; checkpoint 5 remains teaching material with implementation/runs pending.** Current acceptance includes all 20 boundary/regression tests and the full 124-test suite, all passing. Block 4 required an explicitly requested assistant file-layout repair/restoration. Later proposed study commands/results below are not observed integrated M3 experiment evidence.
+### Current acceptance — 1 November 2026
+
+**All five M3 technical blocks are accepted locally.** The learner saved the supplied final driver/test module and produced `outputs/m3-study/run-a` and `run-b`. Assistant review required no product edits. Actual project-interpreter checks passed all seven new tests in7.115s and the full131-test suite in47.831s, both exit0. Independent read-only source/artifact review found no material acceptance blocker. Learning explanations/transfer remain separate and unassessed.
+
+Each saved run is complete at28 main cases plus5 separately summarized diagnostic arms. All164 files match byte-for-byte between runs; each run's163 artifact hashes, configuration/source hashes and181 contained local references match. Saved observations/audits/decisions/counts and causal latest-available sample selection were checked. All12 default figures were visually reviewed. Main seed100 counts are recorded in README/research: latency_low has1 useful/1 late, latency_strong0 useful/1 late/1 missed, and both clean negatives warn. The separate diagnostic matches useful/useful/late/late/missed, with first4/5/5.5/6/None. No seed200, clean-environment reproduction, browser-rendered HTML layout or remote CI result is claimed.
+
+Branch remains `feature/m3-fault-suite` at419c2e2 with the final checkpoint uncommitted. Next is selective learner staging/commit/push of `m3_study.py`, `test_m3_study.py`, README and the four reviewed public M3/roadmap/research documents, then learner-run fast-forward merge/push of main. Assistant performed no Git mutation, product changes, dependency installation or persistent study rerun in this acceptance review. M4 remains future release/configuration/CI work.
+
+### Historical final delivery — 1 November 2026 (before implementation)
+
+Read-only Git inspection observes learner checkpoint `419c2e2` on `feature/m3-fault-suite`, matching the configured remote-tracking ref, with clean tracked files before this documentation update. This is not a new live-remote or CI check. Four of five M3 blocks remain verified at the prior 124 passing tests.
+
+The final chat block supplies complete proposed `m3_study.py` and `test_m3_study.py` for learner implementation. Neither file nor integrated study outputs exist at this delivery. The study enumerates 28 main rows (four fixtures, seven single-fault profiles) and five separately summarized fixed-delay diagnostic rows. The main policy remains threshold 3 s, maximum age 1.25 s, matching window 4 s and minimum useful lead 1 s; diagnostic settings remain those in `m3_regression.py`. A seed base of 100 maps to streams 101/102/103/104. Reused streams do not establish independent replications.
+
+The concrete final layout supersedes the earlier suggested layout below: root `manifest.json`, `configuration.json`, `study-summary.json`, `cases.csv` and `report.html`; shared truth/configuration/reference under `truth/<scenario_id>/`; 28 `cases/case-001` through `case-028` folders and five `cases/regression-001` through `regression-005` folders containing observations, audit, decisions and result JSON. Default plots are selected before outcomes: all four clean main cases, three strong-fault conditions for both contact fixtures, and clean/2.5 s diagnostic arms (12 figures). `--all-plots` requests all 33. Every declared result remains in the manifest, including failed executions; incomplete studies exit nonzero. Artifact hashes exclude the manifest itself to avoid a self-reference cycle.
+
+The driver must preserve M2, validate independent references and fresh contained output paths before writing, bind the correct stop-and-go truth evaluator, hash immutable truth snapshots, export full precision/null metrics, record source/configuration/runtime/draw-order provenance, and keep full-horizon equally weighted fresh-decision-row MAEs explicit. Jitter changes arrival-grid row weighting. Plotted virtual post-contact motion is diagnostic, not impact physics or warning-driven control.
+
+Seven proposed tests cover the declared matrix/policies, repeated exports/read-back/hashes/local links, real plots for both motion families, retained case failures/nonzero CLI, retained machine data after report failure, preflight guards, and render selection without changing scientific rows. Expected full count is 131 if saved as supplied; this is not an observed run. Next: learner saves both distinct files, runs the supplied commands in fresh folders, and reviews actual artifacts and plots. Only then review/checkpoint/push and guide the final merge. No source/test/configuration write, implementation command, dependency install or Git mutation was performed for this delivery.
+
+Prepared 27 October 2026; current acceptance is recorded above. At the31 October checkpoint, blocks1–4 were verified at124 tests and the integrated study was still proposed. Block4 required an explicitly requested assistant file-layout repair/restoration. The dated delivery notes below preserve that earlier progression; the1 November acceptance supersedes their pending status.
 
 ### Current learner delivery — 31 October 2026
 
@@ -13,8 +33,8 @@ The learner confirmed substantial blocks, theory explained alongside code, concr
 | 1 | Validated immutable FaultConfig, private random streams and focused tests | Verified; learner checkpoint commit 3fc7f17 observed |
 | 2 | Explicit-draw arithmetic, individual seeded faults, audit and truth protection | Verified without source fixes; learner checkpoint commit 4a95e81 observed |
 | 3 | Stop-and-go continuous motion and independent contact/non-contact fixtures | Verified without source fixes; learner checkpoint commit 7530c4e observed |
-| 4 | Causal/data/metric boundaries and a reproduced fault-induced regression | Verified after requested file-layout repair; 20 focused/124 full tests OK; learner commit/push pending |
-| 5 | Integrated saved study, plots, result interpretation and M4 handoff | Pending |
+| 4 | Causal/data/metric boundaries and a reproduced fault-induced regression | Verified after requested file-layout repair; 20 focused/124 full tests OK; learner checkpoint 419c2e2 observed |
+| 5 | Integrated saved study, plots, result interpretation and M4 handoff | Verified1 November;7 new/131 full tests OK; two complete33-case runs and12 plots reviewed; final Git checkpoint pending |
 
 For checkpoint 1, use the actual `motion.require_finite` helper for nonnegative numeric settings; it validates and returns None, so do not assign its return to a field. Check probability <=1 separately. Validate mode type before membership, and validate nonnegative integer seeds excluding bool. Enforce the single-fault inactive-field rule after numeric checks. `make_rngs` returns fresh gap/closing/latency/dropout generators. No observation transform is implemented in checkpoint 1; timestamp/value overflow is checked later when those values are computed.
 
@@ -730,29 +750,28 @@ The four cases × seven conditions give 28 diagnostic case-condition rows for th
 8. Mark completed, failed and partial execution distinctly. An experimentally missed warning can be a technically complete run. An exception during a case is a failed execution, not a sensor dropout or a zero-valued result.
 9. Export a summary with the full declared 28-row diagnostic set plus separate fixed-latency regression results. If a run fails, retain its error/status and do not call the set complete. Exit nonzero on execution failure.
 
-Suggested local layout to implement:
+Implemented local layout (supersedes the earlier authoring suggestion):
 
 ```text
 outputs/m3-study/run-a/
+  manifest.json
+  configuration.json
   study-summary.json
-  policy.json
-  seed-manifest.json
-  lead_braking_contact/
-    configuration.json
-    truth.csv
-    reference.json
-    clean/{observations.csv,fault-audit.csv,decisions.csv,result.json}
-    noise_low/...
-    ...
-  lead_braking_noncontact/...
-  stop_and_go_contact/...
-  stop_and_go_noncontact/...
-  timing_regression/
-    truth.csv
-    configuration.json
-    trace.csv
-    results.json
-    timeline.png
+  cases.csv
+  report.html
+  truth/<scenario_id>/{truth.csv,configuration.json,reference.json}
+  cases/case-001/...case-028/
+    observations.csv
+    fault-audit.csv
+    decisions.csv
+    result.json
+    timeline.png  # Selected cases only, or all with --all-plots.
+  cases/regression-001/...regression-005/
+    observations.csv
+    fault-audit.csv
+    decisions.csv
+    result.json
+    timeline.png  # Default clean and 2.5-second arms.
 ```
 
 The brace notation above describes files; it is not a literal Windows filename. Save UTF-8 CSV/JSON with unrounded numeric values, explicit schema/version and `allow_nan=False` for JSON. Use null for absent TTC/metrics, and explicit status/reason fields. Preserve full settings, runtime versions and draw-order version; a seed alone is insufficient provenance.
@@ -767,15 +786,15 @@ The regression figure can use three shared-time panels: clean gap/contact, selec
 
 ### Commands you run after implementing the driver
 
-Implement the proposed `--output-dir` argument before using these commands. Run them from `E:\DriveCheck`; they are study instructions, not observed author runs:
+The implemented driver supports these reproduction commands. Use fresh folder names because existing destinations are rejected. Actual accepted `run-a`/`run-b` outputs are recorded above; the example folder names below are proposed new runs:
 
 ```powershell
-.\.venv\Scripts\python.exe -m unittest -v test_m3_faults test_m3_scenarios test_m3_boundaries test_m3_regression
+.\.venv\Scripts\python.exe -m unittest -v test_m3_faults test_m3_injection test_m3_scenarios test_m3_boundaries test_m3_regression test_m3_study
 .\.venv\Scripts\python.exe -m unittest -v
-.\.venv\Scripts\python.exe .\m3_study.py --output-dir .\outputs\m3-study\run-a
-.\.venv\Scripts\python.exe .\m3_study.py --output-dir .\outputs\m3-study\run-b
-Get-Content -LiteralPath .\outputs\m3-study\run-a\study-summary.json
-Get-Content -LiteralPath .\outputs\m3-study\run-a\timing_regression\trace.csv
+.\.venv\Scripts\python.exe .\m3_study.py --output-dir .\outputs\m3-study\example-a
+.\.venv\Scripts\python.exe .\m3_study.py --output-dir .\outputs\m3-study\example-b
+Get-Content -LiteralPath .\outputs\m3-study\example-a\study-summary.json
+Get-Content -LiteralPath .\outputs\m3-study\example-a\cases\regression-005\decisions.csv
 ```
 
 Expected later checks:
@@ -837,4 +856,4 @@ Your M4 handoff should identify the actual function names/schema versions, polic
 
 Keep Git staging, commits, remotes, publication and remote CI under your control. This lesson neither performs those actions nor claims an actual remote run. CARLA remains optional later work.
 
-**Current checkpoint, 31 October 2026:** M1/M2 technical prerequisites are accepted. M3 checkpoints 1–4 of 5 are technically verified (20 boundary/regression tests/124 full tests). Blocks 1–3 commits are observed; Block 4 commit/push and the integrated study Block5 remain pending. Learner interpretation and independent transfer remain separate from assistant verification.
+**Current checkpoint,1 November2026:** all five M3 technical blocks are accepted locally, with131 passing tests and two complete33-case studies whose artifacts/plots are reviewed. Block4 commit419c2e2 is observed. Final selective learner commit/push/main merge remains next. Learner interpretation/independent transfer, clean-environment reproduction and remote CI are separate from this local acceptance.
