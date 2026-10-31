@@ -1,5 +1,11 @@
 # DriveCheck research and decisions
 
+## M3 stop-and-go checkpoint verified — 31 October 2026
+
+The learner saved the supplied continuous stop/hold/restart/cruise model and14 tests. Assistant source/test review and an independent read-only audit found no material blocker; no source/test repair was needed. Actual project-interpreter runs passed14 focused tests and104 full-suite tests (full run41.042s), both exit0. Independently derived references match: gap15 contact5/final2; gap18 no contact/minimum2 at6/final5; gap16 tangent6. Coarse samples `[15,3,2]` retain an analytic5s event, and the event is invariant across the tested1/0.25/4s grids. Boundary continuity, zero-width phases, horizons, signed quadratic cancellation/tiny-time fixtures and existing fault/replay/scoring integration pass.
+
+The model uses constant acceleration within phases, with lead speed capped at zero or the restart target and consistent travel distances. Its signed-acceleration solver is separate from M1's braking-only helper; reference labels remain literals, not TTC/solver outputs. M1's32-ULP endpoint convention is retained. Source evaluation is bounded to the declared horizon, while prescribed virtual paths continue after contact. The implementation rejects unsupported non-finite/lost-resolution calculations rather than promising arbitrary extreme-input support. The reviewed checks do not exercise every numeric guard. The existing report CLI is not yet extended to this family; integration later must select `stop_go_truth_at` for its offline truth callback. No new report/plot/install/Git action, learner mastery or remote CI is claimed.
+
 ## M3 checkpoint 2 verified — 31 October 2026
 
 The learner saved the supplied injector and `test_m3_injection.py` and requested review. No source/test repair was needed; independent read-only review found no material blocker. Actual project-interpreter runs passed all 26 tests across the two M3 modules and all 90 project tests (full run 22.456 s), both exit 0. Explicit fixtures verify 20 m/5 m/s changed by −2 m/+1 m/s to 18 m/6 m/s (TTC 3 s), the 2→2.5 s jittered delivery, strict dropout boundary, all-dropout unavailable replay/missed literal contact, M2 clean/fixed-delay compatibility, retained beyond-horizon arrivals, draw-call order, input/overflow guards, unchanged truth and repeatable causal replay.
