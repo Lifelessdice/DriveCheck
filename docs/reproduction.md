@@ -1,8 +1,10 @@
 # Reproduce the M4 CPU release
 
+Hosted verification, 1 November 2026: [run 41260971755](https://github.com/Lifelessdice/DriveCheck/actions/runs/41260971755) succeeded for code commit `e64b12baf4a4ba5e93a91e2b40541bb7c5df6ed4`. All 169 tests passed in 18.010 s, together with dependency/lint checks and full release generation/audit. The audited report has 76 main cases plus five separate diagnostics, 343 machine hashes, 356 package hashes, 357 files, 11 plots and 421 links. Byte-for-byte comparison below refers to the two local reports; cross-machine pixel identity is untested. The assistant performed the explicitly approved commit/push; work remains on the M4 branch.
+
 The supported lock target is **CPython 3.14.7 on Windows x64**. The runtime versions remain in `requirements.txt`; `requirements-lock.txt` binds all 12 runtime packages plus pip26.2.1 and Ruff0.14.0 to the selected wheel bytes. This is a platform-specific lock.
 
-`.gitattributes` keeps the generated lock's LF line endings on checkout, so Windows Git conversion cannot make the helper mistake the same lock for different content. The copied execution snapshot contains42inputs; Git checkout policy is applied before that snapshot is made.
+`.gitattributes` keeps the generated lock's LF line endings on checkout, so Windows Git conversion cannot make the helper mistake the same lock for different content. The copied execution snapshot contains 42 inputs; Git checkout policy is applied before that snapshot is made.
 
 ## One command in the existing project environment
 
@@ -53,11 +55,11 @@ The auditor reuses the machine-data validator, checks completed package status, 
 
 At my request, the assistant completed the remaining environment/lint/reproduction setup and authored the reusable wrapper and CI workflow. This is assistant implementation/verification under explicit delegation, separate from my independent understanding.
 
-- Six focused lock tests pass. The generated14-package lock matches every wheel's identity/version/SHA-256; installed versions and dependency consistency were checked.
+- Six focused lock tests pass. The generated 14-package lock matches every wheel's identity, version and SHA-256; installed versions and dependency consistency were checked.
 - Ruff passes after adding the intended exclusions and removing four unused imports. The preserved scratch/editor files and original environment were retained.
-- The original-environment full suite passes169tests in21.173s; the copied-source/new-environment suite passes169tests in19.545s. These are test timings, not a benchmark or learner focused-time estimate.
-- Both regenerated reports complete76main cases plus five separate diagnostics. Each has343machine hashes,356package hashes,357files,11plots and421contained existing local references. All357files are byte-identical.
-- The42copied input hashes and14wheel hashes are retained in the reproduction record. The11PNG hashes match the figures individually inspected at the preceding report checkpoint. Browser-rendered layout remains unverified.
+- The original-environment full suite passes 169 tests in 21.173 s; the copied-source/new-environment suite passes 169 tests in 19.545 s. These are test timings, not a benchmark or learner focused-time estimate.
+- Both regenerated reports complete 76 main cases plus five separate diagnostics. Each has 343 machine hashes, 356 package hashes, 357 files, 11 plots and 421 contained existing local references. All 357 files are byte-identical.
+- The 42 copied input hashes and 14 wheel hashes are retained in the reproduction record. The 11 PNG hashes match the figures individually inspected at the preceding report checkpoint. Browser-rendered layout remains unverified.
 - Three separate negative controls return exit1: a modified decision CSV, an extra unlisted file and a partial package status. They use copies; accepted evidence is preserved.
 
 The local evidence folder is `outputs/m4-environment/reproduction-a333f2ee32424d88932841845026961c`, which is ignored by Git. The public repository contains the commands/configuration/code, not this local environment or wheelhouse.

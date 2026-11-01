@@ -1,6 +1,8 @@
 # M4 Block 5 — Run the CPU checks on a published revision
 
-Configured 1 November 2026 under the user's explicit delegation of the remaining M4 environment/reproduction/CI work. The assistant authored `.github/workflows/ci.yml`; this document explains it. Configuration, local verification and an actual remote run are separate evidence. **Remote CI remains pending until the published revision runs and its result is inspected.** Git actions belong to the coordinating chat's explicitly authorized scope; this section author did not stage, commit, push or merge anything.
+Actual acceptance, 1 November 2026: [hosted CI for code commit e64b12b](https://github.com/Lifelessdice/DriveCheck/actions/runs/41260971755) succeeded. Inspected logs show all 169 tests passing in 18.010 s, successful hash-locked installation, dependency/lint checks and full report generation. The final audit verifies 76 main cases plus five separate diagnostics, 343 machine hashes, 356 package hashes, 357 files, 11 plots and 421 local links. Learner understanding and main integration remain separate.
+
+Configured and verified on 1 November 2026 under the user's explicit delegation of the remaining M4 environment, reproduction and CI work. The assistant authored `.github/workflows/ci.yml` and committed/pushed the reviewed M4 work under separate explicit Git approval. This document explains the workflow; the linked run supplies actual hosted-execution evidence.
 
 The workflow runs on pushes, pull requests and manual dispatch. Its only repository permission is `contents: read`. It creates an isolated environment in the fresh CI checkout and selects **CPython 3.14.7 / Windows x64**, matching the recorded local target and platform-specific wheel hashes. The user's existing local `.venv` is not recreated or modified by this workflow.
 
