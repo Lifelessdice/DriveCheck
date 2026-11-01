@@ -2,6 +2,8 @@
 
 Prepared 1 November 2026. This is the backing copy of the complete teaching block delivered directly in chat. **Proposed learner code/tests below are not implemented or run by the lesson author.** Block 1's actual saved implementation passed 14 focused tests and 145 full tests. The assistant explicitly pushed the existing M4 branch at `3ebd668`; new files still require a selective learner commit to be included remotely.
 
+Acceptance update: the learner saved this block and produced run-a/run-b. Assistant review needed no source fix. Actual eight focused tests passed in 3.764 s; the full 153 tests passed in 29.979 s, both exit 0. Each saved run completes76 main+5 diagnostic cases,343 verified hashes and344 byte-identical files. Independent read-only checks cover662 audit rows/858 decisions, causal selection, all scoring and MAEs. Source/configuration hashes agree. No M4 rendered report/plot, fresh environment or CI is claimed. Continue with the complete [report/CLI block](m4-block3-offline-report.md), delivered directly in chat.
+
 ## Purpose and boundaries
 
 A pending plan says what should run. The next layer executes every case, retains its causal evidence and distinguishes an algorithm miss from a failed execution. It reuses the accepted M3 computation; it does not reimplement physics, fault generation, replay or scoring.

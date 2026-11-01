@@ -1,6 +1,6 @@
 # DriveCheck
 
-I am building a Python workbench to investigate how sensor quality affects a simple collision-warning algorithm. **M1–M3 and M4's first configuration/planning block are verified locally, with 145 tests passing overall.** The M3 study saves 28 fault-condition cases plus five separately evaluated latency diagnostics, with reproducible data, audits, reports and plots. M3 is integrated at `3ebd668`; M4 release work continues on `feature/m4-reproducible-release`. Technical checks and my demonstrated understanding are recorded separately; no remote CI result is claimed.
+I am building a Python workbench to investigate how sensor quality affects a simple collision-warning algorithm. **M1–M3 and M4's configuration/machine-results blocks are verified locally, with 153 tests passing overall.** The M4 machine runner saves 76 main cases plus five separately evaluated latency diagnostics with full traces and audits. M3 is integrated at `3ebd668`; M4 release work continues on `feature/m4-reproducible-release`. Technical checks and my demonstrated understanding are recorded separately; no remote CI result is claimed.
 
 I work in the original project files using guided code and explanations. My assistant prepares tests and study documents, helps with requested fixes and runs bounded checks when I delegate them. Earlier assistant-created M1 implementation/artifacts have been archived locally; they are separate from my active code and learning evidence.
 
@@ -8,7 +8,23 @@ I work in the original project files using guided code and explanations. My assi
 
 I saved the guided `release_config.py`, `test_m4_config.py` and `configs/m4-release.json`. Assistant review required no source changes; 14 focused configuration tests and all 145 project tests passed on 1 November 2026. The planner declares 76 pending main cases (38 contact/38 non-contact), preserving M3's native fault settings, jittered latency, seed-base mapping, policies and decision clock. These are inventory counts, not a new warning-results table.
 
-The [first M4 block](docs/lessons/m4-block1-release-plan.md) explains the validated plan. The [next execution block](docs/lessons/m4-block2-machine-results.md) supplies learner code for machine-readable results with separate timing diagnostics; that block remains proposed until saved and checked. Full release execution/reporting, failure-study presentation, actual clean-environment reproduction and CI remain unfinished. At my request, the assistant published the existing M4 branch; my new files require a selective checkpoint commit to be included remotely.
+The [first M4 block](docs/lessons/m4-block1-release-plan.md) explains the validated plan. I also saved the [machine-results execution block](docs/lessons/m4-block2-machine-results.md) and generated `outputs/m4-machine/run-a` and `run-b`. Assistant review required no source fixes; eight focused tests and all 153 project tests passed. Each saved run has 343 verified artifact hashes and 344 files; every file matches between runs. Causal traces, independent event scoring, full-horizon fresh-row MAEs and denominator accounting were checked. These are same-machine results, not clean-environment or remote CI evidence.
+
+The [failure study](docs/failure-study.md) explains the actual fixed-delay useful→late→missed sequence. The [offline-report/CLI block](docs/lessons/m4-block3-offline-report.md) is supplied for learner implementation; new M4 HTML/plots, full packaging, clean reproduction and CI remain pending. The Block 1 checkpoint is observed locally at `570057a`, matching its configured tracking ref. New machine-runner files require the next selective learner checkpoint.
+
+Observed M4 main results across bases 100/200/300:
+
+| Condition | Positive / negative | Useful / late / missed | False-warning episodes |
+| --- | ---: | ---: | ---: |
+| clean | 2 / 2 | 2 / 0 / 0 | 2 / 2 |
+| noise_low | 6 / 6 | 6 / 0 / 0 | 6 / 6 |
+| noise_strong | 6 / 6 | 6 / 0 / 0 | 6 / 6 |
+| latency_low | 6 / 6 | 5 / 1 / 0 | 6 / 6 |
+| latency_strong | 6 / 6 | 2 / 2 / 2 | 4 / 6 |
+| dropout_low | 6 / 6 | 6 / 0 / 0 | 6 / 6 |
+| dropout_strong | 6 / 6 | 6 / 0 / 0 | 5 / 6 |
+
+Clean is not triplicated under unused seeds. Scenarios/streams are shared across conditions; these are not independent real-road trials. Reduced negative warnings alone do not establish improvement when useful positive warnings are lost. The five fixed-delay diagnostic arms retain their own policy and summary.
 
 ## Study and implemented model
 
