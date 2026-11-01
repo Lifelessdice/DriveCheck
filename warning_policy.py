@@ -33,13 +33,13 @@ def validate_warning_settings(warning_threshold_s, max_age_s):
     require_finite("max_age_s", max_age_s, minimum=0)
 
 
-def decide(
+def prepare_decision(
     observation,
     now_s,
     warning_threshold_s=3.0,
     max_age_s=1.25,
 ):
-    """Apply the TTC policy to an arrived reading without extrapolation."""
+    """Validate source availability and preserve its original age and values."""
 
     require_finite("now_s", now_s, minimum=0)
     validate_warning_settings(warning_threshold_s, max_age_s)
@@ -69,26 +69,31 @@ def decide(
 
     if age_s > max_age_s:
         return replace(base, reason="stale")
+    return base
 
-    if observation.gap_m <= 0:
-        return replace(
-            base,
-            ttc_s=0.0,
-            is_warning=True,
-            reason="contact_or_overlap",
-        )
 
-    if observation.closing_speed_mps <= 0:
-        return replace(base, reason="not_closing")
+def ttc_from_state(gap_m, closing_speed_mps, warning_threshold_s=3.0):
+    """Apply the unchanged TTC branches to finite signed state values."""
+    require_finite("gap_m", gap_m)
+    require_finite("closing_speed_mps", closing_speed_mps)
+    require_finite("warning_threshold_s", warning_threshold_s, positive=True)
+    if gap_m <= 0:
+        return 0.0, True, "contact_or_overlap"
+    if closing_speed_mps <= 0:
+        return None, False, "not_closing"
 
-    ttc_s = observation.gap_m / observation.closing_speed_mps
+    ttc_s = gap_m / closing_speed_mps
     require_finite("computed ttc_s", ttc_s, minimum=0)
-
     warning = ttc_s <= warning_threshold_s
+    return ttc_s, warning, "ttc_warning" if warning else "ttc_clear"
 
-    return replace(
-        base,
-        ttc_s=ttc_s,
-        is_warning=warning,
-        reason="ttc_warning" if warning else "ttc_clear",
+
+def decide(observation, now_s, warning_threshold_s=3.0, max_age_s=1.25):
+    """Apply the original policy to arrived, eligible held measurements."""
+    base = prepare_decision(observation, now_s, warning_threshold_s, max_age_s)
+    if base.reason != "pending":
+        return base
+    ttc_s, warning, reason = ttc_from_state(
+        base.gap_m, base.closing_speed_mps, warning_threshold_s
     )
+    return replace(base, ttc_s=ttc_s, is_warning=warning, reason=reason)

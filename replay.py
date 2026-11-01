@@ -54,8 +54,13 @@ def replay(
     *,
     scenario_id,
     horizon_s,
+    decision_function=None,
 ):
     """Process all arrived records before each strictly ordered decision."""
+
+    decision_function = decide if decision_function is None else decision_function
+    if not callable(decision_function):
+        raise ValueError("decision_function must be callable or None")
 
     readings = list(observations)
     validate_observations(readings, scenario_id, horizon_s)
@@ -107,14 +112,12 @@ def replay(
             else:
                 ignored_older += 1
 
-        decisions.append(
-            decide(
-                latest,
-                now_s,
-                warning_threshold_s,
-                max_age_s,
-            )
+        decision = decision_function(
+            latest, now_s, warning_threshold_s, max_age_s
         )
+        if not isinstance(decision, Decision) or decision.decision_time_s != now_s:
+            raise ValueError("decision_function must return a Decision at now_s")
+        decisions.append(decision)
 
     return ReplayResult(
         decisions=decisions,
