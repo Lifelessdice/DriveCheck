@@ -1,5 +1,16 @@
 # M4 — Build a reproducible CPU release
 
+## Current delivery — 1 November 2026
+
+M3 is integrated at `3ebd668`. The learner saved [Block 1: release configuration and case plan](m4-block1-release-plan.md); 14 focused/145 full tests passed in assistant verification without source fixes. The explicitly requested `feature/m4-reproducible-release` branch is created and pushed at `3ebd668`, while new files await a selective learner commit. **Continue with [Block 2: execution and machine-readable evidence](m4-block2-machine-results.md)**, whose complete code/tests are supplied directly in chat and remain learner implementation work. No M4 full release run, clean reproduction or remote CI result is claimed.
+
+The current proposed release preserves M3's threshold 3 s, age 1.25 s, window 4 s, useful lead 1 s, source-plus-arrivals clock, native fault field names and base-plus-1–4 stream mapping. Both latency profiles include random jitter. Bases 100/200/300 therefore give **76 main cases (38 contact/38 non-contact)**, while the five fixed-delay diagnostics retain their separate policies and denominators. These are planning counts, not new outcomes.
+
+The execution/CLI, report/metric/failure-study, pinned environment/actual clean reproduction and CI acceptance topics remain in scope. The earlier proposal below is retained for conceptual study, but its example catalog, aliases, locks, changed policy/grid and 60-case matrix are historical assumptions. Use the current delivered block and actual source when implementing; subsequent code blocks will be mapped explicitly before use.
+
+<details>
+<summary>27 October study proposal — historical interfaces and examples</summary>
+
 Prepared 27 October 2026. **This lesson is study material. Its proposed code, commands and expected answers have not been implemented or run as M4.** You implement the section and collect the evidence. Read the blocks in order, work at your own pace and ask for help when useful; no reply is required between steps.
 
 The latest instruction is lesson authoring, correcting the earlier request that was interpreted as permission for autonomous implementation. Some M1 source, tests, dependencies and plots already exist as preserved AI reference material. Their presence does not mean you completed or understand M1. At authoring time, the inspected product has the M1 reference interfaces; the later modules below are proposed. This lesson changes only this document.
@@ -791,3 +802,5 @@ Check your understanding through one small independent task: predict what change
 Your C1 handoff should contain the frozen baseline config/result IDs, selected failure trace/plot and regression, exact reproducible environment, the unchanged warning/scoring contract and a clear new comparison question. Reserve separate development/tuning and final evaluation cases/seeds before choosing or tuning an alternative. C1 can compare one bounded method on the same causal streams and policy; it does not require a Kalman filter, a measured improvement or CARLA. A losing or mixed comparison can still be a sound investigation.
 
 **Lesson completion:** this study material is ready to follow. **Learner/project completion:** implementation, observed runs, clean reproduction, explanation and remote CI evidence remain pending until you perform and review them. Git/publication choices remain entirely yours.
+
+</details>

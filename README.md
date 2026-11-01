@@ -1,8 +1,14 @@
 # DriveCheck
 
-I am building a Python workbench to investigate how sensor quality affects a simple collision-warning algorithm. **M1, M2 and all five technical M3 blocks are verified locally, with 131 tests passing overall.** The M3 study saves 28 fault-condition cases plus five separately evaluated latency diagnostics, with reproducible data, audits, reports and plots. Technical checks and my demonstrated understanding are recorded separately. M3's final commit/push and main integration remain learner-run steps; no remote CI result is claimed.
+I am building a Python workbench to investigate how sensor quality affects a simple collision-warning algorithm. **M1–M3 and M4's first configuration/planning block are verified locally, with 145 tests passing overall.** The M3 study saves 28 fault-condition cases plus five separately evaluated latency diagnostics, with reproducible data, audits, reports and plots. M3 is integrated at `3ebd668`; M4 release work continues on `feature/m4-reproducible-release`. Technical checks and my demonstrated understanding are recorded separately; no remote CI result is claimed.
 
 I work in the original project files using guided code and explanations. My assistant prepares tests and study documents, helps with requested fixes and runs bounded checks when I delegate them. Earlier assistant-created M1 implementation/artifacts have been archived locally; they are separate from my active code and learning evidence.
+
+## Current M4 checkpoint
+
+I saved the guided `release_config.py`, `test_m4_config.py` and `configs/m4-release.json`. Assistant review required no source changes; 14 focused configuration tests and all 145 project tests passed on 1 November 2026. The planner declares 76 pending main cases (38 contact/38 non-contact), preserving M3's native fault settings, jittered latency, seed-base mapping, policies and decision clock. These are inventory counts, not a new warning-results table.
+
+The [first M4 block](docs/lessons/m4-block1-release-plan.md) explains the validated plan. The [next execution block](docs/lessons/m4-block2-machine-results.md) supplies learner code for machine-readable results with separate timing diagnostics; that block remains proposed until saved and checked. Full release execution/reporting, failure-study presentation, actual clean-environment reproduction and CI remain unfinished. At my request, the assistant published the existing M4 branch; my new files require a selective checkpoint commit to be included remotely.
 
 ## Study and implemented model
 

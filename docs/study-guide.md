@@ -2,9 +2,9 @@
 
 The sections below are complete study-ready lessons that I follow at my own pace. My assistant prepares explanations, guided code, meaningful exercises, commands, expected checks and debugging guidance; I implement and run the project. I can work through a full block without replying between commands and ask for help whenever I need it.
 
-The workspace includes AI-created M1 reference code, dependencies and plots. They are preserved reference material, separate from my own implementation and understanding. My reviewed learner work currently covers the original calculation/test, guided five-row table and first CSV save/read-back; the broader M1 learning work remains in progress.
+Current technical checkpoint, 1 November 2026: guided M1–M3 and [M4's configuration/planning block](lessons/m4-block1-release-plan.md) are accepted locally, with 14 focused/145 full tests passing. M3 is integrated at `3ebd668`; `feature/m4-reproducible-release` is explicitly created/pushed there, with new files awaiting a selective learner commit. [The next complete execution block](lessons/m4-block2-machine-results.md) is supplied directly in chat for me to implement. Full M4 execution/report/clean-environment/CI evidence remains pending. Guided implementation, assistant assistance and my independent understanding remain separate.
 
-Latest preference, 2026-10-27: I work in the original project files, without a required duplicate practice implementation. At my request, the assistant's completed M1 code/artifacts were archived privately and the original learner code restored. I resume at the partial sampler in `motion.py` and extend `test_motion.py`. The environment is retained; setup is not restarted. Historical reference runs do not establish that the restored code or my pending changes pass new tests.
+I work in the original project files, without a required duplicate practice implementation. At my request on 27 October, the earlier assistant M1 reference was archived and learner work restored; subsequent guided M1–M3 work has its own recorded acceptance. Keep the current code/environment and observed checkpoints rather than restoring that historical starting point. Reference runs alone do not establish my understanding.
 
 ## Section order
 
@@ -19,9 +19,9 @@ Latest preference, 2026-10-27: I work in the original project files, without a r
 
 All six complete lesson documents are ready. The lesson sequence, worked fixtures, shared fault/seed adapters, comparison counts/metrics and local links have been reviewed. I start with M1 and work through each section at my own pace, asking questions when useful. A ready lesson does not mean its project code, checks or learning criteria are complete. M0's recorded foundation work is retained; I do not restart setup.
 
-## Shared proposed interfaces for the later lessons
+## Shared interfaces and later proposals
 
-These are curriculum conventions to keep the examples coherent, not a claim that the later modules exist. I can refine them with my coach when implementing a section, then update dependent lessons explicitly.
+M1–M3 now implement the truth/observation/replay/warning/scoring contracts. Some wording below originated as curriculum proposals; inspect the actual modules when extending them. `experiments.py`/`drivecheck.py` currently support the M2 schema, while M3 has its accepted separate study driver. M4 release dispatch and C1 comparison remain learner work. The current M4 block supersedes historical aliases, seed mappings and parameter examples in the original lesson.
 
 - Existing M1 reference truth fields: `scenario_id`, `sample_id`, `time_s`, `ego_front_x_m`, `lead_rear_x_m`, `ego_speed_mps`, `lead_speed_mps`, `gap_m`, `closing_speed_mps`. SI units and positive forward axis apply. Independent contact events come from clean continuous trajectories within the declared horizon.
 - Proposed `observations.py`: an `Observation` record containing `scenario_id`, `sample_id`, `measurement_time_s`, `arrival_time_s`, `gap_m`, `closing_speed_mps`. Dropout omits a reading and preserves the time grid/source IDs; it never becomes a zero gap. Fault configuration/seed are recorded separately.

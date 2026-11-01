@@ -1,0 +1,80 @@
+{
+  "schema_version": "drivecheck.m4.v1",
+  "fixture_set": "m1_braking_and_m3_stop_go",
+  "scenario_ids": [
+    "lead_braking_contact",
+    "lead_braking_noncontact",
+    "stop_and_go_contact",
+    "stop_and_go_noncontact"
+  ],
+  "conditions": [
+    {
+      "condition_id": "clean",
+      "fault": {
+        "mode": "clean"
+      },
+      "seed_bases": [null]
+    },
+    {
+      "condition_id": "noise_low",
+      "fault": {
+        "mode": "noise",
+        "gap_sigma_m": 0.2,
+        "closing_sigma_mps": 0.1
+      },
+      "seed_bases": [100, 200, 300]
+    },
+    {
+      "condition_id": "noise_strong",
+      "fault": {
+        "mode": "noise",
+        "gap_sigma_m": 1.0,
+        "closing_sigma_mps": 0.5
+      },
+      "seed_bases": [100, 200, 300]
+    },
+    {
+      "condition_id": "latency_low",
+      "fault": {
+        "mode": "latency",
+        "latency_s": 0.25,
+        "latency_jitter_s": 0.1
+      },
+      "seed_bases": [100, 200, 300]
+    },
+    {
+      "condition_id": "latency_strong",
+      "fault": {
+        "mode": "latency",
+        "latency_s": 0.5,
+        "latency_jitter_s": 1.5
+      },
+      "seed_bases": [100, 200, 300]
+    },
+    {
+      "condition_id": "dropout_low",
+      "fault": {
+        "mode": "dropout",
+        "dropout_probability": 0.1
+      },
+      "seed_bases": [100, 200, 300]
+    },
+    {
+      "condition_id": "dropout_strong",
+      "fault": {
+        "mode": "dropout",
+        "dropout_probability": 0.4
+      },
+      "seed_bases": [100, 200, 300]
+    }
+  ],
+  "warning": {
+    "threshold_s": 3.0,
+    "max_age_s": 1.25
+  },
+  "scoring": {
+    "pre_event_window_s": 4.0,
+    "minimum_useful_lead_s": 1.0
+  },
+  "decision_clock": "sample_times_union_arrivals_within_horizon"
+}
