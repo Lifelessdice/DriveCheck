@@ -1,5 +1,15 @@
 # DriveCheck research and decisions
 
+## C1 estimate contract verified — 2 November 2026
+
+The learner saved the supplied raw/age-projection estimate module and 15-test fixture module. Actual source review and independent read-only review found no blocking issue; no product fix was needed. Assistant-run project-interpreter checks passed 15 focused tests in 0.001 s and all184 tests in64.138s, both exit0. Checked source/timestamp identity, fractional age15m, opening19.5m, signed overlap-5m, unavailable/invalid inputs, overflow/repeat behavior and the changing-speed loss (raw error2.5m versus projected7.5m). This is model/contract evidence, not observed warning improvement, final evaluation or a new remote CI result. Existing warning/replay/evaluator/product configuration remain unchanged; next work is causal integration with raw-baseline compatibility and the unchanged freshness rules.
+
+## C1 opening — 1 November 2026
+
+Actual warning/replay/observation/release contracts and saved failure study support one bounded candidate: estimated_gap = measured_gap - measured_closing_speed * source_age. It targets a fresh-but-old held gap, not a stale override or pending-data access. Diagnostic decision4/ID1 measured1/arrived3.5/gap25/closing5/age3 predicts10m/TTC2 and useful lead2 before independent contact6. This is analytic prediction, not an executed C1 result. A changing-speed fixture deliberately makes projected error larger.
+
+Primary sources rechecked: [OpenStax displacement reasoning](https://openstax.org/books/university-physics-volume-1/pages/3-4-motion-with-constant-acceleration), [official SUMO following-vehicle TTC](https://sumo.dlr.de/docs/Simulation/Output/SSM_Device.html#ttc). These support kinematic/ratio reasoning, not experimental thresholds or safety. No external code copied or dependency selected; no smoothing/Kalman method added. Current M4 native76main/jittered latency/base+1..4/eligible-full-horizon MAEs/5separate diagnostics supersede historical C1 recipes. Block1 model/test code is teaching material only; causal integration, split freeze and complete evaluation remain pending.
+
 ## M4 hosted CI verified — 1 November 2026
 
 [GitHub run 41260971755](https://github.com/Lifelessdice/DriveCheck/actions/runs/41260971755), job 124713983843, succeeded for code commit e64b12baf4a4ba5e93a91e2b40541bb7c5df6ed4. Inspected summaries and logs confirm CPython 3.14.7 on Windows x64, all 14 hash-locked packages, successful dependency/lint checks, 169 tests passing in 18.010 s and full CLI report generation. The final audit verifies 76 main cases plus five separate diagnostics, 343 machine hashes, 356 package hashes, 357 files, 11 plots and 421 links. This supersedes the earlier configuration-time pending notes. The assistant performed the approved M4 commit/push; main remains unmerged. Cross-machine byte identity, browser layout and independent learner mastery remain untested.

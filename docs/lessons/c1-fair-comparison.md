@@ -1,5 +1,20 @@
 # C1 — Investigate one failure through a fair comparison
 
+## Current learner delivery — 1 November 2026
+
+**Review update, 2 November 2026:** the learner saved `c1_estimators.py` and `test_c1_estimators.py`. Assistant source review and independent read-only review found no blocking issue; no source change was needed. Actual checks passed 15 focused tests in 0.001 s and all 184 tests in 64.138 s, both exit 0. C1 is **1 of 5 blocks technically verified locally**. Source provenance, availability, signed projection, repeated-call behavior and the independently calculated loss fixture are checked. Replay integration and warning-performance comparison remain pending; no new C1 report, remote CI, Git commit/push or learner mastery is inferred. The opening delivery snapshot below is historical where it says 0/5 or expected-only.
+
+The user requested starting C1 with substantial blocks in chat and a new branch. The assistant created `feature/c1-fair-comparison` from locally observed `main` at `b727acb`; no staging/commit/push or merge occurred. Existing unrelated files are preserved. M4's recorded technical acceptance includes 169 tests, clean reproduction and actual hosted CI; these checks were not rerun to open C1. Learner understanding remains separate.
+
+Start with [Block 1: source-preserving current-state estimates](c1-block1-state-estimates.md). It supplies theory, the actual-failure hand prediction, complete proposed `c1_estimators.py` / `test_c1_estimators.py`, 15 independent checks, learner-run commands and expected outcomes. **C1 is 0 of 5 blocks technically verified** at delivery. No C1 product file, experiment or test run has been performed. The expected total of 184 tests assumes all existing 169 and the 15 proposed tests are saved unchanged; it is not an observed result.
+
+The selected candidate is constant-closing-speed gap projection from the actual [fresh-but-old diagnostic failure](../failure-study.md). Keep source timestamps/measurements and availability intact. No stale override, policy retuning, truth access or Kalman implementation is proposed. Later blocks cover causal replay/raw compatibility, development/evaluation split and paired inputs, full execution/reporting, then interpretation and M5 handoff.
+
+The implemented M4 contract supersedes the historical example below: 76 main cases with six stochastic profiles (both latency profiles have jitter), native seed bases 100/200/300 mapped to base+1..4, source-plus-arrivals clock, unchanged threshold3/age1.25/window4/useful-lead1 seconds, plus five separate fixed-delay diagnostics using threshold2/age3/window3/useful-lead1 seconds. Current errors are eligible-decision full-horizon aligned MAEs. No RMSE substitution or historical60/92-case plan is adopted. Future holdout configurations/seeds are not frozen yet.
+
+<details>
+<summary>27 October study proposal — historical interfaces, matrix, metric and seed assumptions</summary>
+
 Prepared 27 October 2026. **Lesson ready for study; learner implementation, experiments and understanding remain pending.** This document is teaching material. Its code, commands, filenames and expected fixtures are proposals for you to implement, unless explicitly described as inspected existing reference material. No C1 experiment or improvement is claimed.
 
 Read this section after working through M1–M4. You may read ahead now, but do the implementation only once you can reproduce your CPU baseline and point to an observed M4 failure. Work from `E:\DriveCheck`. Keep the working baseline and its saved results. Git, publication and remote CI remain yours; no simulator is required.
@@ -565,3 +580,5 @@ A claim such as “this method improves safety” is unsupported. A defensible f
 Your handoff to M5 is the preserved baseline identity, frozen C1 plan/selection, actual verification commands/results, complete comparison report, failure/regression evidence, one supported conclusion, limitations and the short explanation you can give. Learner understanding is demonstrated through your attempt and explanation; passing supplied tests or reading this lesson does not establish it.
 
 **Current checkpoint:** the C1 lesson is prepared. Selection of an actual failure/method, learner code, product commands, measured results, report and teach-back are pending. No C1 implementation, benchmark improvement, remote CI success or publication is claimed by this document.
+
+</details>

@@ -1,10 +1,16 @@
 # DriveCheck
 
-I am building a Python workbench to investigate how sensor quality affects a simple collision-warning algorithm. **M4's technical checks are accepted on `feature/m4-reproducible-release`: local clean-source/new-environment reproduction and actual Windows CI pass.** The workflow saves 76 main cases plus five separately evaluated latency diagnostics, full traces/audits and a local HTML report. All 169 tests pass locally and remotely. Learner understanding and integration into `main` remain separate; no main merge has been performed.
+I am building a Python workbench to investigate how sensor quality affects a simple collision-warning algorithm. **M4 is the accepted CPU baseline, supported by local clean-source/new-environment reproduction and actual Windows CI at the recorded M4 revision.** The workflow saves 76 main cases plus five separately evaluated latency diagnostics, full traces/audits and a local HTML report. The recorded M4 checks passed 169 tests locally and remotely. The C1 branch starts from that accepted head observed on local `main`; its newer local checks are recorded separately below. Learner understanding remains separate from technical acceptance.
 
 I work in the original project files using guided code and explanations. My assistant prepares tests and study documents, helps with requested fixes and runs bounded checks when I delegate them. Earlier assistant-created M1 implementation/artifacts have been archived locally; they are separate from my active code and learning evidence.
 
-## Current M4 checkpoint
+## C1: first estimator block verified locally
+
+On 2 November 2026, assistant review of my saved `c1_estimators.py` and `test_c1_estimators.py` required no source changes. All 15 focused tests passed, and the complete 184-test suite passed in 64.138 s. The immutable estimate retains its original observation/timestamps, supports raw held values and constant-closing-speed gap projection, and rejects unavailable/non-finite inputs. Independent fixtures include a changing-speed counterexample where projection has larger error.
+
+This accepts **Block 1 of 5**, the estimate contract and arithmetic. It does not establish a warning improvement: replay integration, unchanged-policy compatibility, separate development/evaluation cases and the complete comparison remain pending. No C1 report or new remote CI result is claimed. I saved supplied teaching code; assistant verification does not establish independent mastery. See [the reviewed first block](docs/lessons/c1-block1-state-estimates.md).
+
+## Accepted M4 baseline
 
 I saved the guided `release_config.py`, `test_m4_config.py` and `configs/m4-release.json`. Assistant review required no source changes; 14 focused configuration tests and all 145 project tests passed on 1 November 2026. The planner declares 76 pending main cases (38 contact/38 non-contact), preserving M3's native fault settings, jittered latency, seed-base mapping, policies and decision clock. These are inventory counts, not a new warning-results table.
 
