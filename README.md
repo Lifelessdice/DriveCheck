@@ -10,6 +10,8 @@ On 2 November 2026, assistant review of my saved `c1_estimators.py` and `test_c1
 
 This accepts **Block 1 of 5**, the estimate contract and arithmetic. It does not establish a warning improvement: replay integration, unchanged-policy compatibility, separate development/evaluation cases and the complete comparison remain pending. No C1 report or new remote CI result is claimed. I saved supplied teaching code; assistant verification does not establish independent mastery. See [the reviewed first block](docs/lessons/c1-block1-state-estimates.md).
 
+[Block 2's complete study instructions](docs/lessons/c1-block2-causal-integration.md) are prepared for learner implementation: common arrival/age/TTC rules, causal replay integration and source-versus-estimated trace evidence. Its proposed code and 14 new tests are not yet saved or run as product work; the accepted checkpoint remains Block 1.
+
 ## Accepted M4 baseline
 
 I saved the guided `release_config.py`, `test_m4_config.py` and `configs/m4-release.json`. Assistant review required no source changes; 14 focused configuration tests and all 145 project tests passed on 1 November 2026. The planner declares 76 pending main cases (38 contact/38 non-contact), preserving M3's native fault settings, jittered latency, seed-base mapping, policies and decision clock. These are inventory counts, not a new warning-results table.

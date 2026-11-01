@@ -1,5 +1,11 @@
 # DriveCheck research and decisions
 
+## C1 causal integration design — 2 November 2026
+
+Block2 teaching uses one existing replay queue and shared source gating/TTC helpers, with an optional decision callback. This avoids a copied causal scheduler, source timestamp rewriting and an alternative path that must first execute raw TTC arithmetic. Default raw behavior/Decision shape remain the compatibility target; no C1 dependency is imported by baseline modules. Original source, estimated state and used Decision are recorded separately so offline current-time error evaluates the actual used state. Sources are actual inspected local APIs; no new dependency/source formula selected.
+
+Fourteen proposed tests preserve old raw diagnostics and check common boundaries, older/simultaneous arrivals, source identity, causal prefixes and current-time MAEs. Under the known diagnostic, eight eligible ages alternate2.5/3seconds, giving raw gap error12.5/15metres and mean13.75m; constant-speed projection predicts0 on the same rows and firstwarning4/usefullead2. These remain analytic development-fixture predictions until learner implementation/runs. No C1 performance/generalization or new remoteCI result is claimed. Existing184-test acceptance is unchanged.
+
 ## C1 estimate contract verified — 2 November 2026
 
 The learner saved the supplied raw/age-projection estimate module and 15-test fixture module. Actual source review and independent read-only review found no blocking issue; no product fix was needed. Assistant-run project-interpreter checks passed 15 focused tests in 0.001 s and all184 tests in64.138s, both exit0. Checked source/timestamp identity, fractional age15m, opening19.5m, signed overlap-5m, unavailable/invalid inputs, overflow/repeat behavior and the changing-speed loss (raw error2.5m versus projected7.5m). This is model/contract evidence, not observed warning improvement, final evaluation or a new remote CI result. Existing warning/replay/evaluator/product configuration remain unchanged; next work is causal integration with raw-baseline compatibility and the unchanged freshness rules.
