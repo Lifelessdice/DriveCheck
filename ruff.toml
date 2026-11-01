@@ -1,0 +1,6 @@
+required-version = "==0.14.0"
+target-version = "py314"
+extend-exclude = ["outputs", ".private", "practice_m1.py", "t_motion.py"]
+
+[lint]
+select = ["E4", "E7", "E9", "F"]

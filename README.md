@@ -1,6 +1,6 @@
 # DriveCheck
 
-I am building a Python workbench to investigate how sensor quality affects a simple collision-warning algorithm. **M1–M3 and M4's configuration, execution and offline-report/CLI blocks are verified locally, with 163 tests passing overall.** The M4 workflow saves 76 main cases plus five separately evaluated latency diagnostics, full traces/audits and a local HTML report. M3 is integrated at `3ebd668`; M4 release work continues on `feature/m4-reproducible-release`. Technical checks and my demonstrated understanding are recorded separately; clean-environment reproduction and remote CI remain pending.
+I am building a Python workbench to investigate how sensor quality affects a simple collision-warning algorithm. **The M4 local release and clean-source/new-environment reproduction checks pass, with all 169 tests passing in both environments.** The workflow saves 76 main cases plus five separately evaluated latency diagnostics, full traces/audits and a local HTML report. M4 work continues on `feature/m4-reproducible-release`; the Windows CI workflow is configured and its actual remote result remains pending. Technical checks and my demonstrated understanding are recorded separately; M4 is not yet closed.
 
 I work in the original project files using guided code and explanations. My assistant prepares tests and study documents, helps with requested fixes and runs bounded checks when I delegate them. Earlier assistant-created M1 implementation/artifacts have been archived locally; they are separate from my active code and learning evidence.
 
@@ -12,7 +12,9 @@ The [first M4 block](docs/lessons/m4-block1-release-plan.md) explains the valida
 
 I saved the [offline-report/CLI block](docs/lessons/m4-block3-offline-report.md) and generated `outputs/m4-release/run-a` and `run-b`. Assistant review required no product fixes: 10 focused tests passed in 3.481 s and all 163 project tests passed in 20.382 s. Both runs complete 76 main cases plus five separate diagnostics. Each has 343 verified machine hashes, 356 package hashes, 357 files and 421 contained local report references; every file matches between runs. All 11 selected plots were individually inspected. Browser-rendered HTML layout was not verified.
 
-The [failure study](docs/failure-study.md) and report show the saved fixed-delay useful→late→missed sequence, including the fresh but clear reading at 6 s and the alarming reading arriving at 6.5 s. `drivecheck.py` supports both M2 and M4; machine evidence and report-package status remain separate. Local HEAD `a47f845` matches its configured tracking ref; this is not a new live remote or CI check. The next supplied [environment block](docs/lessons/m4-block4-environment.md) covers the fixed helper/test/lint files, wheel-hash lock and actual clean-source/new-environment reproduction. Those files, installation, reproduction and CI remain pending. Test durations do not measure learner study time or establish independent understanding.
+The [failure study](docs/failure-study.md) and report show the saved fixed-delay useful→late→missed sequence, including the fresh but clear reading at 6 s and the alarming reading arriving at 6.5 s. `drivecheck.py` supports both M2 and M4; machine evidence and report-package status remain separate.
+
+On 1 November I explicitly delegated the remaining M4 environment, reproduction and CI work to my assistant. It completed the lock/lint setup and reusable reproduction wrapper, removed four unused imports and prepared the Windows CI workflow. The original-environment suite passed 169 tests in 21.173 s; the copied-source/new-environment suite passed 169 tests in 19.545 s. All 42 copied input hashes and 14 installed package versions/wheel hashes match their records and lock. Both regenerated 357-file reports match byte for byte, including all 11 PNGs from the earlier visual review; each retains 343 machine hashes, 356 package hashes and 421 contained links. Dependency consistency and lint pass. Three separate damaged/incomplete evidence controls fail as expected. These are assistant-performed local checks on this machine; actual remote CI remains pending. See [the reproduction record and commands](docs/reproduction.md). Test durations do not measure learner study time or establish independent understanding.
 
 Observed M4 main results across bases 100/200/300:
 
@@ -27,6 +29,19 @@ Observed M4 main results across bases 100/200/300:
 | dropout_strong | 6 / 6 | 6 / 0 / 0 | 5 / 6 |
 
 Clean is not triplicated under unused seeds. Scenarios/streams are shared across conditions; these are not independent real-road trials. Reduced negative warnings alone do not establish improvement when useful positive warnings are lost. The five fixed-delay diagnostic arms retain their own policy and summary.
+
+## Reproduce the locked CPU release
+
+From the existing project environment, one command creates a new environment, copies the explicit 42-file source/configuration/tooling/workflow inventory and runs both complete workflows:
+
+```powershell
+Set-Location 'E:\DriveCheck'
+.\.venv\Scripts\python.exe -E -s -m tools.reproduce
+```
+
+With the project interpreter selected, the equivalent command is `python -E -s -m tools.reproduce`. Add `--wheelhouse <existing wheelhouse directory>` to reuse already downloaded wheels. Source filenames remain fixed; the wrapper automatically chooses a fresh `outputs/m4-environment/reproduction-<id>` evidence directory and prints its location. `reproduction.json` records status, hashes and any differing outputs. The existing environment must contain the recorded runtime dependencies for the baseline; [reproduction instructions](docs/reproduction.md) also cover a new checkout, cache reuse and individual report audits.
+
+The supported hash-lock target is CPython 3.14.7 on Windows x64. Local proof uses a new source copy and package environment on the same machine; it does not establish a fresh OS, another platform or successful remote CI.
 
 ## Run the M4 offline report
 
@@ -58,7 +73,7 @@ Set-Location E:\DriveCheck
 Start-Process .\outputs\m3-study\example-01\report.html
 ```
 
-The driver refuses existing output folders. Its default seed base 100 maps to gap/closing/latency/dropout streams 101/102/103/104 in the main matrix. `--seed-base 200` changes that bundle; `--all-plots` renders all 33 cases instead of the 12 figures selected in advance. Neither option changes warning/scoring rules. A clean machine/environment reproduction remains M4 work.
+The driver refuses existing output folders. Its default seed base 100 maps to gap/closing/latency/dropout streams 101/102/103/104 in the main matrix. `--seed-base 200` changes that bundle; `--all-plots` renders all 33 cases instead of the 12 figures selected in advance. Neither option changes warning/scoring rules. M4's complete reproduction workflow above is verified on this machine; a fresh OS or another platform remains untested.
 
 The main matrix crosses four independent contact/non-contact fixtures with seven clean/low/strong single-fault profiles. Every profile has two positive and two negative episodes. The fixed-delay diagnostic uses a separate policy and summary. Each case retains truth identity, settings, full observations/audit/decisions, execution status, score and aligned errors. Shared truth snapshots, configuration, runtime/source provenance, artifact hashes, complete CSV/JSON summaries and a local HTML report accompany the case exports. Failed executions remain unscored in the declared denominator; a valid warning miss is a complete execution.
 
@@ -219,8 +234,8 @@ Each sidecar records SI units, bumper-axis/sign conventions, sampling/horizon ru
 
 ## Current limits and attribution
 
-The supplied trajectory, observation, replay/TTC, independent-scoring, aligned-error and report checks pass, including the delegated changed-age experiment and saved M3/M4 studies. Negative gaps are virtual overlap of prescribed paths, with no impact response simulated. The M2 CLI remains supported; `drivecheck.py` also dispatches the configurable M4 matrix and report, while `m3_study.py` preserves the bounded M3 study. Combined faults, clean-environment reproduction and remote CI remain later work. Error MAEs equally weight fresh decision rows over the full horizon, including virtual post-contact motion; arrival jitter changes row timing/counts. The diagnostic uses explicitly different settings from the main matrix and is not a claimed improvement or general benchmark. Extreme numeric inputs may fail explicitly rather than produce an unsupported result. Passing supplied tests or reading the explanation does not establish independent implementation or understanding.
+The supplied trajectory, observation, replay/TTC, independent-scoring, aligned-error and report checks pass, including the delegated changed-age experiment and saved M3/M4 studies. Negative gaps are virtual overlap of prescribed paths, with no impact response simulated. The M2 CLI remains supported; `drivecheck.py` also dispatches the configurable M4 matrix and report, while `m3_study.py` preserves the bounded M3 study. Local clean-source/new-environment reproduction passes; combined faults, cross-platform validation and an actual remote CI result remain outside that evidence. Error MAEs equally weight fresh decision rows over the full horizon, including virtual post-contact motion; arrival jitter changes row timing/counts. The diagnostic uses explicitly different settings from the main matrix and is not a claimed improvement or general benchmark. Extreme numeric inputs may fail explicitly rather than produce an unsupported result. Passing supplied tests or reading the explanation does not establish independent implementation or understanding.
 
-The existing environment uses Python 3.14.7. The motion model uses the standard library; export plots use the retained Matplotlib installation and PNG verification uses Pillow. `requirements.txt` records the 12 installed runtime dependency versions and was checked against the environment. It is a version snapshot, not a wheel-hash lock or fresh-environment reproduction result. See [research and historical dependency decisions](docs/research.md). Fresh-environment/remote CI evidence remains later work.
+The original environment uses Python 3.14.7. The motion model uses the standard library; export plots use Matplotlib and PNG verification uses Pillow. `requirements.txt` records 12 runtime versions; `requirements-lock.txt` binds their selected wheel bytes plus pip 26.2.1 and Ruff 0.14.0. All 14 packages were installed and checked in the new environment. See [reproduction instructions and evidence](docs/reproduction.md) and [research/dependency decisions](docs/research.md). The lock targets Windows x64/CPython 3.14.7; remote CI is configured but not yet verified.
 
 I completed the original calculation, guided loop and first known-answer test with AI-assisted teaching/templates. The earlier assistant-created full M1 reference was archived when I chose to build in the original files; current lessons and targeted assistant fixes are attributed separately. The GitHub repository is public; no remote CI result is claimed. This is an offline simplified model, with no real-vehicle control or safety-validation claim.

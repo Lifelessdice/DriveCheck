@@ -1,0 +1,67 @@
+name: CPU release checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows-cpu:
+    name: Windows x64 / CPython 3.14.7
+    runs-on: windows-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Check out the requested revision
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+
+      - name: Select the recorded Python runtime
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: '3.14.7'
+          architecture: 'x64'
+          check-latest: false
+
+      - name: Check the runtime and create an isolated CI environment
+        run: |
+          python -E -s -c "import platform, struct, sys; expected = platform.python_implementation() == 'CPython' and sys.version_info[:3] == (3, 14, 7) and sys.platform == 'win32' and struct.calcsize('P') == 8 and platform.machine().lower() in {'amd64', 'x86_64'}; print(platform.python_implementation(), platform.python_version(), platform.system(), platform.machine()); sys.exit(0 if expected else 'Expected CPython 3.14.7 / Windows x64')"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -E -s -m venv .venv
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Install the hash-locked package artifacts
+        run: |
+          .\.venv\Scripts\python.exe -E -s -m pip --isolated install --index-url https://pypi.org/simple --require-hashes --only-binary=:all: --force-reinstall -r requirements-lock.txt
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Check dependency consistency
+        run: |
+          .\.venv\Scripts\python.exe -E -s -m pip check
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Check Python source with the pinned Ruff rules
+        run: |
+          .\.venv\Scripts\python.exe -E -s -m ruff check --config ruff.toml .
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Run all unit and integration tests
+        run: |
+          .\.venv\Scripts\python.exe -E -s -m unittest -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Generate the complete configured CPU report
+        run: |
+          .\.venv\Scripts\python.exe -E -s drivecheck.py --config configs/m4-release.json --output-dir outputs/ci-release
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Verify saved report evidence and local assets
+        run: |
+          .\.venv\Scripts\python.exe -E -s -m tools.reproduce --verify-run outputs/ci-release
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

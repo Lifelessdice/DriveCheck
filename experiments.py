@@ -7,7 +7,7 @@ from importlib import metadata
 from pathlib import Path
 
 from evaluation import aligned_errors, score_case, summarize
-from m1 import ROOT, matches, save_plot, sha256, write_json
+from m1 import ROOT, matches, sha256, write_json
 from motion import first_contact_time, require_finite, sample_truth
 from observations import make_observations
 from replay import make_decision_times, replay

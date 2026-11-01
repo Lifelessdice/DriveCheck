@@ -1,5 +1,7 @@
 # M4 Block 4 — Lock dependencies and reproduce from clean inputs
 
+Actual acceptance,1November2026: after the user explicitly delegated the remaining setup, the assistant completed Ruff/import cleanup and authored a reusable [one-command reproduction tool](../reproduction.md). Six focused lock tests pass; full169tests pass in the original environment21.173s and new environment/copied source19.545s. All14wheel/installed pins and42copied inputs were verified; both81-case packages have357byte-identical files,343machine/356package hashes,421links and11plots. Three negative controls reject tampered/unlisted/partial evidence. Existingenv/scratch/outputs preserved. RemoteCI remains pending. The original learner delivery below records the earlier proposed state and manual40-input route; the current wrapper additionally freezes itself and the workflow, giving42inputs.
+
 Prepared 1 November 2026. This is complete learner-run teaching material, also supplied directly in chat. No helper, lock, lint configuration, dependency installation or reproduction below has been implemented/run by the assistant. Blocks 1–3 are accepted locally; clean-environment reproduction and CI remain pending.
 
 The fixed source filenames in this block are `tools/lock_requirements.py`, `test_environment_lock.py` and `ruff.toml`. The helper generates one fixed `requirements-lock.txt`. Generated experiment folders receive a timestamp and random suffix automatically so previous evidence is preserved. Continue on `feature/m4-reproducible-release`.

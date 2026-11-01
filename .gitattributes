@@ -1,0 +1,2 @@
+# Preserve the exact generated lock bytes when Git checks out on Windows.
+requirements-lock.txt text eol=lf
