@@ -1,5 +1,7 @@
 # M4 block 3 — Readable offline evidence and one public CLI
 
+Actual acceptance,1 November2026: learner-saved report/CLI/tests and both releases were reviewed without product fixes. Actual10focused tests OK3.481s/163full OK20.382s. Both runs complete76main+5separate diagnostics; each343machine hashes/356package hashes/357files/421containedexistinglocal references/11plots individuallyinspected. All357files match between runs. Browserlayout remains unverified after a local-file URL policy block. Clean reproduction/CI remain pending. Continue with [Block4: environment and reproduction](m4-block4-environment.md); the original delivery note below records the earlier proposed state.
+
 Prepared 1 November 2026. Block 2 is actually accepted: eight focused/153 full tests pass; both saved runs contain76 main plus5 separate diagnostics,343 verified artifact hashes/344 byte-identical files. This next block is **learner code supplied in chat**, not assistant product implementation or an observed report result.
 
 Keep the same branch and save the reviewed Block2 checkpoint before moving on. Create release_report.py/test_m4_report.py and update drivecheck.py as supplied. No new package is needed: use the existing Matplotlib/Pillow and standard library.
