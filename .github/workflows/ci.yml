@@ -65,3 +65,10 @@ jobs:
         run: |
           .\.venv\Scripts\python.exe -E -s -m tools.reproduce --verify-run outputs/ci-release
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Generate and audit the complete paired C1 comparison
+        run: |
+          .\.venv\Scripts\python.exe -E -s c1_compare.py --config configs/c1-comparison.json --output-dir outputs/ci-c1
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          .\.venv\Scripts\python.exe -E -s -m tools.verify_c1 outputs/ci-c1
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

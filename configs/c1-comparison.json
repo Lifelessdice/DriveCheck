@@ -1,0 +1,9 @@
+{
+  "schema_version": "drivecheck.c1.v1",
+  "baseline_config": "configs/m4-release.json",
+  "alternative": "age_projection",
+  "development_seed_bases": [100, 200, 300],
+  "evaluation_seed_bases": [1000, 2000, 3000],
+  "evaluation_transform": {"length_scale": 1.5, "time_scale": 1.25},
+  "include_diagnostics": true
+}
