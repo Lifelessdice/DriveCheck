@@ -252,9 +252,9 @@ def plot_case(root, case, path):
     observations = read_csv(directory / "observations.csv")
     fig, axes = plt.subplots(4, 1, figsize=(10, 10), sharex=True, layout="constrained")
     axes[0].plot(numeric(truth, "time_s"), numeric(truth, "gap_m"), color="black",
-                 label="Clean signed gap (virtual paths after contact)")
+                 label="Saved clean gap samples joined (virtual paths after contact)")
     axes[1].plot(numeric(truth, "time_s"), numeric(truth, "closing_speed_mps"),
-                 color="black", label="Clean closing speed")
+                 color="black", label="Saved clean closing-speed samples joined")
     for method, color in zip(METHODS, ("tab:blue", "tab:orange")):
         result = case["methods"][method]
         decisions = read_csv(contained(root, result["artifacts"]["decisions"]))
@@ -265,6 +265,21 @@ def plot_case(root, case, path):
             values = [None if row.get("reason") in {"unavailable", "stale"} else value
                       for row, value in zip(decisions, values)]
             axis.step(times, values, where="post", color=color, label=method)
+            eligible = [(time, value) for time, value in zip(times, values)
+                        if value is not None and math.isfinite(value)]
+            if eligible:
+                endpoint_time, endpoint_value = eligible[-1]
+                axis.scatter([endpoint_time], [endpoint_value], color=color, s=25,
+                             zorder=5, label=f"{method}: last eligible value")
+        ttc_values = numeric(decisions, "ttc_s")
+        warnings = [(time, value) for time, value, row in zip(times, ttc_values, decisions)
+                    if row.get("is_warning") in {"True", "true", "1"}
+                    and row.get("reason") not in {"unavailable", "stale"}
+                    and value is not None and math.isfinite(value)]
+        if warnings:
+            axes[2].scatter([time for time, _ in warnings], [value for _, value in warnings],
+                            facecolors="none", edgecolors=color, s=42, zorder=6,
+                            label=f"{method}: warning decisions")
         axes[3].step(times, numeric(decisions, "observation_age_s"), where="post",
                      color=color, label=f"{method}: original source age")
     policy = case.get("policy", {})
@@ -286,7 +301,8 @@ def plot_case(root, case, path):
         axis.axvline(case["horizon_s"], color="gray", linestyle=":", label="Horizon")
         axis.grid(alpha=0.25)
         axis.legend(fontsize=7, loc="best")
-        axis.set_xlim(0, max(case["horizon_s"], 0.1))
+        padding = max(case["horizon_s"] * 0.02, 0.01)
+        axis.set_xlim(-padding, max(case["horizon_s"], 0.1) + padding)
     arrivals = [float(row["arrival_time_s"]) for row in observations
                 if float(row["arrival_time_s"]) <= case["horizon_s"]]
     ages = [float(row["arrival_time_s"]) - float(row["measurement_time_s"])
