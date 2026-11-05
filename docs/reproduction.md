@@ -2,6 +2,8 @@
 
 ## M5 portfolio package — local checks, 5 November 2026
 
+Hosted M5 evidence: [run42053289304](https://github.com/Lifelessdice/DriveCheck/actions/runs/42053289304) passed at code `7ecae88066a83b51a02f73772aefbb052a68b35c`. Inspected job logs show227tests31.264s, dependency/Ruff checks, complete M4/C1 audits and the actual offline portfolio package with source evidence unchanged. Later evidence-documentation edits preserve those execution inputs. Main-head runs remain separately visible in [the branch-filtered CI list](https://github.com/Lifelessdice/DriveCheck/actions?query=branch%3Amain).
+
 The [portfolio README](../README.md), [architecture](architecture.md), [results](results.md), [short demo script](demo.md) and [release review](release-review.md) describe the completed local M5 delivery. From an existing prepared checkout:
 
 ```powershell

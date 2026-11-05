@@ -4,6 +4,12 @@ Reviewed on 5 November 2026. I asked my assistant to finish the local M5 package
 
 Publication authorization, 5 November 2026: after reviewing the delivered package summary, I explicitly requested "Push and merge". This approves publishing the prepared source/documentation/licence materials and integrating M5 into main. The assistant is performing selective staging/commit/push, hosted verification and a preserving main merge. Successful publication/CI is recorded only after it is observed; no repository visibility change or generated/private/unrelated file upload is included.
 
+## Published M5 code and hosted verification
+
+The reviewed 16-file M5 release was committed and pushed as `7ecae88066a83b51a02f73772aefbb052a68b35c` on `feature/m5-portfolio-demo`. [Hosted run 42053289304](https://github.com/Lifelessdice/DriveCheck/actions/runs/42053289304), job `127334805868`, succeeded. Inspected logs record **227 passing tests in 31.264 s**, dependency consistency and Ruff, complete M4 report/audit, complete C1 audit (157 pairs / 314 method records / 3,302 decisions / 1,418 machine hashes / four report hashes / 1,102 contained links), and `Portfolio complete; evidence unchanged; 1425 files` (1,424 evidence files plus the entry HTML, with its separate manifest making 1,426 total).
+
+The workflow now builds the actual portfolio after C1 generation and its independent audit, using the same isolated interpreter. This is hosted execution evidence for the exact code revision above, not rendered-browser QA or personal mastery. The follow-up documentation commit records this completed check without changing the workflow, code, tests, configurations or dependency inputs. Current main integration checks are visible in [the main-branch run list](https://github.com/Lifelessdice/DriveCheck/actions?query=branch%3Amain); final Git refs and head-specific outcomes are checked during integration. Logs and metadata are retained locally under `outputs/m5-ci-42053289304-branch.*`.
+
 ## Scope and baseline
 
 The inspected baseline was local `main` at `60f26c30200a9b3465cee2ce9fcafb9d474f0f38`. The existing M5 lesson had local documentation changes, and three unrelated scratch/editor paths were untracked. No Git stage, commit, push, remote change, visibility change, history rewrite or deletion was performed for this review.
@@ -44,7 +50,7 @@ The repository distributes dependency instructions and hashes, not those install
 
 ## Verification and revision boundaries
 
-The existing main CI evidence is accepted at `60f26c3`: [run 42012439506](https://github.com/Lifelessdice/DriveCheck/actions/runs/42012439506) records 222 passing tests, dependency/Ruff checks, full M4 report/audit and full C1 report/audit. This review inspected saved evidence and did not request a new live run. The new M5 material is local and is not covered by a new hosted CI result merely because an older revision passed.
+The earlier C1 main CI evidence remains accepted at `60f26c3`: [run 42012439506](https://github.com/Lifelessdice/DriveCheck/actions/runs/42012439506) records 222 passing tests, dependency/Ruff checks and full M4/C1 audits. M5's separate hosted run above actually checks its 227-test revision and portfolio build; the older result is not used as a substitute.
 
 The accepted C1 local reproduction remains revision-specific: code revision `163aab5`, 55 copied inputs, fourteen selected package/wheel identities, 1,424 files in each report and zero differences. That same-machine/new-environment proof is separate from hosted execution and from any new M5 demonstration checks. Browser-rendered layout or offline behaviour is claimed only when its actual M5 check is recorded by the completing agent, not inferred from a valid HTML file or PNG.
 
@@ -75,7 +81,8 @@ The final candidate review covers **86 source/material files** (78 baseline trac
 | --- | --- |
 | Existing repository | Already public; C1 main integration and recorded CI accepted |
 | Local M5 source/documents/demo | Complete and locally checked under explicit delegation; observed checks are recorded above |
-| New M5 commit/push/hosted run | Authorized; outcomes recorded only after the operations/checks complete |
+| M5 code publication/hosted run | Code `7ecae88` pushed; run42053289304 accepted with inspected logs; later evidence docs retain execution inputs |
+| Main integration checks | [Head-specific main runs](https://github.com/Lifelessdice/DriveCheck/actions?query=branch%3Amain) and Git refs identify the published integration result |
 | Approval of the prepared release/demo/licence materials for publication | Explicit push/merge instruction received on 5 November 2026 |
 | Independent learner explanation/modification | Not assessed by assistant-authored materials or assistant-run checks |
 | CARLA, real vehicles, safety certification | Outside this portfolio's accepted scope |

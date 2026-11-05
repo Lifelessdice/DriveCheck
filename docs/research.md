@@ -2,6 +2,8 @@
 
 ## M5 local delivery — 5 November 2026
 
+Publication follow-up: the user explicitly requested push/merge. The reviewed M5 code/workflow was pushed as7ecae88066a83b51a02f73772aefbb052a68b35c; [hosted run42053289304](https://github.com/Lifelessdice/DriveCheck/actions/runs/42053289304) succeeds with227tests31.264s/dependencyRuff/fullM4+C1audits/actualportfolio1425hashedpayloadfilesplusmanifest. Logs inspected and saved locally. These are observed hosted outcomes, separate from the local checks below and the unverified browser rendering.
+
 The user explicitly delegated completing the portfolio package from their point of view. The assistant prepared the condensed README, actual architecture/results, 2–3-minute spoken script, source-only dependency/AI notices, local MIT text and portable three-case packager. [OSI's MIT text](https://opensource.org/license/mit) was checked for the local licence draft; final release approval/publication is not inferred. Exact installed dependency/licence evidence is in [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md). No new package or algorithm was selected.
 
 The packager reuses `tools.verify_c1`, requires the frozen default configuration, expected plot-to-case mapping and result summary, preserves the accepted source run, refuses an existing/overlapping/redirected output destination and hash-checks the complete copy. Five meaningful preservation/narrative tests and all227tests pass77.307s; pinnedRuff passes. No estimator/replay/scoring/frozen-config source was changed.
