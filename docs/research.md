@@ -1,5 +1,13 @@
 # DriveCheck research and decisions
 
+## M5 local delivery — 5 November 2026
+
+The user explicitly delegated completing the portfolio package from their point of view. The assistant prepared the condensed README, actual architecture/results, 2–3-minute spoken script, source-only dependency/AI notices, local MIT text and portable three-case packager. [OSI's MIT text](https://opensource.org/license/mit) was checked for the local licence draft; final release approval/publication is not inferred. Exact installed dependency/licence evidence is in [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md). No new package or algorithm was selected.
+
+The packager reuses `tools.verify_c1`, requires the frozen default configuration, expected plot-to-case mapping and result summary, preserves the accepted source run, refuses an existing/overlapping/redirected output destination and hash-checks the complete copy. Five meaningful preservation/narrative tests and all227tests pass77.307s; pinnedRuff passes. No estimator/replay/scoring/frozen-config source was changed.
+
+Strict provenance initially rejected the old report because nine source inputs differ by checkout newline bytes. Independent comparison established CRLF/LF-only differences, identical normalized JSON and identical ASTs for all eight affected Python files. A new current-checkout C1 run was audited; all629CSVfiles and numerical summary equal the historical run. Two1426-file demo packages match byte-for-byte, including unchanged1424-file evidence. Static QA:2HTMLpages/1114containedlinks/3validPNGs/no scripts or externalHTMLresources. Browser policy blocked `file:` preview; actual rendered layout remains unverified. An assistant-run inclusive-horizon study verifies30m/noeventat10s→0m/eventat12.5s while preserving old samples and the frozen suite. [Release review](release-review.md) records scope and remaining human/publication evidence honestly.
+
 ## C1 hosted verification — 5 November 2026
 
 The user explicitly requested pushing the completed branch and merging C1 into main. The assistant pushed `feature/c1-fair-comparison` at `b293a5b8089c373fb440130d013450a2963f2745`; [run 42011728510](https://github.com/Lifelessdice/DriveCheck/actions/runs/42011728510), job 127192160527, succeeded. Inspected logs record all 222 tests passing in 33.159 s, dependency consistency/Ruff passing, complete M4 report generation/audit and complete C1 report generation/audit: 157 pairs / 314 method records, 3,302 decisions, 1,418 machine hashes, four report hashes and 1,102 contained links. No algorithm, configuration or execution input changed after the accepted local reproduction. The dated no-push/no-remote-result statements below describe their earlier checkpoints.

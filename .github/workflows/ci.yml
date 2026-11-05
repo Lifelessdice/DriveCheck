@@ -72,3 +72,8 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           .\.venv\Scripts\python.exe -E -s -m tools.verify_c1 outputs/ci-c1
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Package the complete offline portfolio demonstration
+        run: |
+          .\.venv\Scripts\python.exe -E -s -m tools.portfolio_demo --run outputs/ci-c1 --output-dir outputs/ci-portfolio
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

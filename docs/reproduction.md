@@ -1,5 +1,25 @@
 # Reproduce the M4 CPU release
 
+## M5 portfolio package — local checks, 5 November 2026
+
+The [portfolio README](../README.md), [architecture](architecture.md), [results](results.md), [short demo script](demo.md) and [release review](release-review.md) describe the completed local M5 delivery. From an existing prepared checkout:
+
+```powershell
+.\.venv\Scripts\python.exe c1_compare.py --config configs/c1-comparison.json --output-dir outputs/c1-portfolio-new
+if ($LASTEXITCODE -ne 0) { throw 'Comparison failed.' }
+.\.venv\Scripts\python.exe -m tools.portfolio_demo --run outputs/c1-portfolio-new --output-dir outputs/portfolio-new
+if ($LASTEXITCODE -ne 0) { throw 'Portfolio packaging or source audit failed.' }
+Invoke-Item -LiteralPath .\outputs\portfolio-new\index.html
+```
+
+Both destinations must be fresh. The packager invokes the independent C1 auditor, binds the fixed narrative to the default configuration/plot selection/outcomes, copies all evidence without changing it and writes an offline presentation with a hash manifest. It adds no dependency or alternative algorithm. Five focused preservation/narrative tests and the complete **227-test suite** pass; Ruff passes. The full-suite observed time was 77.307 s, not a performance benchmark.
+
+The M5 current-checkout comparison is `outputs/m5-c1-20261105`; two packages at `outputs/m5-portfolio-20261105` and `outputs/m5-portfolio-repeat-20261105` each have 1,426 byte-identical files. Their 1,424-file evidence copies match the source. All 629 CSVs and the numerical summary match the earlier accepted C1 report. Static QA checks two HTML pages, 1,114 contained links and three valid PNGs, without external HTML resources or scripts. Browser-rendered layout remains unverified because the local-file preview was blocked by browser security policy.
+
+Byte provenance is strict. Nine historical C1 source inputs use LF where the current checkout uses CRLF; normalized content and all eight affected Python ASTs are equal, but their byte hashes differ. The historical proof below remains valid for its original source snapshot. Regenerate a report from the current checkout rather than changing its old hashes or weakening the audit. No core algorithm/configuration was changed for M5.
+
+The commands below retain their original revision-specific evidence. No fresh environment was created for M5; the accepted C1 new-environment proof remains separate from the new current-checkout package checks.
+
 Hosted C1 verification, 5 November 2026: [run 42011728510](https://github.com/Lifelessdice/DriveCheck/actions/runs/42011728510) passed at `b293a5b8089c373fb440130d013450a2963f2745`. All 222 tests passed in 33.159 s, dependency consistency and Ruff passed, and both complete M4 and C1 reports were generated and independently audited. C1 retained 157 pairs / 314 method records, 3,302 decision rows, 1,418 machine hashes, four report hashes and 1,102 contained links. The assistant performed the explicitly requested push; this does not establish learner mastery. The local byte-identity proof below remains separate from hosted execution.
 
 ## C1 reproduction — verified 4 November 2026
