@@ -1,5 +1,7 @@
 # C1 Block 2 — Connect estimates to causal replay and the shared policy
 
+**Completion update, 4 November 2026:** after the user delegated remaining implementation, the assistant implemented this block and committed it as `6df7758`. All 29 C1 focused tests and 32 existing replay/regression tests passed. The full C1 implementation subsequently passed 222 tests in the final copied-source/hash-locked environment. See [the completed investigation](../c1-investigation.md). The code below remains a study walkthrough; delivery-time pending statements are historical. Passing tests do not establish independent learner understanding.
+
 Prepared 2 November 2026. This is supplied learner code, not assistant-implemented product work. Block 1 remains accepted at 15 focused/184 full tests. Local checkpoint `35a0447` and its configured tracking ref match on `feature/c1-fair-comparison`; tracked files were clean before this documentation update. No live remote/CI check, new product run or Git mutation was performed to deliver this block. C1 remains **1 of 5 blocks technically verified** until this block is saved, run and reviewed.
 
 ## Outcome and theory

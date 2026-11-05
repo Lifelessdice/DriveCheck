@@ -1,5 +1,27 @@
 # Reproduce the M4 CPU release
 
+## C1 reproduction — verified 4 November 2026
+
+The completed comparison has its own wrapper; the M4 commands below remain usable:
+
+```powershell
+Set-Location 'E:\DriveCheck'
+.\.venv\Scripts\python.exe -m tools.reproduce_c1
+```
+
+Optional `--wheelhouse <project-local-cache>` reuses reviewed wheels. The wrapper preserves the original environment and runs. It copies 55 explicit inputs, creates a new environment, installs the existing 14-package hash lock, checks dependencies/lint, runs the full suite, generates original/copied comparison reports and independently audits both. It rejects a differing file inventory or source changes during reproduction.
+
+Observed proof at code revision `163aab5`: `outputs/c1-reproduction-6c4f270cbbe5428b94d559633e551ed6/reproduction.json` is complete. All 222 copied-source tests pass in 88.287 s, pip consistency and Ruff pass, all 55 input hashes and 14 wheel/package pins match, and both 1,424-file reports are byte-identical. Each report retains 76 development pairs, 76 evaluation pairs and five separate diagnostics, 314 method records, 3,302 checked decision rows, 1,418 machine hashes, three inspected PNGs and 1,102 contained local links. The recorded target is CPython 3.14.7 / Windows x64; this is same-machine/new-environment proof.
+
+For a report without a new environment:
+
+```powershell
+.\.venv\Scripts\python.exe c1_compare.py --config configs/c1-comparison.json --output-dir outputs/c1-example
+.\.venv\Scripts\python.exe -m tools.verify_c1 outputs/c1-example
+```
+
+Choose a fresh directory; open its `report/report.html`. The [investigation](c1-investigation.md) records all wins, losses, unchanged cases and limits. C1 CI is configured but no new remote run is claimed. The older M4 evidence below remains revision-specific historical proof.
+
 Hosted verification, 1 November 2026: [run 41260971755](https://github.com/Lifelessdice/DriveCheck/actions/runs/41260971755) succeeded for code commit `e64b12baf4a4ba5e93a91e2b40541bb7c5df6ed4`. All 169 tests passed in 18.010 s, together with dependency/lint checks and full release generation/audit. The audited report has 76 main cases plus five separate diagnostics, 343 machine hashes, 356 package hashes, 357 files, 11 plots and 421 links. Byte-for-byte comparison below refers to the two local reports; cross-machine pixel identity is untested. The assistant performed the explicitly approved commit/push; work remains on the M4 branch.
 
 The supported lock target is **CPython 3.14.7 on Windows x64**. The runtime versions remain in `requirements.txt`; `requirements-lock.txt` binds all 12 runtime packages plus pip26.2.1 and Ruff0.14.0 to the selected wheel bytes. This is a platform-specific lock.

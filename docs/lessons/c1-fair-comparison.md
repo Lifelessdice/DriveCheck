@@ -1,5 +1,13 @@
 # C1 — Investigate one failure through a fair comparison
 
+## Technical completion — 4 November 2026
+
+Under the user's explicit delegation, all five technical blocks are complete locally: estimates; causal integration; frozen development/evaluation design; complete reporting and audit; reproduction and investigation. Read [the completed investigation and walkthrough](../c1-investigation.md). Independent learner explanation, transfer and M5 presentation remain separate.
+
+The final copied source and new hash-locked environment pass 222 tests in 88.287 s, dependency checks and Ruff. All 55 input hashes, 14 wheel pins and 1,424 generated files match. Both audits retain 157 pairs / 314 method records / 3,302 decision rows, with 1,418 machine hashes, three inspected plots and 1,102 contained links. All 243 raw decision/observation/truth files across the 81 saved M4 cases match byte for byte.
+
+Evaluation positive outcomes remain 31 useful / 2 late / 5 missed for both methods; false-warning episodes rise from 26/38 to 35/38. Projection remains an explicit comparison, while raw stays the default. C1 CI is configured, but no new remote result is inferred from local tests or commits. The dated delivery snapshots below are history; their pending statuses and old seed/matrix/metric proposals do not describe the completed implementation.
+
 ## Current learner delivery — 1 November 2026
 
 **Next block supplied, 2 November 2026:** [Block 2: causal replay and shared policy](c1-block2-causal-integration.md) provides full learner helper/refactor code, an optional replay callback, source/estimate/used-decision records and 14 proposed tests. Local checkpoint35a0447 and its configured tracking ref match with tracked files clean before docs. No product implementation/run/install/Git mutation occurred in preparing the lesson. C1 remains1/5 verified at184 previously passing tests;29 combined C1/198 full tests are future expectations. The fixed-delay prediction is development/regression evidence, not a final-evaluation claim.

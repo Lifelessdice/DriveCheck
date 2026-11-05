@@ -1,5 +1,13 @@
 # DriveCheck research and decisions
 
+## C1 completed comparison — 4 November 2026
+
+The assistant completed C1 under explicit implementation/local-commit delegation. The only alternative projects an eligible source gap using measured closing speed and actual age; shared gating, TTC and replay policies stay fixed. Frozen configuration SHA-256 is `8bf3c4aaaa9395ee66c2a75a4e52a554c94d47fe111f404af5a9dcddd12bef27`. Development uses 76 pairs from original configurations and bases 100/200/300; evaluation uses 76 pairs from distinct L=1.5/T=1.25 scaled configurations and bases 1000/2000/3000. Five fixed-delay diagnostics stay separate. No estimator tuning followed evaluation inspection.
+
+Actual evaluation positive outcomes are 31 useful / 2 late / 5 missed for both methods; false-warning episodes increase from 26/38 to 35/38. Gap MAE improves in 37 pairs, is unchanged in 38 and is unavailable in one. Useful matched lead improves in 3 pairs, is unchanged in 28 and is unpaired in 7. Closing-speed MAE is unchanged in 75 pairs and unavailable in one. All nine warning losses, seed variation and the finite-horizon scoring limitation are explained in [the investigation](c1-investigation.md). Raw stays the default; correlated synthetic cases do not establish significance or generalization.
+
+Final checks: 222 tests in 88.287 s in a new environment with 55 copied input hashes and 14 hash-locked wheels/packages; pip consistency and Ruff pass. Both runs contain 1,424 byte-identical files. Each independent audit checks 157 pairs, 314 method records, 3,302 decisions, 1,418 machine hashes, four report hashes, three plots and 1,102 contained links. Seven audit tests include semantic tampering and inventory/status controls. A separate check matches all 243 raw M4 trace files across 81 cases. Code evidence is bound to revision `163aab5`; final report repairs changed presentation only. No new package, external data, CARLA, push, merge or remote C1 CI result is claimed.
+
 ## C1 causal integration design — 2 November 2026
 
 Block2 teaching uses one existing replay queue and shared source gating/TTC helpers, with an optional decision callback. This avoids a copied causal scheduler, source timestamp rewriting and an alternative path that must first execute raw TTC arithmetic. Default raw behavior/Decision shape remain the compatibility target; no C1 dependency is imported by baseline modules. Original source, estimated state and used Decision are recorded separately so offline current-time error evaluates the actual used state. Sources are actual inspected local APIs; no new dependency/source formula selected.

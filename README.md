@@ -4,13 +4,29 @@ I am building a Python workbench to investigate how sensor quality affects a sim
 
 I work in the original project files using guided code and explanations. My assistant prepares tests and study documents, helps with requested fixes and runs bounded checks when I delegate them. Earlier assistant-created M1 implementation/artifacts have been archived locally; they are separate from my active code and learning evidence.
 
-## C1: first estimator block verified locally
+## C1: completed local comparison
 
-On 2 November 2026, assistant review of my saved `c1_estimators.py` and `test_c1_estimators.py` required no source changes. All 15 focused tests passed, and the complete 184-test suite passed in 64.138 s. The immutable estimate retains its original observation/timestamps, supports raw held values and constant-closing-speed gap projection, and rejects unavailable/non-finite inputs. Independent fixtures include a changing-speed counterexample where projection has larger error.
+After saving the [first estimator block](docs/lessons/c1-block1-state-estimates.md), I explicitly delegated the remaining C1 implementation, verification and local commits. On 4 November 2026 the assistant completed the shared-policy integration, frozen paired runner, offline report, independent evidence audit and clean-source/new-environment reproduction. **All five C1 technical blocks are complete locally; my independent explanation and M5 presentation remain separate.**
 
-This accepts **Block 1 of 5**, the estimate contract and arithmetic. It does not establish a warning improvement: replay integration, unchanged-policy compatibility, separate development/evaluation cases and the complete comparison remain pending. No C1 report or new remote CI result is claimed. I saved supplied teaching code; assistant verification does not establish independent mastery. See [the reviewed first block](docs/lessons/c1-block1-state-estimates.md).
+The comparison retains **76 development pairs, 76 separate evaluation pairs and five development diagnostics: 157 pairs / 314 method records**. Both methods receive identical causal observations, clocks and policies. The raw baseline stays the default. Evaluation uses distinct physical configurations and RNG streams selected before its outcomes were inspected.
 
-[Block 2's complete study instructions](docs/lessons/c1-block2-causal-integration.md) are prepared for learner implementation: common arrival/age/TTC rules, causal replay integration and source-versus-estimated trace evidence. Its proposed code and 14 new tests are not yet saved or run as product work; the accepted checkpoint remains Block 1.
+| Evaluation metric | Raw | Age projection |
+| --- | ---: | ---: |
+| Useful / late / missed positives | 31 / 2 / 5, out of 38 | 31 / 2 / 5, out of 38 |
+| False-warning negative episodes | 26/38 | 35/38 |
+
+Gap MAE improved in 37 pairs, was unchanged in 38 and was unavailable in one. Better current-gap estimates did not improve positive outcome counts and produced nine additional finite-horizon false-warning episodes. The [complete investigation and walkthrough](docs/c1-investigation.md) explains every loss, seed variation, the horizon convention and the constant-speed diagnostic. No real-world safety or significance claim is made.
+
+The final copied-source/hash-locked environment passed **222 tests in 88.287 s**, dependency checks and Ruff. All **55 source inputs**, **14 wheel/package pins**, and **1,424 generated files** matched the recorded reproduction; both independent audits checked **3,302 decision rows, 1,418 machine hashes, three plots and 1,102 local links**. A separate check matched all 243 raw decision/observation/truth files across the 81 saved M4 cases. The original environment and reports were preserved. C1 CI is configured but has not been run remotely.
+
+Generate and audit a report in a new output directory:
+
+```powershell
+.\.venv\Scripts\python.exe c1_compare.py --config configs/c1-comparison.json --output-dir outputs/c1-demo
+.\.venv\Scripts\python.exe -m tools.verify_c1 outputs/c1-demo
+```
+
+Open `outputs/c1-demo/report/report.html`; use a new directory for another run. For a fresh source copy and environment, run `.\.venv\Scripts\python.exe -m tools.reproduce_c1`; optional `--wheelhouse` reuses a project-local wheel cache. See the [reproduction guide](docs/reproduction.md). The [causal integration lesson](docs/lessons/c1-block2-causal-integration.md) retains the detailed code explanation. Assistant implementation and tests do not establish learner mastery.
 
 ## Accepted M4 baseline
 

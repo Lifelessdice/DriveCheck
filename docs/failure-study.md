@@ -1,5 +1,7 @@
 # A useful warning becomes late, then disappears when its reading arrives after the horizon
 
+**C1 follow-up completed, 4 November 2026:** [the paired investigation](c1-investigation.md) tests age projection against this mechanism. It recovers useful timing in this development diagnostic, but on the separate evaluation matrix leaves positive outcomes unchanged and raises finite-horizon false-warning episodes from 26/38 to 35/38. The complete report preserves the raw baseline, all losses/unchanged cases and independent reproduction. This original M4 note remains the baseline evidence.
+
 Observed 1 November 2026 in the saved M4 machine results. This note was drafted with AI assistance from the actual code, independent fixture and reviewed traces. It describes a controlled synthetic diagnostic, not real-vehicle warning validation or an evaluated improvement.
 
 ## Question and fixed setup
