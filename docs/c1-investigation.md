@@ -2,6 +2,8 @@
 
 Investigated 4 November 2026. The assistant implemented and checked the remaining C1 work after my explicit delegation. I had saved the first estimate module and tests from the supplied teaching block. This report describes technical evidence; my independent explanation and transfer exercise remain separate.
 
+Hosted verification, 5 November 2026: after my explicit push/merge request, [C1 branch CI](https://github.com/Lifelessdice/DriveCheck/actions/runs/42011728510) passed for `b293a5b8089c373fb440130d013450a2963f2745`. Inspected logs record 222 tests in 33.159 s, dependency checks and Ruff, complete M4 report/audit, and complete C1 report/audit retaining all 157 pairs, 314 method records, 3,302 decision rows, 1,418 machine hashes, four report hashes and 1,102 local links. This is additional hosted evidence; the exact local reproduction proof below remains revision-specific.
+
 ## Question and baseline failure
 
 The M4 [failure study](failure-study.md) showed an exact sensor whose old values delayed a warning. In its strongest fixed-delay diagnostic, the last decision at 6 s selected a 3 s measurement: gap 15 m, closing speed 5 m/s, age 3 s. It was eligible under that diagnostic's inclusive age limit, but held-value TTC was 3 s, above the fixed 2 s threshold. The more alarming 4 s reading arrived at 6.5 s, after the 6 s horizon.
@@ -102,7 +104,7 @@ The initial original-environment suite passed 221 tests in 256.031 s. A reportin
 
 The independent verifier checks the frozen inventory, source/configuration identities, split separation, modeled truth/references, fault/audit arithmetic, causal source selection, used estimates/TTC, recomputed scoring and aligned errors. Its seven audit tests include valid evidence acceptance and negative controls for rehashed CSV tampering, omitted pairs, unlisted artifacts, incomplete status and report changes. Each final default run was independently checked: 157 pairs, 314 method records, 3,302 decision rows, 1,418 machine hashes, four report hashes and 1,102 contained local links.
 
-Final reproduction at code revision `163aab5` is complete in `outputs/c1-reproduction-6c4f270cbbe5428b94d559633e551ed6/reproduction.json`: 55 explicit source inputs match their copied hashes; 14 cached wheel artifacts were hash-installed into a newly created environment with 14 installed packages; pip consistency and Ruff pass. The copied environment passed **222 tests in 88.287 s**. Original and copied runs each contain **1,424 files**, all byte-identical, including the three visually inspected PNGs. There are no source changes during reproduction or differing generated files. This is same-machine/new-environment evidence on the recorded Windows x64 / CPython 3.14.7 target. Browser-rendered HTML layout and a new remote C1 CI run are not claimed.
+Final reproduction at code revision `163aab5` is complete in `outputs/c1-reproduction-6c4f270cbbe5428b94d559633e551ed6/reproduction.json`: 55 explicit source inputs match their copied hashes; 14 cached wheel artifacts were hash-installed into a newly created environment with 14 installed packages; pip consistency and Ruff pass. The copied environment passed **222 tests in 88.287 s**. Original and copied runs each contain **1,424 files**, all byte-identical, including the three visually inspected PNGs. There are no source changes during reproduction or differing generated files. This is same-machine/new-environment evidence on the recorded Windows x64 / CPython 3.14.7 target. Browser-rendered HTML layout remains unverified; the separate hosted CI evidence is linked above.
 
 A separate comparison against the saved M4 machine evidence checked every development/diagnostic raw decision CSV, observation CSV and truth CSV: **243 files across 81 cases match byte for byte**. This protects the usable baseline against more than just summary-count agreement. The check is saved locally as `outputs/c1-baseline-compatibility-20261104.json`.
 
@@ -122,7 +124,7 @@ For a new source copy and fresh hash-locked environment, use:
 .\.venv\Scripts\python.exe -m tools.reproduce_c1
 ```
 
-An optional `--wheelhouse` pointing to a project-local reviewed wheel cache avoids redownloading packages. This preserves the original environment, copies an explicit source allowlist, checks lint/full tests, regenerates and independently audits both reports, and compares their file inventories. The recorded target remains CPython 3.14.7 / Windows x64. The C1 CI step is configured; no new remote run is claimed from local commands or commits.
+An optional `--wheelhouse` pointing to a project-local reviewed wheel cache avoids redownloading packages. This preserves the original environment, copies an explicit source allowlist, checks lint/full tests, regenerates and independently audits both reports, and compares their file inventories. The recorded target remains CPython 3.14.7 / Windows x64. Local reproduction and the independently inspected hosted CI run provide separate evidence.
 
 ## Decision and limits
 

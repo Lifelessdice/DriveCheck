@@ -4,9 +4,9 @@ I am building a Python workbench to investigate how sensor quality affects a sim
 
 I work in the original project files using guided code and explanations. My assistant prepares tests and study documents, helps with requested fixes and runs bounded checks when I delegate them. Earlier assistant-created M1 implementation/artifacts have been archived locally; they are separate from my active code and learning evidence.
 
-## C1: completed local comparison
+## C1: completed comparison
 
-After saving the [first estimator block](docs/lessons/c1-block1-state-estimates.md), I explicitly delegated the remaining C1 implementation, verification and local commits. On 4 November 2026 the assistant completed the shared-policy integration, frozen paired runner, offline report, independent evidence audit and clean-source/new-environment reproduction. **All five C1 technical blocks are complete locally; my independent explanation and M5 presentation remain separate.**
+After saving the [first estimator block](docs/lessons/c1-block1-state-estimates.md), I explicitly delegated the remaining C1 implementation, verification and local commits, then requested push and main integration. The assistant completed the shared-policy integration, frozen paired runner, offline report, independent evidence audit and clean-source/new-environment reproduction. **All five C1 technical blocks are complete, with hosted CI accepted on 5 November 2026; my independent explanation and M5 presentation remain separate.**
 
 The comparison retains **76 development pairs, 76 separate evaluation pairs and five development diagnostics: 157 pairs / 314 method records**. Both methods receive identical causal observations, clocks and policies. The raw baseline stays the default. Evaluation uses distinct physical configurations and RNG streams selected before its outcomes were inspected.
 
@@ -17,7 +17,7 @@ The comparison retains **76 development pairs, 76 separate evaluation pairs and 
 
 Gap MAE improved in 37 pairs, was unchanged in 38 and was unavailable in one. Better current-gap estimates did not improve positive outcome counts and produced nine additional finite-horizon false-warning episodes. The [complete investigation and walkthrough](docs/c1-investigation.md) explains every loss, seed variation, the horizon convention and the constant-speed diagnostic. No real-world safety or significance claim is made.
 
-The final copied-source/hash-locked environment passed **222 tests in 88.287 s**, dependency checks and Ruff. All **55 source inputs**, **14 wheel/package pins**, and **1,424 generated files** matched the recorded reproduction; both independent audits checked **3,302 decision rows, 1,418 machine hashes, three plots and 1,102 local links**. A separate check matched all 243 raw decision/observation/truth files across the 81 saved M4 cases. The original environment and reports were preserved. C1 CI is configured but has not been run remotely.
+The final copied-source/hash-locked environment passed **222 tests in 88.287 s**, dependency checks and Ruff. All **55 source inputs**, **14 wheel/package pins**, and **1,424 generated files** matched the recorded reproduction; both independent audits checked **3,302 decision rows, 1,418 machine hashes, three plots and 1,102 local links**. A separate check matched all 243 raw decision/observation/truth files across the 81 saved M4 cases. The original environment and reports were preserved. [Hosted C1 CI](https://github.com/Lifelessdice/DriveCheck/actions/runs/42011728510) passed at `b293a5b`: 222 tests in 33.159 s, dependency checks, Ruff, the M4 report/audit and the complete C1 report/audit.
 
 Generate and audit a report in a new output directory:
 

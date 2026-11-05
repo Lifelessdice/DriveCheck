@@ -1,5 +1,9 @@
 # DriveCheck research and decisions
 
+## C1 hosted verification — 5 November 2026
+
+The user explicitly requested pushing the completed branch and merging C1 into main. The assistant pushed `feature/c1-fair-comparison` at `b293a5b8089c373fb440130d013450a2963f2745`; [run 42011728510](https://github.com/Lifelessdice/DriveCheck/actions/runs/42011728510), job 127192160527, succeeded. Inspected logs record all 222 tests passing in 33.159 s, dependency consistency/Ruff passing, complete M4 report generation/audit and complete C1 report generation/audit: 157 pairs / 314 method records, 3,302 decisions, 1,418 machine hashes, four report hashes and 1,102 contained links. No algorithm, configuration or execution input changed after the accepted local reproduction. The dated no-push/no-remote-result statements below describe their earlier checkpoints.
+
 ## C1 completed comparison — 4 November 2026
 
 The assistant completed C1 under explicit implementation/local-commit delegation. The only alternative projects an eligible source gap using measured closing speed and actual age; shared gating, TTC and replay policies stay fixed. Frozen configuration SHA-256 is `8bf3c4aaaa9395ee66c2a75a4e52a554c94d47fe111f404af5a9dcddd12bef27`. Development uses 76 pairs from original configurations and bases 100/200/300; evaluation uses 76 pairs from distinct L=1.5/T=1.25 scaled configurations and bases 1000/2000/3000. Five fixed-delay diagnostics stay separate. No estimator tuning followed evaluation inspection.

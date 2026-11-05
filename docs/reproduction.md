@@ -1,5 +1,7 @@
 # Reproduce the M4 CPU release
 
+Hosted C1 verification, 5 November 2026: [run 42011728510](https://github.com/Lifelessdice/DriveCheck/actions/runs/42011728510) passed at `b293a5b8089c373fb440130d013450a2963f2745`. All 222 tests passed in 33.159 s, dependency consistency and Ruff passed, and both complete M4 and C1 reports were generated and independently audited. C1 retained 157 pairs / 314 method records, 3,302 decision rows, 1,418 machine hashes, four report hashes and 1,102 contained links. The assistant performed the explicitly requested push; this does not establish learner mastery. The local byte-identity proof below remains separate from hosted execution.
+
 ## C1 reproduction — verified 4 November 2026
 
 The completed comparison has its own wrapper; the M4 commands below remain usable:
@@ -20,7 +22,7 @@ For a report without a new environment:
 .\.venv\Scripts\python.exe -m tools.verify_c1 outputs/c1-example
 ```
 
-Choose a fresh directory; open its `report/report.html`. The [investigation](c1-investigation.md) records all wins, losses, unchanged cases and limits. C1 CI is configured but no new remote run is claimed. The older M4 evidence below remains revision-specific historical proof.
+Choose a fresh directory; open its `report/report.html`. The [investigation](c1-investigation.md) records all wins, losses, unchanged cases and limits. Hosted C1 verification is linked above. The older M4 evidence below remains revision-specific historical proof.
 
 Hosted verification, 1 November 2026: [run 41260971755](https://github.com/Lifelessdice/DriveCheck/actions/runs/41260971755) succeeded for code commit `e64b12baf4a4ba5e93a91e2b40541bb7c5df6ed4`. All 169 tests passed in 18.010 s, together with dependency/lint checks and full release generation/audit. The audited report has 76 main cases plus five separate diagnostics, 343 machine hashes, 356 package hashes, 357 files, 11 plots and 421 links. Byte-for-byte comparison below refers to the two local reports; cross-machine pixel identity is untested. The assistant performed the explicitly approved commit/push; work remains on the M4 branch.
 
