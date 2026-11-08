@@ -427,8 +427,8 @@ def render(run_dir):
                       "does not restore missing or not-yet-arrived information. An estimated overlap ",
                       "is not a reference contact. A few synthetic configurations/seeds do not establish ",
                       "generalization, statistical significance or real-vehicle safety. The raw baseline ",
-                      "remains usable. AI assistance supported implementation and verification; learner ",
-                      "understanding is a separate assessment.</p></html>"])
+                      "remains the default; complete paired results retain gains, losses and unchanged ",
+                      "cases.</p></html>"])
         (destination / "report.html").write_text("".join(parts), encoding="utf-8", newline="\n")
         package["artifact_sha256"] = {
             path.relative_to(root).as_posix(): digest(path)

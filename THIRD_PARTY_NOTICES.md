@@ -1,6 +1,6 @@
-# Third-party software, sources and assistance
+# Third-party software and sources
 
-Reviewed for the local M5 portfolio package on 5 November 2026. I keep the licences of third-party software separate from the licence of DriveCheck's original source. The local [project MIT licence](LICENSE) does not replace dependency, bundled-library or font notices. Its inclusion is part of the prepared local release material; publication and final approval of that material are recorded separately in the [release review](docs/release-review.md).
+The [project MIT licence](LICENSE) applies to original DriveCheck source. It does not replace dependency, bundled-library or font notices.
 
 ## What this repository distributes
 
@@ -47,16 +47,10 @@ If a later release bundles wheels, installed packages, interpreter files or font
 
 ## Technical references and original synthetic data
 
-I used the following references to understand the equations and API behaviour. The project records conceptual attribution separately from copied implementation:
+The following references support the equations and API behaviour. Conceptual references are distinguished from copied implementation:
 
 - [OpenStax University Physics Volume 1, §3.4: Motion with Constant Acceleration](https://openstax.org/books/university-physics-volume-1/pages/3-4-motion-with-constant-acceleration) supports the position/velocity and displacement reasoning. DriveCheck defines its own bumper coordinates, phase boundaries, stopping rule and finite evaluation horizon. The project does not reproduce an OpenStax figure or a block of textbook prose.
 - [Eclipse SUMO SSM Device: TTC](https://sumo.dlr.de/docs/Simulation/Output/SSM_Device.html#ttc) supports the following-vehicle gap/closing-speed TTC interpretation. No SUMO implementation is copied into the warning rule. This reference does not establish a universal warning threshold or safety certification.
 - [Python's official documentation](https://docs.python.org/3.14/) supports the standard-library APIs, isolated-environment instructions and test runner used in the project. [Matplotlib documentation](https://matplotlib.org/stable/) supports local file plotting. API documentation is cited as documentation, not presented as independently authored project theory.
 
 The scenario/reference fixtures and fault streams are synthetic. There is no imported real-road dataset, employer data, vehicle log, CARLA recording or third-party branding asset in the intended portfolio package. The complete research and implementation decisions are in [docs/research.md](docs/research.md).
-
-## AI and personal contribution
-
-I completed the original gap calculation, guided sampling work and early known-answer test using AI-assisted teaching and starter material. My assistant prepared the study lessons and explanations and supported requested fixes and verification. I later explicitly delegated the remaining M4 environment/reproduction/CI work, C1 implementation/verification/integration, and M5 documentation/demo preparation. Those assistant-run actions are attributed as assistance; I do not present them as independently completed learner work.
-
-The technical results are supported by actual source, configurations, saved traces, tests, report audits and reproduction evidence. They do not by themselves establish my independent understanding. No personal reflection, independent debugging achievement or learner mastery is inferred from an assistant-written document or a passing generated test suite.

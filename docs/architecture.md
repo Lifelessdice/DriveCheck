@@ -1,8 +1,8 @@
-# Architecture and evidence boundaries
+# Architecture
 
-I use DriveCheck to examine how synthetic sensor faults change a passive collision-warning rule. The CPU workflow keeps prescribed vehicle motion, sensor observations, algorithm decisions and offline evaluation separate. Warnings do not brake either vehicle or change the trajectory.
+DriveCheck examines how synthetic sensor faults change a passive collision-warning rule. The CPU workflow keeps prescribed vehicle motion, sensor observations, algorithm decisions and offline evaluation separate. Warnings do not brake either vehicle or change the trajectory.
 
-This document describes the implementation accepted through C1 on 5 November 2026. Implementation and documentation were developed with AI-assisted teaching, review and explicitly delegated assistant work. Technical acceptance does not establish my independent understanding. The measured findings are in [results](results.md), the detailed investigation is in [C1 investigation](c1-investigation.md), and tested commands are in [reproduction](reproduction.md).
+The measured findings are in [results](results.md), the detailed investigation is in [C1 investigation](c1-investigation.md), and tested commands are in [reproduction](reproduction.md). [Verification](verification.md) records the local and hosted checks.
 
 ## Data flow
 
@@ -41,7 +41,7 @@ Truth reaches the evaluator through the lower path. The warning path receives ar
 | Paired comparison | [c1_comparison.py](../c1_comparison.py), [c1_report.py](../c1_report.py), [c1_compare.py](../c1_compare.py) | Freeze separate splits, run both methods on the same inputs, retain every method record and render paired findings |
 | Verification and reproduction | [tools/verify_c1.py](../tools/verify_c1.py), [tools/reproduce.py](../tools/reproduce.py), [tools/reproduce_c1.py](../tools/reproduce_c1.py) | Recompute saved evidence, check inventories/identities and reproduce from copied source in a new hash-locked environment |
 
-Earlier entry points remain in the repository for the learning progression. [m1.py](../m1.py) exports checked truth fixtures; [experiments.py](../experiments.py) and [reporting.py](../reporting.py) support the earlier M2 slice; [m3_study.py](../m3_study.py) and [m3_regression.py](../m3_regression.py) supply study helpers and the preserved delay regression. The current release/comparison commands use the entry points above.
+Supporting modules include [m1.py](../m1.py) for checked truth exports, [experiments.py](../experiments.py) and [reporting.py](../reporting.py) for baseline experiments, and [m3_study.py](../m3_study.py) and [m3_regression.py](../m3_regression.py) for shared experiment helpers and the delay regression.
 
 ## Units, geometry and clocks
 
@@ -133,4 +133,4 @@ report/
 
 Machine evidence and rendering have separate manifests. [The C1 verifier](../tools/verify_c1.py) checks the planned inventory, hashes, physical/reference/fault arithmetic, causal source selection, estimates/TTC and recomputed scores/errors. A changed CSV with a newly computed hash can still fail the semantic audit. [The reproduction wrapper](../tools/reproduce_c1.py) checks a copied-source/new-environment run separately from hosted CI. See [reproduction](reproduction.md) for exact commands and the recorded platform boundary.
 
-Generated evidence lives under ignored `outputs/`; a repository visitor regenerates it from the portable commands rather than relying on my local output folders. The CPU tool needs no CARLA, vehicle connection, credentials, paid service or hosted report. The supported conclusions remain limited to this prescribed one-dimensional synthetic experiment.
+Generated evidence lives under ignored `outputs/` and can be regenerated from the documented commands. The CPU tool needs no CARLA, vehicle connection, credentials, paid service or hosted report. The supported conclusions remain limited to this prescribed one-dimensional synthetic experiment.

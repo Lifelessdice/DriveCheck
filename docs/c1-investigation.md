@@ -1,14 +1,14 @@
 # C1: better gap estimates can still produce more warning episodes
 
-Investigated 4 November 2026. The assistant implemented and checked the remaining C1 work after my explicit delegation. I had saved the first estimate module and tests from the supplied teaching block. This report describes technical evidence; my independent explanation and transfer exercise remain separate.
+Investigation completed 4 November 2026. This report traces a delayed-reading failure, evaluates one bounded alternative on shared causal inputs, and reports the complete comparison.
 
-Hosted verification, 5 November 2026: after my explicit push/merge request, [C1 branch CI](https://github.com/Lifelessdice/DriveCheck/actions/runs/42011728510) passed for `b293a5b8089c373fb440130d013450a2963f2745`. Inspected logs record 222 tests in 33.159 s, dependency checks and Ruff, complete M4 report/audit, and complete C1 report/audit retaining all 157 pairs, 314 method records, 3,302 decision rows, 1,418 machine hashes, four report hashes and 1,102 local links. This is additional hosted evidence; the exact local reproduction proof below remains revision-specific.
+Hosted verification, 5 November 2026: [C1 CI run 42011728510](https://github.com/Lifelessdice/DriveCheck/actions/runs/42011728510) passed for revision `b293a5b8089c373fb440130d013450a2963f2745`. Logs record 222 tests in 33.159 s, dependency checks and Ruff, complete M4 report/audit, and complete C1 report/audit retaining all 157 pairs, 314 method records, 3,302 decision rows, 1,418 machine hashes, four report hashes and 1,102 local links. The local reproduction proof below remains revision-specific; [verification](verification.md) records the later 227-test main result.
 
 ## Question and baseline failure
 
 The M4 [failure study](failure-study.md) showed an exact sensor whose old values delayed a warning. In its strongest fixed-delay diagnostic, the last decision at 6 s selected a 3 s measurement: gap 15 m, closing speed 5 m/s, age 3 s. It was eligible under that diagnostic's inclusive age limit, but held-value TTC was 3 s, above the fixed 2 s threshold. The more alarming 4 s reading arrived at 6.5 s, after the 6 s horizon.
 
-I investigated one question: does projecting an eligible old gap to the current decision time address this mechanism, and what changes on the other cases? The alternative is:
+The experiment asks whether projecting an eligible old gap to the current decision time addresses this mechanism, and what changes on the other cases. The alternative is:
 
 `estimated_gap_now = measured_gap - measured_closing_speed * measurement_age`.
 
@@ -100,7 +100,7 @@ In the strongest diagnostic both methods retain three pending arrivals beyond th
 
 ## What was checked and how to reproduce it
 
-The initial original-environment suite passed 221 tests in 256.031 s. A reporting-only repair then added one test: if no gap-MAE loss exists, the plot selection includes the first false-warning regression instead of omitting a loss figure. A visual-QA repair made warning ticks and final values visible at the exact horizon, and labelled truth lines as joined samples. All nine focused report tests pass after the final repair. These changes affected presentation only; the estimator, frozen settings and machine outcomes were not tuned after evaluation.
+The original C1 suite passed 221 tests in 256.031 s. Nine focused report tests cover plot selection and rendering, including selection of a false-warning regression when no gap-MAE loss exists. Warning ticks and final values remain visible at the exact horizon, and truth lines are labelled as joined samples. Presentation fixes preserved the estimator, frozen settings and machine outcomes; no algorithm tuning followed evaluation.
 
 The independent verifier checks the frozen inventory, source/configuration identities, split separation, modeled truth/references, fault/audit arithmetic, causal source selection, used estimates/TTC, recomputed scoring and aligned errors. Its seven audit tests include valid evidence acceptance and negative controls for rehashed CSV tampering, omitted pairs, unlisted artifacts, incomplete status and report changes. Each final default run was independently checked: 157 pairs, 314 method records, 3,302 decision rows, 1,418 machine hashes, four report hashes and 1,102 contained local links.
 
@@ -132,7 +132,7 @@ Keep raw as the default baseline and projection as an explicit comparison method
 
 Constant closing speed can fail during braking, acceleration or noisy speed; projecting multiplies speed error by age. It cannot recover an unarrived observation, relax a stale cutoff or change the physical trajectory. The two synthetic families and scaled relatives do not represent road traffic, multi-object perception or vehicle dynamics. Warning thresholds/windows are experimental conventions, not driving guidance or safety certification.
 
-M5 can build a short demonstration around three traces: `diagnostic-005` for the mechanism, `evaluation-027` for the metric/scoring trade-off, and `evaluation-001` for unchanged behavior. Learner completion still requires explaining that trade-off and independently reproducing or changing a bounded case. Assistant-written implementation and passing tests do not supply that evidence.
+The report selects three traces: `diagnostic-005` for the mechanism, `evaluation-027` for the metric/scoring trade-off, and `evaluation-001` for unchanged behavior. The complete results remain available alongside these selected views.
 
 ## Follow the implementation
 

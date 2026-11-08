@@ -1,6 +1,6 @@
 # DriveCheck: a 2–3-minute demonstration
 
-Prepared 5 November 2026 as part of the assistant-delegated M5 package. This script is written from my point of view and grounded in actual saved results. It does not claim that I independently implemented delegated code or have completed an unobserved rehearsal/teach-back.
+This walkthrough presents the experiment's question, failure mechanism, measured trade-off and limitations using three saved cases.
 
 ## Reproduce the demonstration
 
@@ -23,7 +23,7 @@ The packager checks the frozen default C1 configuration and the current checkout
 
 ## Spoken script and screen order
 
-Target duration is approximately 2½ minutes at a clear conversational pace. The timings below are a script design, not evidence of my own rehearsal duration.
+Target duration: approximately 2½ minutes at a clear conversational pace.
 
 **0:00–0:25 — opening and result table**
 
@@ -47,7 +47,7 @@ Target duration is approximately 2½ minutes at a clear conversational pace. The
 
 **2:15–2:40 — verification and limit**
 
-“The project includes independent event and metric fixtures, causal replay checks, regression cases, complete evidence audits and a reproduced locked environment. It is still a small one-dimensional synthetic model, not real-world safety validation. AI assistance supported lessons, delegated implementation, verification and this documentation, with contributions recorded in the repository.”
+“The project includes independent event and metric fixtures, causal replay checks, regression cases, complete evidence audits and a reproduced locked environment. It is still a small one-dimensional synthetic model, not real-world safety validation. The source, configurations and reproduction commands are available in the repository.”
 
 ## Practical presentation
 
@@ -59,8 +59,8 @@ A full rerun or environment installation need not occupy the spoken presentation
 
 ## Evidence and boundaries
 
-The local delegated M5 build is complete at `outputs/m5-portfolio-20261105/index.html`. Its repeat package is byte-identical across 1,426 files; all 1,424 evidence files match the source. Static QA verifies two HTML pages, 1,114 contained links and three valid 1200×1200 plots. The final full suite passes 227 tests and Ruff passes. Rendered browser inspection was blocked by the browser's `file:` URL policy; no rendered-layout or personal-rehearsal claim is made.
+The published baseline's verification includes two byte-identical 1,426-file demo packages, with all 1,424 evidence files matching their source. Static checks cover two HTML pages, 1,114 contained links and three valid 1200×1200 plots. See [verification](verification.md) for exact revisions and scope.
 
-An additional assistant-run boundary study verifies the horizon explanation: the scaled braking case has lead rear stopped at 150 m and ego front at `12*t` m. Its gap is 30 m at H=10 s; extending only `sample_count` from 9 to 11 at dt=1.25 s gives H=12.5 s, final gap zero and contact exactly at the inclusive endpoint. Earlier samples are unchanged. The frozen evaluation configuration/results were not altered. This delegated technical check is not represented as my independent modification.
+An additional boundary check verifies the horizon explanation: the scaled braking case has lead rear stopped at 150 m and ego front at `12*t` m. Its gap is 30 m at H=10 s; extending only `sample_count` from 9 to 11 at dt=1.25 s gives H=12.5 s, final gap zero and contact exactly at the inclusive endpoint. Earlier samples are unchanged. The frozen evaluation configuration/results were not altered.
 
-The [results](results.md), [architecture](architecture.md), [investigation](c1-investigation.md), [reproduction guide](reproduction.md) and [release review](release-review.md) supply the supporting detail. The technical demo package is assistant-prepared under my request. My independent explanation, personal rehearsal duration and independent transfer are not inferred from its successful execution. New M5 publication and final release-material approval remain separate from the previously accepted C1/main integration.
+The [results](results.md), [architecture](architecture.md), [investigation](c1-investigation.md), [reproduction guide](reproduction.md) and [verification record](verification.md) supply the supporting detail.

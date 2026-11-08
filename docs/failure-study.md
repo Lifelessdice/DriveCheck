@@ -1,8 +1,8 @@
-# A useful warning becomes late, then disappears when its reading arrives after the horizon
+# Delivery delay turns a useful warning into a miss
 
 **C1 follow-up completed, 4 November 2026:** [the paired investigation](c1-investigation.md) tests age projection against this mechanism. It recovers useful timing in this development diagnostic, but on the separate evaluation matrix leaves positive outcomes unchanged and raises finite-horizon false-warning episodes from 26/38 to 35/38. The complete report preserves the raw baseline, all losses/unchanged cases and independent reproduction. This original M4 note remains the baseline evidence.
 
-Observed 1 November 2026 in the saved M4 machine results. This note was drafted with AI assistance from the actual code, independent fixture and reviewed traces. It describes a controlled synthetic diagnostic, not real-vehicle warning validation or an evaluated improvement.
+Observed 1 November 2026 in the saved M4 machine results. This is a controlled synthetic diagnostic; it does not establish real-vehicle warning performance.
 
 ## Question and fixed setup
 
@@ -50,14 +50,14 @@ The held gap at decision time 6 s is also 15 m away from current clean truth, wh
 
 ## Evidence and regression protection
 
-The saved machine runs each contain 76 main cases plus five separate diagnostic cases, 343 verified artifact hashes and 344 files. All 344 files match byte-for-byte between the two runs. Source/configuration hashes, all per-case records, causal selection/age, independent scoring and fresh-row MAEs were reviewed. Existing M3 regression checks and M4 runner tests preserve the five timing outcomes, pending-arrival count, failure accounting and reproducible exports. The actual full suite passed 153 tests during this review.
+The saved machine runs each contain 76 main cases plus five separate diagnostic cases, 343 verified artifact hashes and 344 files. All 344 files match byte-for-byte between the two runs. Checks cover source/configuration hashes, per-case records, causal selection/age, independent scoring and fresh-row MAEs. M3 regression checks and M4 runner tests preserve the five timing outcomes, pending-arrival count, failure accounting and reproducible exports. Baseline verification recorded 153 passing tests.
 
-The readable M4 report/plots are the next learner block; no new rendered M4 figure is claimed by this machine-results review. Inspect the future report against these saved rows rather than changing expected values to match an attractive picture.
+The readable report can be regenerated using the [reproduction guide](reproduction.md). [Verification](verification.md) records the later complete report audits and CI results.
 
-## Limits and next question
+## Limits and comparison
 
 This experiment uses constant-speed one-dimensional prescribed motion, exact measurements, fixed delays, one contact event and a finite horizon. It has no driver response, braking controller, impact dynamics or safety certification. A warning exactly at contact is late under this convention. A case can complete correctly while the algorithm misses a warning.
 
 The main matrix's strong jittered latency also shows a trade-off: only 2 of 6 positive episodes have useful warnings, 2 are late and 2 missed, while 4 of 6 negatives warn. The lower negative-warning count relative to clean is not established improvement, especially when timely positive warnings are lost. Keep seed/family results and denominators visible.
 
-C1 can later test one bounded latency-aware alternative with the same causal streams and warning/scoring policy, using separate development and evaluation cases/seeds. No alternative or improvement has been implemented or measured here.
+[The completed C1 investigation](c1-investigation.md) evaluates age projection with the same causal streams and warning/scoring policy, using separate development and evaluation cases/seeds. It recovers useful timing in this diagnostic, while leaving the separate evaluation positive outcomes unchanged and increasing negative warning episodes from 26/38 to 35/38.

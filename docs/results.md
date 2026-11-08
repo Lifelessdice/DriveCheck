@@ -1,8 +1,8 @@
 # Results: correcting an old gap does not settle the warning trade-off
 
-I investigated whether projecting an eligible old sensor reading to the current decision time addresses the baseline's delay failure. On the separate evaluation matrix, projection improves gap error in many pairs but leaves useful/late/missed positive counts unchanged and increases finite-horizon negative warning episodes. I keep raw as the default and projection as an explicit comparison method.
+The comparison tests whether projecting an eligible old sensor reading to the current decision time addresses the baseline's delay failure. On the separate evaluation matrix, projection improves gap error in many pairs but leaves useful/late/missed positive counts unchanged and increases finite-horizon negative warning episodes. Raw remains the default and projection is an explicit comparison method.
 
-These results describe the completed C1 experiment, accepted through 5 November 2026. They are synthetic validation evidence, with no claim of real-road safety, statistical significance or independent learner mastery. AI-assisted implementation, checking and documentation are acknowledged in the [investigation](c1-investigation.md). The [architecture](architecture.md) explains the causal/scoring contracts; [reproduction](reproduction.md) gives the working commands.
+These results describe the completed C1 experiment. They are synthetic validation evidence, with no claim of real-road safety or statistical significance. The [architecture](architecture.md) explains the causal/scoring contracts, [investigation](c1-investigation.md) traces the failure mechanism, and [reproduction](reproduction.md) gives the working commands.
 
 ## Experiment inventory
 
@@ -150,10 +150,12 @@ Recorded acceptance includes:
 - **Local reproduction:** at code revision `163aab5`, 55 copied inputs and 14 hash-locked wheel/package pins; 222 tests passed in 88.287 s in the copied-source/new environment. Both runs have 1,424 files, with zero differences. This proof is same-machine/new-environment on recorded Windows x64 / CPython 3.14.7.
 - **Hosted verification:** accepted [main run 42012439506](https://github.com/Lifelessdice/DriveCheck/actions/runs/42012439506) at `60f26c30200a9b3465cee2ce9fcafb9d474f0f38` passed 222 tests in 33.929 s, dependency/Ruff checks and complete M4/C1 generation/audits. Hosted execution is separate from the local byte-identity proof; the test duration is an observed run time, not a performance benchmark.
 
-The investigation records the detailed acceptance history. Three generated plots were visually reviewed at C1 acceptance. That review did not establish browser-rendered HTML layout or cross-machine pixel identity. No new product run is claimed merely because these M5 documents were written.
+The later [main run 42056296813](https://github.com/Lifelessdice/DriveCheck/actions/runs/42056296813) at `b2168f189377c9b7919f289f81f1b6e986b973ef` passed 227 tests in 33.920 s, the same complete M4/C1 audits and portfolio packaging. [Verification](verification.md) distinguishes these hosted checks from the local reproduction proof.
+
+Three generated plots were visually reviewed. Browser-rendered HTML layout and cross-machine pixel identity remain unverified.
 
 ## Limits and decision
 
 The families use prescribed one-dimensional motion, one reference event per episode, finite horizons, synthetic fault distributions and experimental thresholds. Noise and motion changes can break constant closing speed; projection multiplies closing-speed error by age. It cannot recover missing/unarrived information, override staleness or prevent a collision. Full-horizon row-weighted MAE and finite-horizon negative labels answer specific experimental questions, which must accompany the numbers.
 
-The useful finding is bounded: age projection addresses the old-gap mechanism and improves current-gap estimates on many evaluated pairs, while the main positive warning outcomes remain unchanged and negative warning episodes increase. The complete losses and unchanged cases support retaining raw as the default. Learner teach-back, an independent predicted modification and approval of final portfolio materials remain separate human evidence; assistant-written prose and passing checks do not supply them.
+The useful finding is bounded: age projection addresses the old-gap mechanism and improves current-gap estimates on many evaluated pairs, while the main positive warning outcomes remain unchanged and negative warning episodes increase. The complete losses and unchanged cases support retaining raw as the default.

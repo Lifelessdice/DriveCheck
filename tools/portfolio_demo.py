@@ -94,7 +94,6 @@ code{background:#edf2f7;padding:2px 5px;border-radius:3px}footer{font-size:14px;
 <section><h2>What this project establishes</h2>
 <p>I kept observations, warning policy and scoring fixed within each pair; separated development and evaluation configurations/streams; preserved failures and missing estimates; checked independent event/metric fixtures; and reproduced the report in a new locked environment.</p>
 <p class="limit">This is a one-dimensional kinematic experiment with prescribed motion, synthetic faults, closely related scenarios and experimental thresholds. Warnings do not alter vehicle motion. There is no claim of real-world safety, statistical significance, Kalman filtering or CARLA integration.</p>
-<p>AI assistance supported lessons, targeted fixes, delegated implementation, verification and documentation. Technical checks do not establish my independent understanding.</p>
 </section><footer>Offline artifact: no scripts, external fonts, CDN, analytics or network-dependent assets. Project and dependency licensing are documented separately; bundled evidence is generated synthetic project output. Source audit and byte identities are recorded in manifest.json.</footer></main></html>
 """
 

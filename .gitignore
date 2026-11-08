@@ -3,6 +3,13 @@
 /AGENTS.md
 /docs/progress.md
 
+# Personal curriculum and release-process notes stay local
+/docs/lessons/
+/docs/study-guide.md
+/docs/learning-roadmap.md
+/docs/detailed-roadmap.md
+/docs/release-review.md
+
 # Local Python environment and caches
 /.venv/
 __pycache__/

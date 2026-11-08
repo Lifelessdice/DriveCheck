@@ -2,7 +2,7 @@
 
 **Better gap estimates can still produce more warning episodes.**
 
-I built DriveCheck to investigate how controlled sensor faults affect a passive collision-warning rule. The Python CPU workflow separates synthetic vehicle trajectories, causal observations, warning decisions and independent offline scoring. My investigation compares a raw-measurement baseline with constant-closing-speed age projection on the same observations and policies.
+DriveCheck is a Python workbench for investigating how controlled sensor faults affect a passive collision-warning rule. It separates synthetic vehicle trajectories, causal observations, warning decisions and independent offline scoring, then compares a raw-measurement baseline with constant-closing-speed age projection on the same observations and policies.
 
 The result is a measured trade-off: projection fixes a held-old-reading failure and often improves gap error, but does not improve positive outcome counts on the separate evaluation suite and increases finite-horizon false-warning episodes. Raw remains the default.
 
@@ -58,7 +58,7 @@ The [2–3-minute script](docs/demo.md) follows three actual cases:
 2. `evaluation-027`: current-gap accuracy improves while a finite-horizon negative episode gains a warning.
 3. `evaluation-001`: zero-age clean data leaves both methods unchanged.
 
-Generated demonstrations stay under ignored `outputs/`; the commands reproduce them. The [M5 delivery and release review](docs/release-review.md) records local checks and remaining approval/publication boundaries.
+Generated demonstrations stay under ignored `outputs/`; the commands reproduce them. [Verification](docs/verification.md) records the tested runtime, report audits and reproducibility limits.
 
 ## Architecture and verification
 
@@ -66,14 +66,16 @@ Generated demonstrations stay under ignored `outputs/`; the commands reproduce t
 
 Truth supplies reference events and error checks only to offline evaluation. The warning path sees arrived observations, original source age and the current decision time. Contact labels come from continuously checked trajectories, not from the TTC threshold being tested. See [architecture and data contracts](docs/architecture.md).
 
-The technical evidence includes independent analytic contact/non-contact fixtures, timing/availability boundaries, known-answer metrics, causal-prefix and baseline-compatibility checks, regression cases, complete report audits and a fresh source/environment reproduction. M5's accepted [hosted run](https://github.com/Lifelessdice/DriveCheck/actions/runs/42053289304) at `7ecae88066a83b51a02f73772aefbb052a68b35c` passed **227 tests**, dependency/lint checks, both complete M4/C1 audits and the real portfolio build with all 1,424 evidence files preserved. Subsequent evidence-documentation changes retain those execution inputs. [Main-branch runs](https://github.com/Lifelessdice/DriveCheck/actions?query=branch%3Amain) show the corresponding integration checks; [release review](docs/release-review.md) separates hosted, local and unverified browser evidence.
+The tests cover independent analytic contact/non-contact fixtures, timing and availability boundaries, known-answer metrics, causal prefixes, baseline compatibility and failure regressions. The published baseline's [main CI run](https://github.com/Lifelessdice/DriveCheck/actions/runs/42056296813) at `b2168f189377c9b7919f289f81f1b6e986b973ef` passed **227 tests**, dependency/lint checks, both complete experiment audits and the real portfolio build with all 1,424 evidence files preserved. See [verification](docs/verification.md) for revision-specific results and [main-branch runs](https://github.com/Lifelessdice/DriveCheck/actions?query=branch%3Amain) for later checks.
 
 The recorded C1 reproduction copied 55 source inputs, hash-installed 14 wheel/package pins, and reproduced two 1,424-file reports with zero file differences on the same machine in a new environment. It is separate from cross-machine or cross-platform validation. [Commands and exact evidence](docs/reproduction.md).
 
-## Limits and contribution
+## Limits
 
 This is a one-dimensional kinematic experiment with prescribed motion, two synthetic scenario families, controlled noise/latency/dropout and a limited set of related configurations. Negative gaps after contact are virtual overlap; impact dynamics are not simulated. Warnings do not control a vehicle. Thresholds/windows are experimental choices. There is no claim of safety certification, statistical significance, real-road generalisation, Kalman filtering or CARLA integration.
 
-I completed the initial calculation, guided sampling and original known-answer test using AI-assisted teaching/templates. I followed the subsequent study blocks and requested targeted fixes. I explicitly delegated remaining M4/C1 implementation and verification, followed by the M5 portfolio package, to my assistant. AI assistance supported code, tests, research checks, documentation and local execution; passing those checks does not establish my independent mastery. Personal understanding is not fabricated in the portfolio.
+## Attribution and licence
 
-Original project source uses the [MIT licence](LICENSE), with dependency-specific licences and conceptual sources documented in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). I explicitly approved publishing the prepared M5 package on 5 November 2026 by requesting its push and main integration. Observed hosted/integration evidence is recorded separately in the [release review](docs/release-review.md); approval is not a substitute for a successful run. Environments, wheel caches and private teaching records are not part of the source release.
+Developed with AI assistance for implementation, testing and documentation.
+
+Original project source uses the [MIT licence](LICENSE). Dependency-specific licences and technical references are documented in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
