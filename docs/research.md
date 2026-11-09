@@ -42,6 +42,10 @@ Source timestamps and measured closing speed remain unchanged; the shared freshn
 
 The complete [investigation](c1-investigation.md) connects the original failure to the alternative and all measured gains/losses. [Results](results.md) show that improved gap MAE did not improve positive outcome counts and increased finite-horizon negative warning episodes.
 
+## CARLA export mapping
+
+The optional [CPU import/replay adapter](carla-import.md) uses a custom JSON interchange format. The [CARLA 0.9.16 API](https://carla.readthedocs.io/en/0.9.16/python_api/) motivates world-space bounding-box vertices and simulation snapshot timing; its [collision sensor reference](https://carla.readthedocs.io/en/0.9.16/ref_sensors/#collision-detector) supplies the frame/time and actor identity model for independent contact labels. The [synchrony guide](https://carla.readthedocs.io/en/0.9.16/adv_synchrony_timestep/) informs the capture-time contract. These are API references, not a claim that a simulator capture has been performed. Included exports are original synthetic fixtures; sampled box geometry and linear interpolation are limited offline approximations.
+
 ## Implementation and environment
 
 - [Python `dataclasses`](https://docs.python.org/3.14/library/dataclasses.html) provides explicit records. Frozen records preserve observation identity; type annotations alone do not replace runtime validation.

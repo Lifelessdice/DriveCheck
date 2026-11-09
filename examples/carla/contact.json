@@ -1,0 +1,51 @@
+{
+  "schema_version": "drivecheck.carla-export.v1",
+  "scenario_id": "carla_contract_contact",
+  "provenance": {
+    "kind": "synthetic-contract-fixture",
+    "carla_version": "synthetic-contract-v1",
+    "map_name": "synthetic_straight_lane",
+    "capture_id": "synthetic_contact_001",
+    "fixed_delta_seconds": 1.0,
+    "collision_sensor_complete": true
+  },
+  "units": {"position": "m", "velocity": "m/s", "time": "s"},
+  "axis": [1.0, 0.0, 0.0],
+  "actors": {"ego": 1, "lead": 2},
+  "frames": [
+    {
+      "frame": 100, "elapsed_seconds": 10.0,
+      "ego": {
+        "location_m": [100.0, 200.0, 1.0], "forward": [1.0, 0.0, 0.0], "velocity_mps": [10.0, 0.0, 0.0],
+        "bbox_world_vertices_m": [[98,199,0],[98,199,2],[98,201,0],[98,201,2],[102,199,0],[102,199,2],[102,201,0],[102,201,2]]
+      },
+      "lead": {
+        "location_m": [114.0, 200.0, 1.0], "forward": [1.0, 0.0, 0.0], "velocity_mps": [5.0, 0.0, 0.0],
+        "bbox_world_vertices_m": [[112,199,0],[112,199,2],[112,201,0],[112,201,2],[116,199,0],[116,199,2],[116,201,0],[116,201,2]]
+      }
+    },
+    {
+      "frame": 101, "elapsed_seconds": 11.0,
+      "ego": {
+        "location_m": [110.0, 200.0, 1.0], "forward": [1.0, 0.0, 0.0], "velocity_mps": [10.0, 0.0, 0.0],
+        "bbox_world_vertices_m": [[108,199,0],[108,199,2],[108,201,0],[108,201,2],[112,199,0],[112,199,2],[112,201,0],[112,201,2]]
+      },
+      "lead": {
+        "location_m": [119.0, 200.0, 1.0], "forward": [1.0, 0.0, 0.0], "velocity_mps": [5.0, 0.0, 0.0],
+        "bbox_world_vertices_m": [[117,199,0],[117,199,2],[117,201,0],[117,201,2],[121,199,0],[121,199,2],[121,201,0],[121,201,2]]
+      }
+    },
+    {
+      "frame": 102, "elapsed_seconds": 12.0,
+      "ego": {
+        "location_m": [120.0, 200.0, 1.0], "forward": [1.0, 0.0, 0.0], "velocity_mps": [10.0, 0.0, 0.0],
+        "bbox_world_vertices_m": [[118,199,0],[118,199,2],[118,201,0],[118,201,2],[122,199,0],[122,199,2],[122,201,0],[122,201,2]]
+      },
+      "lead": {
+        "location_m": [124.0, 200.0, 1.0], "forward": [1.0, 0.0, 0.0], "velocity_mps": [5.0, 0.0, 0.0],
+        "bbox_world_vertices_m": [[122,199,0],[122,199,2],[122,201,0],[122,201,2],[126,199,0],[126,199,2],[126,201,0],[126,201,2]]
+      }
+    }
+  ],
+  "collisions": [{"frame": 102, "elapsed_seconds": 12.0, "actor_id": 1, "other_actor_id": 2}]
+}

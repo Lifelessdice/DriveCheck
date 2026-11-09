@@ -77,3 +77,10 @@ jobs:
         run: |
           .\.venv\Scripts\python.exe -E -s -m tools.portfolio_demo --run outputs/ci-c1 --output-dir outputs/ci-portfolio
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Replay both synthetic CARLA export contract fixtures on CPU
+        run: |
+          .\.venv\Scripts\python.exe -E -s carla_replay.py --input examples/carla/contact.json --config configs/carla-replay.json --output-dir outputs/ci-carla-contact
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          .\.venv\Scripts\python.exe -E -s carla_replay.py --input examples/carla/noncontact.json --config configs/carla-replay.json --output-dir outputs/ci-carla-noncontact
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

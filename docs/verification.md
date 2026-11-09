@@ -4,6 +4,8 @@ Recorded target: **CPython 3.14.7 / Windows x64**, with the selected runtime and
 
 ## Hosted checks
 
+The documentation cleanup also passed [main CI run 42481018862](https://github.com/Lifelessdice/DriveCheck/actions/runs/42481018862) at `d4c070c5fbc601d7f8698829532ff1bf7c7d2ab6` on 8 November 2026: **227 tests in 27.992 s**, dependency/Ruff checks, both complete experiment audits and the real portfolio build. This precedes the export adapter checks described below.
+
 [Main CI run 42056296813](https://github.com/Lifelessdice/DriveCheck/actions/runs/42056296813) succeeded at revision `b2168f189377c9b7919f289f81f1b6e986b973ef` on 5 November 2026.
 
 | Check | Observed result |
@@ -40,6 +42,12 @@ The earlier comparison reproduction at code revision `163aab5` remains a separat
 That proof is same-machine/new-environment reproduction on the recorded Windows/Python target. It predates the portfolio tests and is not presented as a fresh-environment run of the later 227-test revision. Hosted execution above supplies separate evidence for that later revision; cross-platform or cross-machine pixel identity is not established.
 
 A separate raw-baseline compatibility check matched **243 truth, observation and raw-decision files across 81 baseline cases**, byte for byte. This checks preservation of the usable baseline beyond agreement of summary metrics.
+
+## CPU export adapter checks
+
+The adapter suite covers literal and rotated geometry, timing, input validation, independent collision labels, replay and failure retention. On Windows x64 with CPython 3.14.7, 54 of 55 adapter tests passed and one was skipped because the local environment could not create a symbolic link. Ruff passed. The workflow also runs both fixtures through the CLI.
+
+The local contact and non-contact runs each produced 16 files. Checks covered the 15 payload hashes, source and configuration bytes, frame mapping, scores, 15 local HTML resource references and a valid PNG. The contact replay produced 16 byte-identical files on a second run in the same environment. Plot inspection covered the expected warning times. These checks use hand-authored exports. Real simulator capture remains unverified. [Adapter commands and expected outcomes](carla-import.md)
 
 ## Reproduce and inspect
 

@@ -32,6 +32,7 @@ Truth reaches the evaluator through the lower path. The warning path receives ar
 | Layer | Actual source | Responsibility |
 | --- | --- | --- |
 | Motion and references | [motion.py](../motion.py), [scenarios.py](../scenarios.py), [stop_and_go.py](../stop_and_go.py) | Piecewise continuous kinematics, sampled truth, continuous contact solvers and separately specified analytic fixture answers |
+| Optional export import | [carla_import.py](../carla_import.py), [carla_replay.py](../carla_replay.py) | Validate the custom world-state export, project box geometry and replay through shared components; included data are synthetic contract fixtures |
 | Observation and faults | [observations.py](../observations.py), [faults.py](../faults.py) | Immutable readings, timestamp/stream validation, seeded noise, latency and dropout, with one audit row per source sample |
 | Causal replay | [replay.py](../replay.py) | Decision clock, arrival queue, newest measured source, old-arrival and beyond-horizon counts |
 | Warning policy | [warning_policy.py](../warning_policy.py) | Common availability/age gate and time-to-collision (TTC) branches; raw remains the default |
@@ -49,7 +50,9 @@ All model quantities use seconds, metres, metres per second and metres per secon
 
 The ego follows prescribed constant-speed motion. The lead-braking family cruises, brakes without reversing, then remains stopped. The stop-and-go family brakes, holds, restarts with acceleration, then cruises. Paths continue after first contact to preserve the stated full-horizon evaluation convention; this is kinematics, with no simulated impact response.
 
-Samples have contiguous IDs beginning at zero and times `sample_id * timestep_s`. The inclusive horizon is `(sample_count - 1) * timestep_s`. Continuous state evaluators can also supply truth between samples, including at an arrival-time decision.
+Core analytic samples have contiguous IDs beginning at zero and times `sample_id * timestep_s`. The inclusive horizon is `(sample_count - 1) * timestep_s`. Continuous state evaluators can also supply truth between samples, including at an arrival-time decision.
+
+The optional [export adapter](carla-import.md) instead preserves captured frame intervals, normalizes the first timestamp to zero and maps frame IDs to contiguous sample IDs. Its horizon is the final normalized timestamp. Imported contact references come from declared collision events; offline error truth uses explicitly approximate linear interpolation. This does not change the analytic core's reference solvers or frozen comparison.
 
 | Record | Fields and meaning |
 | --- | --- |

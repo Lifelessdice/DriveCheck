@@ -60,11 +60,15 @@ The [2–3-minute script](docs/demo.md) follows three actual cases:
 
 Generated demonstrations stay under ignored `outputs/`; the commands reproduce them. [Verification](docs/verification.md) records the tested runtime, report audits and reproducibility limits.
 
+## CPU-only CARLA export adapter
+
+Import a versioned JSON export and replay its longitudinal state through the same fault, warning and scoring pipeline on CPU. The contact and non-contact examples are hand-authored synthetic fixtures. Actual simulator capture compatibility remains unverified. [Input contract, commands and limits](docs/carla-import.md)
+
 ## Architecture and verification
 
 `scenario truth → observations/faults → arrival replay → raw or projected state → shared warning rule → independent evaluator → complete offline report`
 
-Truth supplies reference events and error checks only to offline evaluation. The warning path sees arrived observations, original source age and the current decision time. Contact labels come from continuously checked trajectories, not from the TTC threshold being tested. See [architecture and data contracts](docs/architecture.md).
+Truth supplies reference events and error checks to offline evaluation. The warning path sees arrived observations, original source age and the current decision time. Analytic cases derive contact labels from continuous trajectories. Imported cases use the export's collision events. [Architecture and data contracts](docs/architecture.md)
 
 The tests cover independent analytic contact/non-contact fixtures, timing and availability boundaries, known-answer metrics, causal prefixes, baseline compatibility and failure regressions. The published baseline's [main CI run](https://github.com/Lifelessdice/DriveCheck/actions/runs/42056296813) at `b2168f189377c9b7919f289f81f1b6e986b973ef` passed **227 tests**, dependency/lint checks, both complete experiment audits and the real portfolio build with all 1,424 evidence files preserved. See [verification](docs/verification.md) for revision-specific results and [main-branch runs](https://github.com/Lifelessdice/DriveCheck/actions?query=branch%3Amain) for later checks.
 
@@ -72,7 +76,7 @@ The recorded C1 reproduction copied 55 source inputs, hash-installed 14 wheel/pa
 
 ## Limits
 
-This is a one-dimensional kinematic experiment with prescribed motion, two synthetic scenario families, controlled noise/latency/dropout and a limited set of related configurations. Negative gaps after contact are virtual overlap; impact dynamics are not simulated. Warnings do not control a vehicle. Thresholds/windows are experimental choices. There is no claim of safety certification, statistical significance, real-road generalisation, Kalman filtering or CARLA integration.
+The core is a one-dimensional kinematic experiment with prescribed motion, two synthetic scenario families, controlled noise/latency/dropout and a limited set of related configurations. Negative gaps after contact are virtual overlap; impact dynamics are not simulated. The optional export adapter also assumes aligned longitudinal motion and uses bounding-box geometry and declared collision events. Warnings do not control a vehicle. Thresholds/windows are experimental choices. There is no claim of safety certification, statistical significance, real-road generalisation, Kalman filtering or validated CARLA capture.
 
 ## Attribution and licence
 

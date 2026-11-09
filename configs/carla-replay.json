@@ -1,0 +1,24 @@
+{
+  "schema_version": "drivecheck.carla-replay.v1",
+  "mapping": {
+    "max_heading_error_deg": 5.0,
+    "max_lateral_offset_m": 0.5,
+    "max_lateral_speed_mps": 0.5,
+    "max_height_offset_m": 0.5
+  },
+  "fault": {
+    "mode": "latency",
+    "gap_sigma_m": 0.0,
+    "closing_sigma_mps": 0.0,
+    "latency_s": 1.0,
+    "latency_jitter_s": 0.0,
+    "dropout_probability": 0.0,
+    "gap_seed": 101,
+    "closing_seed": 102,
+    "latency_seed": 103,
+    "dropout_seed": 104
+  },
+  "warning": {"warning_threshold_s": 1.0, "max_age_s": 1.25},
+  "scoring": {"pre_event_window_s": 4.0, "minimum_useful_lead_s": 1.0},
+  "methods": ["raw", "age_projection"]
+}
